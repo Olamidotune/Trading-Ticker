@@ -1,14 +1,10 @@
 import 'dart:async';
-
-import 'package:cointicker/screens/seach_screen.dart';
 import 'package:cointicker/services.dart/coin_data.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:http/http.dart';
 import '../widgets/coin_card.dart';
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+import '../widgets/error_dialog.dart';
 
 String url =
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
@@ -22,8 +18,8 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
+  List coinList = [];
   Future<List<dynamic>> fetchData() async {
-    coinList = [];
     final response = await http.get(Uri.parse(url));
     try {
       if (response.statusCode == 200) {
@@ -36,21 +32,23 @@ class _PriceScreenState extends State<PriceScreen> {
               coinList.add(Coin.fromJson(map));
             }
           }
+          if (!mounted) return coinList;
           setState(() {
             coinList;
           });
         }
       }
-      return coinList;
     } catch (e) {
-      throw Exception('Could not fetch data');
+      print('exception');
     }
+
+    return coinList;
   }
 
   @override
   void initState() {
     super.initState();
-    Timer.periodic(const Duration(seconds: 10), (timer) => fetchData());
+    Timer.periodic(const Duration(seconds: 1), (timer) => fetchData());
     fetchData();
   }
 
@@ -59,43 +57,39 @@ class _PriceScreenState extends State<PriceScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: IconButton(
-          tooltip: 'Refresh Data',
-          onPressed: () {
-            fetchData();
-          },
-          icon: const Icon(
-            FontAwesomeIcons.rotateRight,
-            color: Colors.white,
-          ),
-        ),
         title: const Text(
           'Trading Ticker',
         ),
-        backgroundColor: Colors.grey.shade900,
-        elevation: 10,
+        backgroundColor: Colors.grey[800],
+        elevation: 0,
       ),
-      body: ListView.builder(
-        scrollDirection: Axis.vertical,
-        itemCount: coinList.length,
-        itemBuilder: ((context, index) {
-          return CoinCard(
-            onPressed: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SearchScreen(),
-              ),
+      body: coinList.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: coinList.length,
+              shrinkWrap: true,
+              itemBuilder: ((context, index) {
+                return CoinCard(
+                  coinImage: coinList[index].coinImage,
+                  coinName: coinList[index].coinName,
+                  coinSymbol: coinList[index].coinSymbol,
+                  coinPrice: coinList[index].coinPrice.toDouble(),
+                  priceChange: coinList[index].priceChange.toDouble(),
+                  priceChangePercentage:
+                      coinList[index].priceChangePercentage.toDouble(),
+                );
+              }),
             ),
-            coinImage: coinList[index].coinImage,
-            coinName: coinList[index].coinName,
-            coinSymbol: coinList[index].coinSymbol,
-            coinPrice: coinList[index].coinPrice.toDouble(),
-            priceChange: coinList[index].priceChange.toDouble(),
-            priceChangePercentage:
-                coinList[index].priceChangePercentage.toDouble(),
-          );
-        }),
-      ),
+    );
+  }
+
+  void _showDialog(Duration _) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => ErrorDialog(),
     );
   }
 }
