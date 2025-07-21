@@ -11,7 +11,7 @@ String url =
 
 class PriceScreen extends StatefulWidget {
   static const String routeName = 'PriceScreen';
-  const PriceScreen({Key? key}) : super(key: key);
+  const PriceScreen({super.key});
 
   @override
   State<PriceScreen> createState() => _PriceScreenState();
