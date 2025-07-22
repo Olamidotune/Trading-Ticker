@@ -23,6 +23,9 @@ mixin _$CoinEvent {
     required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -32,6 +35,8 @@ mixin _$CoinEvent {
     TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,6 +46,8 @@ mixin _$CoinEvent {
     TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -51,6 +58,9 @@ mixin _$CoinEvent {
     required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -60,6 +70,9 @@ mixin _$CoinEvent {
     TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -69,6 +82,9 @@ mixin _$CoinEvent {
     TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -140,6 +156,9 @@ class _$CoinEventImpl implements _CoinEvent {
     required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
   }) {
     return $default();
   }
@@ -152,6 +171,8 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
   }) {
     return $default?.call();
   }
@@ -164,6 +185,8 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -180,6 +203,9 @@ class _$CoinEventImpl implements _CoinEvent {
     required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
   }) {
     return $default(this);
   }
@@ -192,6 +218,9 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
   }) {
     return $default?.call(this);
   }
@@ -204,6 +233,9 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -263,6 +295,9 @@ class _$FetchCoinsImpl implements _FetchCoins {
     required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
   }) {
     return fetchCoins();
   }
@@ -275,6 +310,8 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
   }) {
     return fetchCoins?.call();
   }
@@ -287,6 +324,8 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (fetchCoins != null) {
@@ -303,6 +342,9 @@ class _$FetchCoinsImpl implements _FetchCoins {
     required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
   }) {
     return fetchCoins(this);
   }
@@ -315,6 +357,9 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
   }) {
     return fetchCoins?.call(this);
   }
@@ -327,6 +372,9 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (fetchCoins != null) {
@@ -414,6 +462,9 @@ class _$UpdateCoinListImpl implements _UpdateCoinList {
     required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
   }) {
     return updateCoinList(coins);
   }
@@ -426,6 +477,8 @@ class _$UpdateCoinListImpl implements _UpdateCoinList {
     TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
   }) {
     return updateCoinList?.call(coins);
   }
@@ -438,6 +491,8 @@ class _$UpdateCoinListImpl implements _UpdateCoinList {
     TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (updateCoinList != null) {
@@ -454,6 +509,9 @@ class _$UpdateCoinListImpl implements _UpdateCoinList {
     required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
   }) {
     return updateCoinList(this);
   }
@@ -466,6 +524,9 @@ class _$UpdateCoinListImpl implements _UpdateCoinList {
     TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
   }) {
     return updateCoinList?.call(this);
   }
@@ -478,6 +539,9 @@ class _$UpdateCoinListImpl implements _UpdateCoinList {
     TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (updateCoinList != null) {
@@ -579,6 +643,9 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
   }) {
     return fetchCoinSuccess(coins);
   }
@@ -591,6 +658,8 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
   }) {
     return fetchCoinSuccess?.call(coins);
   }
@@ -603,6 +672,8 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (fetchCoinSuccess != null) {
@@ -619,6 +690,9 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
   }) {
     return fetchCoinSuccess(this);
   }
@@ -631,6 +705,9 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
   }) {
     return fetchCoinSuccess?.call(this);
   }
@@ -643,6 +720,9 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (fetchCoinSuccess != null) {
@@ -740,6 +820,9 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
   }) {
     return fetchCoinFailure(errorMessage);
   }
@@ -752,6 +835,8 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
   }) {
     return fetchCoinFailure?.call(errorMessage);
   }
@@ -764,6 +849,8 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (fetchCoinFailure != null) {
@@ -780,6 +867,9 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
   }) {
     return fetchCoinFailure(this);
   }
@@ -792,6 +882,9 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
   }) {
     return fetchCoinFailure?.call(this);
   }
@@ -804,6 +897,9 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
     required TResult orElse(),
   }) {
     if (fetchCoinFailure != null) {
@@ -827,10 +923,366 @@ abstract class _FetchCoinFailure implements CoinEvent {
 }
 
 /// @nodoc
+abstract class _$$SearchCryptoImplCopyWith<$Res> {
+  factory _$$SearchCryptoImplCopyWith(
+          _$SearchCryptoImpl value, $Res Function(_$SearchCryptoImpl) then) =
+      __$$SearchCryptoImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String cryptoSearchString});
+}
+
+/// @nodoc
+class __$$SearchCryptoImplCopyWithImpl<$Res>
+    extends _$CoinEventCopyWithImpl<$Res, _$SearchCryptoImpl>
+    implements _$$SearchCryptoImplCopyWith<$Res> {
+  __$$SearchCryptoImplCopyWithImpl(
+      _$SearchCryptoImpl _value, $Res Function(_$SearchCryptoImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cryptoSearchString = null,
+  }) {
+    return _then(_$SearchCryptoImpl(
+      null == cryptoSearchString
+          ? _value.cryptoSearchString
+          : cryptoSearchString // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SearchCryptoImpl implements _SearchCrypto {
+  const _$SearchCryptoImpl(this.cryptoSearchString);
+
+  @override
+  final String cryptoSearchString;
+
+  @override
+  String toString() {
+    return 'CoinEvent.searchCrypto(cryptoSearchString: $cryptoSearchString)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SearchCryptoImpl &&
+            (identical(other.cryptoSearchString, cryptoSearchString) ||
+                other.cryptoSearchString == cryptoSearchString));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, cryptoSearchString);
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SearchCryptoImplCopyWith<_$SearchCryptoImpl> get copyWith =>
+      __$$SearchCryptoImplCopyWithImpl<_$SearchCryptoImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() fetchCoins,
+    required TResult Function(Coin coins) updateCoinList,
+    required TResult Function(List<Coin> coins) fetchCoinSuccess,
+    required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
+  }) {
+    return searchCrypto(cryptoSearchString);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function()? fetchCoins,
+    TResult? Function(Coin coins)? updateCoinList,
+    TResult? Function(List<Coin> coins)? fetchCoinSuccess,
+    TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
+  }) {
+    return searchCrypto?.call(cryptoSearchString);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? fetchCoins,
+    TResult Function(Coin coins)? updateCoinList,
+    TResult Function(List<Coin> coins)? fetchCoinSuccess,
+    TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
+    required TResult orElse(),
+  }) {
+    if (searchCrypto != null) {
+      return searchCrypto(cryptoSearchString);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_CoinEvent value) $default, {
+    required TResult Function(_FetchCoins value) fetchCoins,
+    required TResult Function(_UpdateCoinList value) updateCoinList,
+    required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
+    required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
+  }) {
+    return searchCrypto(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_CoinEvent value)? $default, {
+    TResult? Function(_FetchCoins value)? fetchCoins,
+    TResult? Function(_UpdateCoinList value)? updateCoinList,
+    TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
+    TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
+  }) {
+    return searchCrypto?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_CoinEvent value)? $default, {
+    TResult Function(_FetchCoins value)? fetchCoins,
+    TResult Function(_UpdateCoinList value)? updateCoinList,
+    TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
+    TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
+    required TResult orElse(),
+  }) {
+    if (searchCrypto != null) {
+      return searchCrypto(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SearchCrypto implements CoinEvent {
+  const factory _SearchCrypto(final String cryptoSearchString) =
+      _$SearchCryptoImpl;
+
+  String get cryptoSearchString;
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SearchCryptoImplCopyWith<_$SearchCryptoImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CryptoSearchStringChangedImplCopyWith<$Res> {
+  factory _$$CryptoSearchStringChangedImplCopyWith(
+          _$CryptoSearchStringChangedImpl value,
+          $Res Function(_$CryptoSearchStringChangedImpl) then) =
+      __$$CryptoSearchStringChangedImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String cryptoSearchString});
+}
+
+/// @nodoc
+class __$$CryptoSearchStringChangedImplCopyWithImpl<$Res>
+    extends _$CoinEventCopyWithImpl<$Res, _$CryptoSearchStringChangedImpl>
+    implements _$$CryptoSearchStringChangedImplCopyWith<$Res> {
+  __$$CryptoSearchStringChangedImplCopyWithImpl(
+      _$CryptoSearchStringChangedImpl _value,
+      $Res Function(_$CryptoSearchStringChangedImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cryptoSearchString = null,
+  }) {
+    return _then(_$CryptoSearchStringChangedImpl(
+      null == cryptoSearchString
+          ? _value.cryptoSearchString
+          : cryptoSearchString // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
+  const _$CryptoSearchStringChangedImpl(this.cryptoSearchString);
+
+  @override
+  final String cryptoSearchString;
+
+  @override
+  String toString() {
+    return 'CoinEvent.cryptoSearchStringChanged(cryptoSearchString: $cryptoSearchString)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CryptoSearchStringChangedImpl &&
+            (identical(other.cryptoSearchString, cryptoSearchString) ||
+                other.cryptoSearchString == cryptoSearchString));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, cryptoSearchString);
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CryptoSearchStringChangedImplCopyWith<_$CryptoSearchStringChangedImpl>
+      get copyWith => __$$CryptoSearchStringChangedImplCopyWithImpl<
+          _$CryptoSearchStringChangedImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() fetchCoins,
+    required TResult Function(Coin coins) updateCoinList,
+    required TResult Function(List<Coin> coins) fetchCoinSuccess,
+    required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
+  }) {
+    return cryptoSearchStringChanged(cryptoSearchString);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function()? fetchCoins,
+    TResult? Function(Coin coins)? updateCoinList,
+    TResult? Function(List<Coin> coins)? fetchCoinSuccess,
+    TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
+  }) {
+    return cryptoSearchStringChanged?.call(cryptoSearchString);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? fetchCoins,
+    TResult Function(Coin coins)? updateCoinList,
+    TResult Function(List<Coin> coins)? fetchCoinSuccess,
+    TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
+    required TResult orElse(),
+  }) {
+    if (cryptoSearchStringChanged != null) {
+      return cryptoSearchStringChanged(cryptoSearchString);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_CoinEvent value) $default, {
+    required TResult Function(_FetchCoins value) fetchCoins,
+    required TResult Function(_UpdateCoinList value) updateCoinList,
+    required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
+    required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
+  }) {
+    return cryptoSearchStringChanged(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_CoinEvent value)? $default, {
+    TResult? Function(_FetchCoins value)? fetchCoins,
+    TResult? Function(_UpdateCoinList value)? updateCoinList,
+    TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
+    TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
+  }) {
+    return cryptoSearchStringChanged?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_CoinEvent value)? $default, {
+    TResult Function(_FetchCoins value)? fetchCoins,
+    TResult Function(_UpdateCoinList value)? updateCoinList,
+    TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
+    TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
+    required TResult orElse(),
+  }) {
+    if (cryptoSearchStringChanged != null) {
+      return cryptoSearchStringChanged(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CryptoSearchStringChanged implements CoinEvent {
+  const factory _CryptoSearchStringChanged(final String cryptoSearchString) =
+      _$CryptoSearchStringChangedImpl;
+
+  String get cryptoSearchString;
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CryptoSearchStringChangedImplCopyWith<_$CryptoSearchStringChangedImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 mixin _$CoinState {
   FormzSubmissionStatus get getCoinStatus => throw _privateConstructorUsedError;
   List<Coin>? get coinList => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
+  String? get cryptoSearchString => throw _privateConstructorUsedError;
 
   /// Create a copy of CoinState
   /// with the given fields replaced by the non-null parameter values.
@@ -847,7 +1299,8 @@ abstract class $CoinStateCopyWith<$Res> {
   $Res call(
       {FormzSubmissionStatus getCoinStatus,
       List<Coin>? coinList,
-      String? errorMessage});
+      String? errorMessage,
+      String? cryptoSearchString});
 }
 
 /// @nodoc
@@ -868,6 +1321,7 @@ class _$CoinStateCopyWithImpl<$Res, $Val extends CoinState>
     Object? getCoinStatus = null,
     Object? coinList = freezed,
     Object? errorMessage = freezed,
+    Object? cryptoSearchString = freezed,
   }) {
     return _then(_value.copyWith(
       getCoinStatus: null == getCoinStatus
@@ -881,6 +1335,10 @@ class _$CoinStateCopyWithImpl<$Res, $Val extends CoinState>
       errorMessage: freezed == errorMessage
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String?,
+      cryptoSearchString: freezed == cryptoSearchString
+          ? _value.cryptoSearchString
+          : cryptoSearchString // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -897,7 +1355,8 @@ abstract class _$$CoinStateImplCopyWith<$Res>
   $Res call(
       {FormzSubmissionStatus getCoinStatus,
       List<Coin>? coinList,
-      String? errorMessage});
+      String? errorMessage,
+      String? cryptoSearchString});
 }
 
 /// @nodoc
@@ -916,6 +1375,7 @@ class __$$CoinStateImplCopyWithImpl<$Res>
     Object? getCoinStatus = null,
     Object? coinList = freezed,
     Object? errorMessage = freezed,
+    Object? cryptoSearchString = freezed,
   }) {
     return _then(_$CoinStateImpl(
       getCoinStatus: null == getCoinStatus
@@ -930,18 +1390,24 @@ class __$$CoinStateImplCopyWithImpl<$Res>
           ? _value.errorMessage
           : errorMessage // ignore: cast_nullable_to_non_nullable
               as String?,
+      cryptoSearchString: freezed == cryptoSearchString
+          ? _value.cryptoSearchString
+          : cryptoSearchString // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$CoinStateImpl implements _CoinState {
+class _$CoinStateImpl extends _CoinState {
   _$CoinStateImpl(
       {this.getCoinStatus = FormzSubmissionStatus.initial,
       final List<Coin>? coinList,
-      this.errorMessage})
-      : _coinList = coinList;
+      this.errorMessage,
+      this.cryptoSearchString})
+      : _coinList = coinList,
+        super._();
 
   @override
   @JsonKey()
@@ -958,10 +1424,12 @@ class _$CoinStateImpl implements _CoinState {
 
   @override
   final String? errorMessage;
+  @override
+  final String? cryptoSearchString;
 
   @override
   String toString() {
-    return 'CoinState(getCoinStatus: $getCoinStatus, coinList: $coinList, errorMessage: $errorMessage)';
+    return 'CoinState(getCoinStatus: $getCoinStatus, coinList: $coinList, errorMessage: $errorMessage, cryptoSearchString: $cryptoSearchString)';
   }
 
   @override
@@ -973,12 +1441,18 @@ class _$CoinStateImpl implements _CoinState {
                 other.getCoinStatus == getCoinStatus) &&
             const DeepCollectionEquality().equals(other._coinList, _coinList) &&
             (identical(other.errorMessage, errorMessage) ||
-                other.errorMessage == errorMessage));
+                other.errorMessage == errorMessage) &&
+            (identical(other.cryptoSearchString, cryptoSearchString) ||
+                other.cryptoSearchString == cryptoSearchString));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, getCoinStatus,
-      const DeepCollectionEquality().hash(_coinList), errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      getCoinStatus,
+      const DeepCollectionEquality().hash(_coinList),
+      errorMessage,
+      cryptoSearchString);
 
   /// Create a copy of CoinState
   /// with the given fields replaced by the non-null parameter values.
@@ -989,11 +1463,13 @@ class _$CoinStateImpl implements _CoinState {
       __$$CoinStateImplCopyWithImpl<_$CoinStateImpl>(this, _$identity);
 }
 
-abstract class _CoinState implements CoinState {
+abstract class _CoinState extends CoinState {
   factory _CoinState(
       {final FormzSubmissionStatus getCoinStatus,
       final List<Coin>? coinList,
-      final String? errorMessage}) = _$CoinStateImpl;
+      final String? errorMessage,
+      final String? cryptoSearchString}) = _$CoinStateImpl;
+  _CoinState._() : super._();
 
   @override
   FormzSubmissionStatus get getCoinStatus;
@@ -1001,6 +1477,8 @@ abstract class _CoinState implements CoinState {
   List<Coin>? get coinList;
   @override
   String? get errorMessage;
+  @override
+  String? get cryptoSearchString;
 
   /// Create a copy of CoinState
   /// with the given fields replaced by the non-null parameter values.

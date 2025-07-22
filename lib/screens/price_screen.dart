@@ -1,4 +1,3 @@
-import 'package:cointicker/widgets/error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -29,12 +28,25 @@ class _PriceScreenState extends State<PriceScreen> {
     return BlocBuilder<CoinBloc, CoinState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: Colors.black,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(70),
+              child: SearchBar(
+                hintText: 'Search for a coin',
+                onChanged: (value) {
+                  context.read<CoinBloc>().add(
+                        CoinEvent.cryptoSearchStringChanged(value),
+                      );
+                },
+              ),
+            ),
             title: const Text(
               'Trading Ticker',
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-            backgroundColor: Colors.grey[800],
+            backgroundColor: Colors.grey[900],
             elevation: 0,
           ),
           body: state.getCoinStatus == FormzSubmissionStatus.inProgress &&
@@ -42,22 +54,38 @@ class _PriceScreenState extends State<PriceScreen> {
               ? const Center(
                   child: CircularProgressIndicator.adaptive(),
                 )
-              : ListView.builder(
-                  itemCount: state.coinList?.length ?? 0,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    final coins = state.coinList?[index];
-                    return CoinCard(
-                      coinImage: coins?.image ?? '',
-                      coinName: coins?.name ?? '',
-                      coinSymbol: coins?.symbol ?? '',
-                      coinPrice: coins?.currentPrice.toDouble() ?? 0.0,
-                      priceChange: coins?.priceChange24h.toDouble() ?? 0.0,
-                      priceChangePercentage:
-                          coins?.priceChangePercentage24h.toDouble() ?? 0.0,
-                    );
-                  },
-                ),
+              : (state.computedGiftCards.isEmpty)
+                  ? const Center(
+                      child: Text(
+                        'No coins found',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: state.computedGiftCards.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        //Add ranking to this later
+
+                        return CoinCard(
+                          // coinImage: coins?.image ?? '',
+                          // coinName: coins?.name ?? '',
+                          // coinSymbol: coins?.symbol ?? '',
+                          // coinPrice: coins?.currentPrice.toDouble() ?? 0.0,
+                          // priceChangePercentage:
+                          //     coins?.priceChangePercentage24h.toDouble() ?? 0.0,
+
+                          coinImage: state.computedGiftCards[index].image,
+                          coinName: state.computedGiftCards[index].name,
+                          coinSymbol: state.computedGiftCards[index].symbol,
+                          coinPrice: state.computedGiftCards[index].currentPrice
+                              .toDouble(),
+                          priceChangePercentage: state
+                              .computedGiftCards[index].priceChangePercentage24h
+                              .toDouble(),
+                        );
+                      },
+                    ),
         );
       },
     );

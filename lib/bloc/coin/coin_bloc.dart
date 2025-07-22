@@ -19,6 +19,8 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_FetchCoins>(_fetchCoins);
     on<_FetchCoinSuccess>(_fetchCoinSuccess);
     on<_FetchCoinFailure>(_fetchCoinFailure);
+    on<_SearchCrypto>(_searchCrypto);
+    on<_CryptoSearchStringChanged>(_cryptoSearchStringChanged);
 
     _startPolling();
   }
@@ -70,5 +72,17 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
       getCoinStatus: FormzSubmissionStatus.failure,
       errorMessage: event.errorMessage,
     ));
+  }
+
+  void _searchCrypto(_SearchCrypto event, Emitter<CoinState> emit) {
+    emit(state.copyWith(
+      cryptoSearchString: event.cryptoSearchString,
+      coinList: state.coinList,
+    ));
+  }
+
+  void _cryptoSearchStringChanged(
+      _CryptoSearchStringChanged event, Emitter<CoinState> emit) {
+    emit(state.copyWith(cryptoSearchString: event.cryptoSearchString));
   }
 }

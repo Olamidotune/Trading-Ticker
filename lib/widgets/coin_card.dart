@@ -1,4 +1,6 @@
+import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sizer/sizer.dart';
 
 class CoinCard extends StatelessWidget {
@@ -6,7 +8,7 @@ class CoinCard extends StatelessWidget {
   final String coinName;
   final String coinSymbol;
   final double coinPrice;
-  final double priceChange;
+
   final double priceChangePercentage;
   final VoidCallback? onPressed;
 
@@ -16,13 +18,34 @@ class CoinCard extends StatelessWidget {
     required this.coinName,
     required this.coinSymbol,
     required this.coinPrice,
-    required this.priceChange,
     required this.priceChangePercentage,
     this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double change = context
+            .read<CoinBloc>()
+            .state
+            .coinList
+            ?.firstWhere((coin) => coin.name == coinName)
+            .priceChangePercentage24h
+            .toDouble() ??
+        0.0;
+    Color textColor;
+    String icon;
+
+    if (change > 0) {
+      textColor = Colors.green;
+      icon = '▲';
+    } else if (change < 0) {
+      textColor = Colors.red;
+      icon = '▼';
+    } else {
+      textColor = Colors.grey;
+      icon = '–';
+    }
+
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: GestureDetector(
@@ -30,14 +53,14 @@ class CoinCard extends StatelessWidget {
         child: Container(
           height: 10.h,
           decoration: BoxDecoration(
-            color: Colors.white38,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             boxShadow: const [
               BoxShadow(
-                  color: Colors.grey,
+                  color: Colors.blueGrey,
                   offset: Offset(5, 5),
-                  blurRadius: 10,
-                  spreadRadius: 2),
+                  blurRadius: 2,
+                  spreadRadius: 1),
               BoxShadow(
                   color: Colors.grey,
                   offset: Offset(-3, -3),
@@ -52,28 +75,10 @@ class CoinCard extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.withAlpha(3),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.shade600,
-                                offset: const Offset(7, 10),
-                                blurRadius: 16,
-                                spreadRadius: 1),
-                            const BoxShadow(
-                                color: Colors.white70,
-                                offset: Offset(-10, -7),
-                                blurRadius: 16,
-                                spreadRadius: 1),
-                          ]),
-                      height: 15.h,
-                      width: 15.w,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.network(coinImage),
-                      )),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Image.network(coinImage),
+                  ),
                 ),
                 Expanded(
                   child: Column(
@@ -116,31 +121,27 @@ class CoinCard extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          priceChange.toDouble() < 0
-                              ? priceChange.toInt().toStringAsFixed(1)
-                              // : '+' + priceChange.toDouble().toString(),
-                              : '+${priceChange.toInt().toStringAsFixed(1)}',
-                          style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
-                              color: priceChange < 0
-                                  ? Colors.red
-                                  : Colors.green.shade700),
-                        ),
                         SizedBox(
                           width: 3.w,
                         ),
+                        // Text(
+                        //   priceChangePercentage.toDouble() < 0
+                        //       ? '${priceChangePercentage.toDouble()}%'
+                        //       : '+${priceChangePercentage.toDouble().toStringAsFixed(1)}%',
+                        //   style: TextStyle(
+                        // fontSize: 10.sp,
+                        // fontWeight: FontWeight.bold,
+                        //       color: priceChangePercentage < 0
+                        //           ? Colors.red
+                        //           : Colors.green.shade700),
+                        // ),
+
                         Text(
-                          priceChangePercentage.toDouble() < 0
-                              ? '${priceChangePercentage.toDouble()}%'
-                              : '+${priceChangePercentage.toDouble().toStringAsFixed(1)}%',
+                          '$icon ${change.toStringAsFixed(2)}%',
                           style: TextStyle(
                               fontSize: 10.sp,
                               fontWeight: FontWeight.bold,
-                              color: priceChangePercentage < 0
-                                  ? Colors.red
-                                  : Colors.green.shade700),
+                              color: textColor),
                         ),
                       ],
                     ),
