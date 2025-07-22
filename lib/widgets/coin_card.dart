@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,7 +10,8 @@ class CoinCard extends StatelessWidget {
   final double priceChangePercentage;
   final VoidCallback? onPressed;
 
-  CoinCard({
+  const CoinCard({
+    super.key,
     required this.coinImage,
     required this.coinName,
     required this.coinSymbol,
@@ -111,8 +110,8 @@ class CoinCard extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         ' \$$coinPrice',
-                        style:
-                            TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 15.sp, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Row(

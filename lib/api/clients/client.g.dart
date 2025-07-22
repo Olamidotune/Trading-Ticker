@@ -8,8 +8,8 @@ part of 'client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _Client implements Client {
-  _Client(
+class _CoinClient implements CoinClient {
+  _CoinClient(
     this._dio, {
     this.baseUrl,
   });
@@ -32,7 +32,7 @@ class _Client implements Client {
     )
             .compose(
               _dio.options,
-              '/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false',
+              'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=2&page=1&sparkline=false',
               queryParameters: queryParameters,
               data: _data,
             )

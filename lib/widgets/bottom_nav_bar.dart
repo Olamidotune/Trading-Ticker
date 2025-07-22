@@ -19,7 +19,11 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
-  final screens = [const PriceScreen(),const NewsScreen(), const AboutScreen()];
+  final screens = [
+    const PriceScreen(),
+    const NewsScreen(),
+    const AboutScreen()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +33,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
         data: Theme.of(context).copyWith(canvasColor: Colors.white),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          selectedLabelStyle: TextStyle(fontSize: 12),
-          onTap: (index) =>  setState(() {
-              _currentIndex = index;
-            }),
+          selectedLabelStyle: const TextStyle(fontSize: 12),
+          onTap: (index) => setState(() {
+            _currentIndex = index;
+          }),
           currentIndex: _currentIndex,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.grey,

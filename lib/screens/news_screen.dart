@@ -13,7 +13,8 @@ String newsAPIurl =
 
 class NewsScreen extends StatefulWidget {
   static const String routeName = 'NewsScreen';
-  const NewsScreen({Key? key}) : super(key: key);
+
+  const NewsScreen({super.key});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();
@@ -35,7 +36,8 @@ class _NewsScreenState extends State<NewsScreen> {
         newsData.add(News(
             author: data['author'] ?? 'N/A',
             title: data['title'],
-            description: data['description'],
+            // description: data['description'],
+            description: data['description'] ?? 'N/A',
             url: data['url'],
             urlToImage: data['urlToImage'] ?? 'N/A',
             publishedAt: data['publishedAt']));
@@ -67,21 +69,23 @@ class _NewsScreenState extends State<NewsScreen> {
           ),
         ),
         body: ListView.builder(
-          physics: const BouncingScrollPhysics(), itemBuilder: (BuildContext context, int index) { 
-            return Column(children: [],);
-           },
-      
+          itemCount: 10,
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          itemBuilder: (BuildContext context, int index) {
+            return NewsCard(
+                name: 'newsData[index].author,',
+                author: "newsData[index].author,",
+                title: "newsData[index].title,",
+                description: " newsData[index].description,",
+                url:
+                    "https://www.npr.org/2025/07/18/g-s1-78166/up-first-newsletter-rescission-package-npr-pbs-jeffrey-epstein-trump-health",
+                urlToImage:
+                    "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/4957x2788+0+258/resize/1400/quality/100/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fbb%2F1c%2Fd5cd50ab49ac88bcc753e7d7e97d%2Fgettyimages-2225409529.jpg");
+          },
         ));
   }
 }
-
-//  NewsCard(
-//               name: newsData[index].author,
-//               author: newsData[index].author,
-//               title: newsData[index].title,
-//               description: newsData[index].description,
-//               url: newsData[index].url,
-//               urlToImage: newsData[index].urlToImage);
 
 // newsData.isEmpty
 //           ? const Center(
