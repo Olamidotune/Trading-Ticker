@@ -146,35 +146,10 @@ class CustomShimmer extends StatelessWidget {
       highlightColor: Colors.red[100]!, // Lighter gray shimmer
       child: Padding(
         padding: const EdgeInsets.all(8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Placeholder for an image
-            Container(
-              width: 100,
-              height: 100,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
-                spacing: 20,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: Colors.white,
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: 30,
-                    color: Colors.white,
-                  ),
-                ],
-              ),
-            ),
-          ],
+        child: Container(
+          width: double.infinity,
+          height: 100,
+          color: Colors.white,
         ),
       ),
     );
