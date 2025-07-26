@@ -9,8 +9,8 @@ class BottomNavBar extends StatefulWidget {
   static const String routeName = 'BottomNavigationWidget';
 
   const BottomNavBar({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();

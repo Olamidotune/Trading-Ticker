@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:cointicker/services.dart/news_data.dart';
+import 'package:cointicker/servicess/news_data.dart';
 import 'package:cointicker/widgets/news_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 
