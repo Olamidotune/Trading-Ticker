@@ -11,6 +11,7 @@ class NewsCard extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const NewsCard({
+    super.key,
     required this.name,
     this.onPressed,
     required this.author,
