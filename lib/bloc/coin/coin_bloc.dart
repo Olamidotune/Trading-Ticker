@@ -21,6 +21,9 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_FetchCoinFailure>(_fetchCoinFailure);
     on<_SearchCrypto>(_searchCrypto);
     on<_CryptoSearchStringChanged>(_cryptoSearchStringChanged);
+    on<_SortBy24hChangeDesc>(_sortBy24hChangeDesc);
+    on<_SortByMarketCapDesc>(_sortByMarketCapDesc);
+    on<_SortByPriceDesc>(_sortByPriceDesc);
 
     _startPolling();
   }
@@ -56,10 +59,6 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     }
   }
 
-  // void _updateCoinList(_UpdateCoinList event, Emitter<CoinState> emit) {
-  //   emit(state.copyWith(coinList: event.coins));
-  // }
-
   void _fetchCoinSuccess(_FetchCoinSuccess event, Emitter<CoinState> emit) {
     emit(state.copyWith(
       getCoinStatus: FormzSubmissionStatus.success,
@@ -84,5 +83,26 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   void _cryptoSearchStringChanged(
       _CryptoSearchStringChanged event, Emitter<CoinState> emit) {
     emit(state.copyWith(cryptoSearchString: event.cryptoSearchString));
+  }
+
+  void _sortByMarketCapDesc(
+      _SortByMarketCapDesc event, Emitter<CoinState> emit) {
+    final sortedList = List<Coin>.from(state.coinList ?? []);
+    sortedList.sort((a, b) => (b.marketCap).compareTo(a.marketCap));
+    emit(state.copyWith(coinList: sortedList));
+  }
+
+  void _sortByPriceDesc(_SortByPriceDesc event, Emitter<CoinState> emit) {
+    final sortedList = List<Coin>.from(state.coinList ?? []);
+    sortedList.sort((a, b) => (b.currentPrice).compareTo(a.currentPrice));
+    emit(state.copyWith(coinList: sortedList));
+  }
+
+  void _sortBy24hChangeDesc(
+      _SortBy24hChangeDesc event, Emitter<CoinState> emit) {
+    final sortedList = List<Coin>.from(state.coinList ?? []);
+    sortedList.sort((a, b) =>
+        (b.priceChangePercentage24h).compareTo(a.priceChangePercentage24h));
+    emit(state.copyWith(coinList: sortedList));
   }
 }

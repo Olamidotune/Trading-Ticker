@@ -1,6 +1,7 @@
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:sizer/sizer.dart';
 
 class CoinCard extends StatelessWidget {
@@ -8,7 +9,8 @@ class CoinCard extends StatelessWidget {
   final String coinName;
   final String coinSymbol;
   final double coinPrice;
-
+  final num marketCap;
+  final num rank;
   final double priceChangePercentage;
   final VoidCallback? onPressed;
 
@@ -19,6 +21,8 @@ class CoinCard extends StatelessWidget {
     required this.coinSymbol,
     required this.coinPrice,
     required this.priceChangePercentage,
+    required this.rank,
+    required this.marketCap,
     this.onPressed,
   });
 
@@ -43,7 +47,7 @@ class CoinCard extends StatelessWidget {
       icon = '▼';
     } else {
       textColor = Colors.grey;
-      icon = '–';
+      icon = '-';
     }
 
     return Padding(
@@ -51,107 +55,82 @@ class CoinCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Container(
-          height: 10.h,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.blueGrey,
-                  offset: Offset(5, 5),
-                  blurRadius: 2,
-                  spreadRadius: 1),
-              BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(-3, -3),
-                  blurRadius: 10,
-                  spreadRadius: 2)
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 10),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Image.network(coinImage),
-                  ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          coinName,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          maxLines: 2,
-                          textAlign: TextAlign.start,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          coinSymbol,
-                          style: TextStyle(
-                              fontSize: 10.sp, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        ' \$$coinPrice',
-                        style: TextStyle(
-                            fontSize: 15.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: 3.w,
-                        ),
-                        // Text(
-                        //   priceChangePercentage.toDouble() < 0
-                        //       ? '${priceChangePercentage.toDouble()}%'
-                        //       : '+${priceChangePercentage.toDouble().toStringAsFixed(1)}%',
-                        //   style: TextStyle(
-                        // fontSize: 10.sp,
-                        // fontWeight: FontWeight.bold,
-                        //       color: priceChangePercentage < 0
-                        //           ? Colors.red
-                        //           : Colors.green.shade700),
-                        // ),
-
-                        Text(
-                          '$icon ${change.toStringAsFixed(2)}%',
-                          style: TextStyle(
-                              fontSize: 10.sp,
-                              fontWeight: FontWeight.bold,
-                              color: textColor),
-                        ),
-                      ],
-                    ),
-                  ],
-                )
+            height: 10.h,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: const [
+                BoxShadow(
+                    color: Colors.blueGrey,
+                    offset: Offset(5, 5),
+                    blurRadius: 2,
+                    spreadRadius: 1),
+                BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(-3, -3),
+                    blurRadius: 10,
+                    spreadRadius: 2)
               ],
             ),
-          ),
-        ),
+            child: ListTile(
+              leading: Text(
+                rank.toString(),
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              ),
+              title: Row(
+                children: [
+                  Image.network(coinImage, width: 40, height: 40),
+                  const SizedBox(width: 10),
+                  Text(
+                    coinSymbol.toUpperCase(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  Text(
+                    '\$${formatPrices(coinPrice)}',
+                    style:
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    formatMarketCap(marketCap),
+                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                  ),
+                  Text(
+                    '$icon ${change.toStringAsFixed(2)}%',
+                    style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.bold,
+                        color: textColor),
+                  ),
+                ],
+              ),
+            )),
       ),
     );
   }
+}
+
+String formatMarketCap(num number) {
+  if (number >= 1e12) {
+    return '${(number / 1e12).toStringAsFixed(2)}T';
+  } else if (number >= 1e9) {
+    return '${(number / 1e9).toStringAsFixed(2)}B';
+  } else if (number >= 1e6) {
+    return '${(number / 1e6).toStringAsFixed(2)}M';
+  } else if (number >= 1e3) {
+    return '${(number / 1e3).toStringAsFixed(2)}K';
+  } else {
+    return number.toString();
+  }
+}
+
+String formatPrices(num number, [int decimal = 2]) {
+  final formatter = NumberFormat('#,##0.${'0' * decimal}');
+  return formatter.format(number);
 }

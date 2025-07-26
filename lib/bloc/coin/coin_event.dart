@@ -3,9 +3,6 @@ part of 'coin_bloc.dart';
 @freezed
 class CoinEvent with _$CoinEvent {
   const factory CoinEvent() = _CoinEvent;
-
-  // Define other events here as needed
-  // For example, you might have an event to fetch coins:
   const factory CoinEvent.fetchCoins() = _FetchCoins;
   const factory CoinEvent.updateCoinList(Coin coins) = _UpdateCoinList;
   const factory CoinEvent.fetchCoinSuccess(List<Coin> coins) =
@@ -17,4 +14,7 @@ class CoinEvent with _$CoinEvent {
   const factory CoinEvent.cryptoSearchStringChanged(
     String cryptoSearchString,
   ) = _CryptoSearchStringChanged;
+  const factory CoinEvent.sortByMarketCapDesc() = _SortByMarketCapDesc;
+  const factory CoinEvent.sortByPriceDesc() = _SortByPriceDesc;
+  const factory CoinEvent.sortBy24hChangeDesc() = _SortBy24hChangeDesc;
 }

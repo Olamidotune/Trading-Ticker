@@ -1,9 +1,12 @@
+import 'package:cointicker/api/models/coins_model.dart';
+import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/widgets/coin_card.dart';
+import 'package:cointicker/widgets/coin_details_dialog.dart';
+import 'package:cointicker/widgets/coin_search_bar.dart';
+import 'package:cointicker/widgets/sort_filter_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
-
-import '../bloc/coin/coin_bloc.dart';
-import '../widgets/coin_card.dart';
 
 String url =
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
@@ -32,14 +35,23 @@ class _PriceScreenState extends State<PriceScreen> {
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             bottom: PreferredSize(
-              preferredSize: Size.fromHeight(70),
-              child: SearchBar(
-                hintText: 'Search for a coin',
-                onChanged: (value) {
-                  context.read<CoinBloc>().add(
-                        CoinEvent.cryptoSearchStringChanged(value),
+              preferredSize: const Size.fromHeight(70),
+              child: Row(
+                children: [
+                  const Expanded(
+                    child: CoinSearchBar(),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.sort),
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (_) => const SortFilterSheet(),
                       );
-                },
+                    },
+                  ),
+                ],
               ),
             ),
             title: const Text(
@@ -65,21 +77,15 @@ class _PriceScreenState extends State<PriceScreen> {
                       itemCount: state.computedGiftCards.length,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
-                        //Add ranking to this later
-
+                        final coin = state.computedGiftCards[index];
                         return CoinCard(
-                          // coinImage: coins?.image ?? '',
-                          // coinName: coins?.name ?? '',
-                          // coinSymbol: coins?.symbol ?? '',
-                          // coinPrice: coins?.currentPrice.toDouble() ?? 0.0,
-                          // priceChangePercentage:
-                          //     coins?.priceChangePercentage24h.toDouble() ?? 0.0,
-
-                          coinImage: state.computedGiftCards[index].image,
-                          coinName: state.computedGiftCards[index].name,
-                          coinSymbol: state.computedGiftCards[index].symbol,
-                          coinPrice: state.computedGiftCards[index].currentPrice
-                              .toDouble(),
+                          onPressed: () => _coinDetailsDialog(context, coin),
+                          marketCap: coin.marketCap,
+                          rank: coin.marketCapRank,
+                          coinImage: coin.image,
+                          coinName: coin.name,
+                          coinSymbol: coin.symbol,
+                          coinPrice: coin.currentPrice.toDouble(),
                           priceChangePercentage: state
                               .computedGiftCards[index].priceChangePercentage24h
                               .toDouble(),
@@ -91,10 +97,12 @@ class _PriceScreenState extends State<PriceScreen> {
     );
   }
 
-  // void _showDialog(Duration _) {
-  //   showDialog(
-  //     context: context,
-  //     builder: (BuildContext context) => ErrorDialog(),
-  //   );
-  // }
+  void _coinDetailsDialog(BuildContext context, Coin coin) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return CoinDetailsDialog(coin: coin);
+      },
+    );
+  }
 }
