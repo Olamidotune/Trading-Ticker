@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -12,7 +10,7 @@ class NewsCard extends StatelessWidget {
   final String urlToImage;
   final VoidCallback? onPressed;
 
-  NewsCard({
+  const NewsCard({
     required this.name,
     this.onPressed,
     required this.author,
