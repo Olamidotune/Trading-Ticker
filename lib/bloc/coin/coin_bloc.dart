@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
@@ -60,9 +62,26 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _fetchCoinSuccess(_FetchCoinSuccess event, Emitter<CoinState> emit) {
+    List<Coin> updatedCoins = List<Coin>.from(event.coins); // ✅ clone it
+
+    switch (state.activeSort) {
+      case CoinSortType.priceDesc:
+        updatedCoins.sort((a, b) => b.currentPrice.compareTo(a.currentPrice));
+        break;
+      case CoinSortType.marketCapDesc:
+        updatedCoins.sort((a, b) => b.marketCap.compareTo(a.marketCap));
+        break;
+      case CoinSortType.change24hDesc:
+        updatedCoins.sort((a, b) =>
+            b.priceChangePercentage24h.compareTo(a.priceChangePercentage24h));
+        break;
+      default:
+        break;
+    }
+
     emit(state.copyWith(
       getCoinStatus: FormzSubmissionStatus.success,
-      coinList: event.coins,
+      coinList: updatedCoins,
     ));
   }
 
@@ -89,13 +108,15 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
       _SortByMarketCapDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) => (b.marketCap).compareTo(a.marketCap));
-    emit(state.copyWith(coinList: sortedList));
+    emit(state.copyWith(
+        coinList: sortedList, activeSort: CoinSortType.marketCapDesc));
   }
 
   void _sortByPriceDesc(_SortByPriceDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) => (b.currentPrice).compareTo(a.currentPrice));
-    emit(state.copyWith(coinList: sortedList));
+    emit(state.copyWith(
+        coinList: sortedList, activeSort: CoinSortType.priceDesc));
   }
 
   void _sortBy24hChangeDesc(
@@ -103,6 +124,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) =>
         (b.priceChangePercentage24h).compareTo(a.priceChangePercentage24h));
-    emit(state.copyWith(coinList: sortedList));
+    emit(state.copyWith(
+        coinList: sortedList, activeSort: CoinSortType.change24hDesc));
   }
 }

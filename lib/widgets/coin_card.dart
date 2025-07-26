@@ -55,62 +55,117 @@ class CoinCard extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Container(
-            height: 10.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: const [
-                BoxShadow(
-                    color: Colors.blueGrey,
-                    offset: Offset(5, 5),
-                    blurRadius: 2,
-                    spreadRadius: 1),
-                BoxShadow(
-                    color: Colors.grey,
-                    offset: Offset(-3, -3),
-                    blurRadius: 10,
-                    spreadRadius: 2)
+          height: 10.h,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: const [
+              BoxShadow(
+                  color: Colors.blueGrey,
+                  offset: Offset(5, 5),
+                  blurRadius: 2,
+                  spreadRadius: 1),
+              BoxShadow(
+                  color: Colors.grey,
+                  offset: Offset(-3, -3),
+                  blurRadius: 10,
+                  spreadRadius: 2)
+            ],
+          ),
+          child: ListTile(
+            title: Row(
+              children: [
+                Text(
+                  rank.toString(),
+                  style:
+                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(width: 10),
+                Image.network(coinImage, width: 40, height: 40),
+                const SizedBox(width: 10),
+                Text(
+                  coinSymbol.toUpperCase(),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Text(
+                  '\$${formatPrices(coinPrice)}',
+                  style:
+                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                ),
               ],
             ),
-            child: ListTile(
-              leading: Text(
-                rank.toString(),
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-              ),
-              title: Row(
-                children: [
-                  Image.network(coinImage, width: 40, height: 40),
-                  const SizedBox(width: 10),
-                  Text(
-                    coinSymbol.toUpperCase(),
-                    style: const TextStyle(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '\$${formatPrices(coinPrice)}',
-                    style:
-                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    formatMarketCap(marketCap),
-                    style: TextStyle(fontSize: 12.sp, color: Colors.grey),
-                  ),
-                  Text(
-                    '$icon ${change.toStringAsFixed(2)}%',
-                    style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.bold,
-                        color: textColor),
-                  ),
-                ],
-              ),
-            )),
+            subtitle: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    Text('Market Cap',
+                        style:
+                            TextStyle(fontSize: 12, color: Colors.grey[600])),
+                    Text(
+                      '\$${formatMarketCap(marketCap)}',
+                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('24hr Change %',
+                        style:
+                            TextStyle(fontSize: 12, color: Colors.grey[600])),
+                    Text(
+                      '$icon ${change.toStringAsFixed(2)}%',
+                      style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: textColor),
+                    ),
+                  ],
+                )
+
+                // Text(
+                //   '$icon ${change.toStringAsFixed(2)}%',
+                // style: TextStyle(
+                //     fontSize: 12.sp,
+                //     fontWeight: FontWeight.bold,
+                //     color: textColor),
+                // ),
+              ],
+            ),
+            // trailing: Column(
+            //   children: [
+            //     Expanded(
+            //       flex: 5,
+            //       child: Text(
+            //         '\$${formatPrices(coinPrice)}',
+            //         style: TextStyle(
+            //             fontSize: 14.sp,
+            //             fontWeight: FontWeight.bold,
+            //             color: Colors.black),
+            //       ),
+            //     ),
+            //     const SizedBox(height: 5),
+            //     Expanded(
+            //       flex: 3,
+            //       child: const Text('24hr Change:',
+            //           style: TextStyle(color: Colors.grey)),
+            //     ),
+            //     Expanded(
+            //       flex: 4,
+            //       child: Text(
+            //         '$icon ${change.toStringAsFixed(2)}%',
+            //         style: TextStyle(
+            //             fontSize: 12.sp,
+            //             fontWeight: FontWeight.bold,
+            //             color: textColor),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+          ),
+        ),
       ),
     );
   }

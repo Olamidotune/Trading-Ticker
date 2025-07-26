@@ -1900,6 +1900,7 @@ mixin _$CoinState {
   List<Coin>? get coinList => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
   String? get cryptoSearchString => throw _privateConstructorUsedError;
+  CoinSortType? get activeSort => throw _privateConstructorUsedError;
 
   /// Create a copy of CoinState
   /// with the given fields replaced by the non-null parameter values.
@@ -1917,7 +1918,8 @@ abstract class $CoinStateCopyWith<$Res> {
       {FormzSubmissionStatus getCoinStatus,
       List<Coin>? coinList,
       String? errorMessage,
-      String? cryptoSearchString});
+      String? cryptoSearchString,
+      CoinSortType? activeSort});
 }
 
 /// @nodoc
@@ -1939,6 +1941,7 @@ class _$CoinStateCopyWithImpl<$Res, $Val extends CoinState>
     Object? coinList = freezed,
     Object? errorMessage = freezed,
     Object? cryptoSearchString = freezed,
+    Object? activeSort = freezed,
   }) {
     return _then(_value.copyWith(
       getCoinStatus: null == getCoinStatus
@@ -1957,6 +1960,10 @@ class _$CoinStateCopyWithImpl<$Res, $Val extends CoinState>
           ? _value.cryptoSearchString
           : cryptoSearchString // ignore: cast_nullable_to_non_nullable
               as String?,
+      activeSort: freezed == activeSort
+          ? _value.activeSort
+          : activeSort // ignore: cast_nullable_to_non_nullable
+              as CoinSortType?,
     ) as $Val);
   }
 }
@@ -1973,7 +1980,8 @@ abstract class _$$CoinStateImplCopyWith<$Res>
       {FormzSubmissionStatus getCoinStatus,
       List<Coin>? coinList,
       String? errorMessage,
-      String? cryptoSearchString});
+      String? cryptoSearchString,
+      CoinSortType? activeSort});
 }
 
 /// @nodoc
@@ -1993,6 +2001,7 @@ class __$$CoinStateImplCopyWithImpl<$Res>
     Object? coinList = freezed,
     Object? errorMessage = freezed,
     Object? cryptoSearchString = freezed,
+    Object? activeSort = freezed,
   }) {
     return _then(_$CoinStateImpl(
       getCoinStatus: null == getCoinStatus
@@ -2011,6 +2020,10 @@ class __$$CoinStateImplCopyWithImpl<$Res>
           ? _value.cryptoSearchString
           : cryptoSearchString // ignore: cast_nullable_to_non_nullable
               as String?,
+      activeSort: freezed == activeSort
+          ? _value.activeSort
+          : activeSort // ignore: cast_nullable_to_non_nullable
+              as CoinSortType?,
     ));
   }
 }
@@ -2022,7 +2035,8 @@ class _$CoinStateImpl extends _CoinState {
       {this.getCoinStatus = FormzSubmissionStatus.initial,
       final List<Coin>? coinList,
       this.errorMessage,
-      this.cryptoSearchString})
+      this.cryptoSearchString,
+      this.activeSort})
       : _coinList = coinList,
         super._();
 
@@ -2043,10 +2057,12 @@ class _$CoinStateImpl extends _CoinState {
   final String? errorMessage;
   @override
   final String? cryptoSearchString;
+  @override
+  final CoinSortType? activeSort;
 
   @override
   String toString() {
-    return 'CoinState(getCoinStatus: $getCoinStatus, coinList: $coinList, errorMessage: $errorMessage, cryptoSearchString: $cryptoSearchString)';
+    return 'CoinState(getCoinStatus: $getCoinStatus, coinList: $coinList, errorMessage: $errorMessage, cryptoSearchString: $cryptoSearchString, activeSort: $activeSort)';
   }
 
   @override
@@ -2060,7 +2076,9 @@ class _$CoinStateImpl extends _CoinState {
             (identical(other.errorMessage, errorMessage) ||
                 other.errorMessage == errorMessage) &&
             (identical(other.cryptoSearchString, cryptoSearchString) ||
-                other.cryptoSearchString == cryptoSearchString));
+                other.cryptoSearchString == cryptoSearchString) &&
+            (identical(other.activeSort, activeSort) ||
+                other.activeSort == activeSort));
   }
 
   @override
@@ -2069,7 +2087,8 @@ class _$CoinStateImpl extends _CoinState {
       getCoinStatus,
       const DeepCollectionEquality().hash(_coinList),
       errorMessage,
-      cryptoSearchString);
+      cryptoSearchString,
+      activeSort);
 
   /// Create a copy of CoinState
   /// with the given fields replaced by the non-null parameter values.
@@ -2085,7 +2104,8 @@ abstract class _CoinState extends CoinState {
       {final FormzSubmissionStatus getCoinStatus,
       final List<Coin>? coinList,
       final String? errorMessage,
-      final String? cryptoSearchString}) = _$CoinStateImpl;
+      final String? cryptoSearchString,
+      final CoinSortType? activeSort}) = _$CoinStateImpl;
   _CoinState._() : super._();
 
   @override
@@ -2096,6 +2116,8 @@ abstract class _CoinState extends CoinState {
   String? get errorMessage;
   @override
   String? get cryptoSearchString;
+  @override
+  CoinSortType? get activeSort;
 
   /// Create a copy of CoinState
   /// with the given fields replaced by the non-null parameter values.

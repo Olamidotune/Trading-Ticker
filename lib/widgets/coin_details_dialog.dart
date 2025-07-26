@@ -42,10 +42,11 @@ class CoinDetailsDialog extends StatelessWidget {
             const Divider(height: 24),
             InfoRow(title: "💰 Symbol", value: coin.symbol.toUpperCase()),
             InfoRow(
-                title: "📈 Price",
-                value: "\$${formatPrices(coin.currentPrice)}"),
+                title: "🏦 Market Cap",
+                value: '\$${formatMarketCap(coin.marketCap)}'),
             InfoRow(
-                title: "🏦 Market Cap", value: formatMarketCap(coin.marketCap)),
+                title: "📈 Current Price",
+                value: "\$${formatPrices(coin.currentPrice)}"),
             InfoRow(
                 title: "📉 All-Time Low", value: "\$${formatPrices(coin.atl)}"),
             InfoRow(

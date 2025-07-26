@@ -8,6 +8,7 @@ class CoinState with _$CoinState {
     List<Coin>? coinList,
     String? errorMessage,
     String? cryptoSearchString,
+    CoinSortType? activeSort,
   }) = _CoinState;
 
   List<Coin> get getSearchedCoins {
@@ -23,4 +24,10 @@ class CoinState with _$CoinState {
 
   List<Coin> get computedGiftCards =>
       (cryptoSearchString?.isEmpty ?? true) ? coinList ?? [] : getSearchedCoins;
+}
+
+enum CoinSortType {
+  marketCapDesc,
+  priceDesc,
+  change24hDesc,
 }
