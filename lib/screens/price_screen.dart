@@ -46,7 +46,10 @@ class _PriceScreenState extends State<PriceScreen> {
                     ),
                     const SizedBox(width: 8),
                     IconButton(
-                      icon: const Icon(Icons.sort),
+                      icon: const Icon(
+                        Icons.sort,
+                        color: Colors.white,
+                      ),
                       onPressed: () {
                         showModalBottomSheet(
                           context: context,

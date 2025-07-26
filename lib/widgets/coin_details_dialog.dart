@@ -36,23 +36,16 @@ class CoinDetailsDialog extends StatelessWidget {
       ),
       content: SingleChildScrollView(
         child: Column(
+          spacing: 10,
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
             const Divider(height: 24),
             InfoRow(title: "💰 Symbol", value: coin.symbol.toUpperCase()),
+            InfoRow(title: "🔢 Rank", value: "#${coin.marketCapRank}"),
             InfoRow(
                 title: "🏦 Market Cap",
                 value: '\$${formatMarketCap(coin.marketCap)}'),
-            InfoRow(
-                title: "📈 Current Price",
-                value: "\$${formatPrices(coin.currentPrice)}"),
-            InfoRow(
-                title: "📉 All-Time Low", value: "\$${formatPrices(coin.atl)}"),
-            InfoRow(
-                title: "🚀 All-Time High",
-                value: "\$${formatPrices(coin.ath)}"),
-            InfoRow(title: "🔢 Rank", value: "#${coin.marketCapRank}"),
             InfoRow(
               title: "🔄 24h Change",
               value: "${coin.priceChangePercentage24h.toStringAsFixed(2)}%",
@@ -60,6 +53,18 @@ class CoinDetailsDialog extends StatelessWidget {
                   ? Colors.green
                   : Colors.red,
             ),
+            InfoRow(
+                title: "📈 Current Price",
+                value: "\$${formatPrices(coin.currentPrice)}"),
+            InfoRow(
+                title: "↗️ 24h High", value: "\$${formatPrices(coin.high24h)}"),
+            InfoRow(
+                title: "↘️ 24h Low", value: "\$${formatPrices(coin.low24h)}"),
+            InfoRow(
+                title: "📉 All-Time Low", value: "\$${formatPrices(coin.atl)}"),
+            InfoRow(
+                title: "🚀 All-Time High",
+                value: "\$${formatPrices(coin.ath)}"),
           ],
         ),
       ),

@@ -106,7 +106,7 @@ class CoinCard extends StatelessWidget {
                             TextStyle(fontSize: 12, color: Colors.grey[600])),
                     Text(
                       '\$${formatMarketCap(marketCap)}',
-                      style: TextStyle(fontSize: 12.sp, color: Colors.grey),
+                      style: TextStyle(fontSize: 12.sp, color: Colors.black87),
                     ),
                   ],
                 ),
@@ -124,46 +124,8 @@ class CoinCard extends StatelessWidget {
                     ),
                   ],
                 )
-
-                // Text(
-                //   '$icon ${change.toStringAsFixed(2)}%',
-                // style: TextStyle(
-                //     fontSize: 12.sp,
-                //     fontWeight: FontWeight.bold,
-                //     color: textColor),
-                // ),
               ],
             ),
-            // trailing: Column(
-            //   children: [
-            //     Expanded(
-            //       flex: 5,
-            //       child: Text(
-            //         '\$${formatPrices(coinPrice)}',
-            //         style: TextStyle(
-            //             fontSize: 14.sp,
-            //             fontWeight: FontWeight.bold,
-            //             color: Colors.black),
-            //       ),
-            //     ),
-            //     const SizedBox(height: 5),
-            //     Expanded(
-            //       flex: 3,
-            //       child: const Text('24hr Change:',
-            //           style: TextStyle(color: Colors.grey)),
-            //     ),
-            //     Expanded(
-            //       flex: 4,
-            //       child: Text(
-            //         '$icon ${change.toStringAsFixed(2)}%',
-            //         style: TextStyle(
-            //             fontSize: 12.sp,
-            //             fontWeight: FontWeight.bold,
-            //             color: textColor),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ),
         ),
       ),
