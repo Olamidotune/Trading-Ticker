@@ -2,7 +2,7 @@ import 'package:cointicker/api/models/coins_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-part 'client.g.dart';
+part 'coin_client.g.dart';
 
 @RestApi()
 

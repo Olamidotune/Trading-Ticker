@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:cointicker/api/clients/client.dart';
+import 'package:cointicker/api/clients/coin/coin_client.dart';
 import 'package:cointicker/api/models/coins_model.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/service_locator.dart';

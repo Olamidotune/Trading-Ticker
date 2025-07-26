@@ -1,4 +1,4 @@
-import 'package:cointicker/api/clients/client.dart';
+import 'package:cointicker/api/clients/coin/coin_client.dart';
 import 'package:cointicker/services/keys.dart';
 import 'package:cointicker/services/logger.dart';
 import 'package:dio/dio.dart';
@@ -24,8 +24,4 @@ Future<void> setupLocator() async {
     locator.registerSingleton<CoinClient>(
         CoinClient(dio, baseUrl: dotenv.env[EnvKeys.apiBaseUrl]));
   }
-
-  // locator
-  //   ..registerSingleton<AuthServices>(AuthServices())
-  //   ..registerSingleton<PersistenceServices>(PersistenceServices());
 }

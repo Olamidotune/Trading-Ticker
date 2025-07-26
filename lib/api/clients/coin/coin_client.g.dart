@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'client.dart';
+part of 'coin_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -32,7 +32,7 @@ class _CoinClient implements CoinClient {
     )
             .compose(
               _dio.options,
-              'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=1000&page=1&sparkline=false',
+              'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false',
               queryParameters: queryParameters,
               data: _data,
             )
