@@ -7,6 +7,7 @@ import 'package:cointicker/widgets/sort_filter_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:shimmer/shimmer.dart';
 
 String url =
     'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
@@ -28,72 +29,98 @@ class _PriceScreenState extends State<PriceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CoinBloc, CoinState>(
-      builder: (context, state) {
-        return Scaffold(
-          backgroundColor: Colors.black,
-          extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(70),
-              child: Row(
-                children: [
-                  const Expanded(
-                    child: CoinSearchBar(),
-                  ),
-                  const SizedBox(width: 8),
-                  IconButton(
-                    icon: const Icon(Icons.sort),
-                    onPressed: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (_) => const SortFilterSheet(),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            title: const Text(
-              'Trading Ticker',
-              style: TextStyle(color: Colors.white, fontSize: 20),
-            ),
-            backgroundColor: Colors.grey[900],
-            elevation: 0,
-          ),
-          body: state.getCoinStatus == FormzSubmissionStatus.inProgress &&
-                  (state.coinList == null || state.coinList!.isEmpty)
-              ? const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                )
-              : (state.computedGiftCards.isEmpty)
-                  ? const Center(
-                      child: Text(
-                        'No coins found',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: state.computedGiftCards.length,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        final coin = state.computedGiftCards[index];
-                        return CoinCard(
-                          onPressed: () => _coinDetailsDialog(context, coin),
-                          marketCap: coin.marketCap,
-                          rank: coin.marketCapRank,
-                          coinImage: coin.image,
-                          coinName: coin.name,
-                          coinSymbol: coin.symbol,
-                          coinPrice: coin.currentPrice.toDouble(),
-                          priceChangePercentage: state
-                              .computedGiftCards[index].priceChangePercentage24h
-                              .toDouble(),
+    return Scaffold(
+      backgroundColor: Colors.black,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(70),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: CoinSearchBar(),
+                    ),
+                    const SizedBox(width: 8),
+                    IconButton(
+                      icon: const Icon(Icons.sort),
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) => const SortFilterSheet(),
                         );
                       },
                     ),
-        );
-      },
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+        title: const Text(
+          'Trading Ticker',
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+        backgroundColor: Colors.grey[900],
+        elevation: 0,
+      ),
+      body: BlocBuilder<CoinBloc, CoinState>(
+        builder: (context, state) {
+          if (state.getCoinStatus == FormzSubmissionStatus.inProgress &&
+              (state.computedGiftCards.isEmpty)) {
+            return ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                return const CustomShimmer();
+              },
+            );
+          }
+          if (state.getCoinStatus == FormzSubmissionStatus.failure) {
+            return const Center(
+              child: Text(
+                'Failed to load coins',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            );
+          }
+          if (state.computedGiftCards.isEmpty) {
+            return const Center(
+              child: Text(
+                'No coins found',
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+            );
+          }
+          return ListView.separated(
+            itemCount: state.computedGiftCards.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              final coin = state.computedGiftCards[index];
+              return CoinCard(
+                onPressed: () => _coinDetailsDialog(context, coin),
+                marketCap: coin.marketCap,
+                rank: coin.marketCapRank,
+                coinImage: coin.image,
+                coinName: coin.name,
+                coinSymbol: coin.symbol,
+                coinPrice: coin.currentPrice.toDouble(),
+                priceChangePercentage: state
+                    .computedGiftCards[index].priceChangePercentage24h
+                    .toDouble(),
+              );
+            },
+            separatorBuilder: (BuildContext context, int index) {
+              return const SizedBox(
+                height: 20,
+              );
+            },
+          );
+        },
+      ),
     );
   }
 
@@ -103,6 +130,53 @@ class _PriceScreenState extends State<PriceScreen> {
       builder: (context) {
         return CoinDetailsDialog(coin: coin);
       },
+    );
+  }
+}
+
+class CustomShimmer extends StatelessWidget {
+  const CustomShimmer({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.white, // Light gray background
+      highlightColor: Colors.red[100]!, // Lighter gray shimmer
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Placeholder for an image
+            Container(
+              width: 100,
+              height: 100,
+              color: Colors.white,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                spacing: 20,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 30,
+                    color: Colors.white,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 30,
+                    color: Colors.white,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

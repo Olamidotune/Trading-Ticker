@@ -51,7 +51,7 @@ class CoinCard extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: GestureDetector(
         onTap: onPressed,
         child: Container(
