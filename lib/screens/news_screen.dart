@@ -7,16 +7,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 String newsAPIurl =
     'https://newsapi.org/v2/everything?q=cryptocurrency&apiKey=9c337956eae7413bbc102eb80bc23327';
 
-class NewsScreen extends StatefulWidget {
+class NewsScreen extends StatelessWidget {
   static const String routeName = 'NewsScreen';
 
   const NewsScreen({super.key});
 
-  @override
-  State<NewsScreen> createState() => _NewsScreenState();
-}
-
-class _NewsScreenState extends State<NewsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

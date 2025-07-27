@@ -9,18 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:shimmer/shimmer.dart';
 
-String url =
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false';
-
-class PriceScreen extends StatefulWidget {
+class PriceScreen extends StatelessWidget {
   static const String routeName = 'PriceScreen';
   const PriceScreen({super.key});
 
-  @override
-  State<PriceScreen> createState() => _PriceScreenState();
-}
-
-class _PriceScreenState extends State<PriceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -40,8 +40,6 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
       add(_FetchNewsSuccess(news));
     } catch (error, trace) {
       logError(error, trace);
-      // add(_FetchNewsFailure(error.toString()));
-
       if (error is DioException) {
         final message = error.response?.data?['message'];
         add(_FetchNewsFailure(message?.toString() ?? 'Something went wrong'));

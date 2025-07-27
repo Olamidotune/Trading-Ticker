@@ -5,8 +5,6 @@ class NewsState with _$NewsState {
   const NewsState._();
   factory NewsState({
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus getNewsStatus,
-    // News? news,
-
     List<Article>? news,
     String? searchKey,
     String? errorMessage,
