@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,7 +82,19 @@ class CoinCard extends StatelessWidget {
                       TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(width: 10),
-                Image.network(coinImage, width: 40, height: 40),
+                CachedNetworkImage(
+                  imageUrl: coinImage,
+                  height: 40,
+                  width: 40,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => const Center(
+                    child: CircularProgressIndicator(color: Colors.black),
+                  ),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.image_not_supported_outlined,
+                    size: 50,
+                  ),
+                ),
                 const SizedBox(width: 10),
                 Text(
                   coinSymbol.toUpperCase(),

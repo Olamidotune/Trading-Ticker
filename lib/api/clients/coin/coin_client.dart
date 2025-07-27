@@ -13,6 +13,6 @@ abstract class CoinClient {
   factory CoinClient(Dio dio, {String? baseUrl}) = _CoinClient;
 
   @GET(
-      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false')
+      'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false')
   Future<List<Coin>> getCoins();
 }

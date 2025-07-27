@@ -9,6 +9,7 @@ class NewsCard extends StatelessWidget {
   final String description;
   final String url;
   final String urlToImage;
+  final DateTime? publishedAt;
   final VoidCallback? onPressed;
 
   const NewsCard({
@@ -20,6 +21,7 @@ class NewsCard extends StatelessWidget {
     required this.description,
     required this.url,
     required this.urlToImage,
+    this.publishedAt,
   });
 
   @override
@@ -95,7 +97,7 @@ class NewsCard extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Text(
-                          url,
+                          title,
                           style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
@@ -122,7 +124,7 @@ class NewsCard extends StatelessWidget {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        ' ',
+                        timeAgo(publishedAt ?? DateTime.now()),
                         style: TextStyle(
                             fontSize: 15.sp, fontWeight: FontWeight.bold),
                       ),
@@ -135,5 +137,16 @@ class NewsCard extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+String timeAgo(DateTime date) {
+  final difference = DateTime.now().difference(date);
+  if (difference.inMinutes < 60) {
+    return '${difference.inMinutes}m ago';
+  } else if (difference.inHours < 24) {
+    return '${difference.inHours}h ago';
+  } else {
+    return '${difference.inDays}d ago';
   }
 }

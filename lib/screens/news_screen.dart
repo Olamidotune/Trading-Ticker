@@ -48,10 +48,11 @@ class _NewsScreenState extends State<NewsScreen> {
                   },
                   name: news?.title ?? 'No Title',
                   author: news?.author ?? 'No Author',
-                  title: "newsData[index].title,",
-                  description: " newsData[index].description,",
+                  title: news?.title ?? 'No Title',
+                  description: news?.description ?? 'No Description',
                   url: news?.url ?? '',
                   urlToImage: news?.urlToImage ?? '',
+                  publishedAt: news?.publishedAt,
                 );
               },
             );
@@ -59,8 +60,3 @@ class _NewsScreenState extends State<NewsScreen> {
         ));
   }
 }
-
-// newsData.isEmpty
-//           ? const Center(
-//               child: CircularProgressIndicator.adaptive(),
-//             )
