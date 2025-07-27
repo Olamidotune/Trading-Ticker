@@ -1,4 +1,5 @@
 import 'package:cointicker/api/clients/coin/coin_client.dart';
+import 'package:cointicker/api/clients/news/news_client.dart';
 import 'package:cointicker/services/keys.dart';
 import 'package:cointicker/services/logger.dart';
 import 'package:dio/dio.dart';
@@ -13,15 +14,26 @@ Future<void> setupLocator() async {
 
   if (kDebugMode) {
     dio.interceptors.add(ResponseLoggingInterceptor());
-    locator.registerFactory<CoinClient>(
-      () => CoinClient(
-        dio,
-        baseUrl: dotenv.env[EnvKeys.apiBaseUrl] ??
-            const String.fromEnvironment(EnvKeys.apiBaseUrl),
-      ),
-    );
+    locator
+      ..registerFactory<CoinClient>(
+        () => CoinClient(
+          dio,
+          baseUrl: dotenv.env[EnvKeys.apiBaseUrl] ??
+              const String.fromEnvironment(EnvKeys.apiBaseUrl),
+        ),
+      )
+      ..registerFactory<NewsClient>(
+        () => NewsClient(
+          dio,
+          baseUrl: dotenv.env[EnvKeys.newsApiBaseUrl] ??
+              const String.fromEnvironment(EnvKeys.newsApiBaseUrl),
+        ),
+      );
   } else {
-    locator.registerSingleton<CoinClient>(
-        CoinClient(dio, baseUrl: dotenv.env[EnvKeys.apiBaseUrl]));
+    locator
+      ..registerSingleton<CoinClient>(
+          CoinClient(dio, baseUrl: dotenv.env[EnvKeys.apiBaseUrl]))
+      ..registerSingleton<NewsClient>(
+          NewsClient(dio, baseUrl: dotenv.env[EnvKeys.newsApiBaseUrl]));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/screens/about_screen.dart';
 import 'package:cointicker/screens/price_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
@@ -35,7 +36,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<CoinBloc>(
           create: (context) => CoinBloc(),
-        )
+        ),
+        BlocProvider<NewsBloc>(
+          create: (context) => NewsBloc(),
+        ),
       ],
       child: Sizer(
         builder: (context, orientation, deviceType) {

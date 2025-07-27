@@ -4,7 +4,6 @@ part of 'coin_bloc.dart';
 class CoinEvent with _$CoinEvent {
   const factory CoinEvent() = _CoinEvent;
   const factory CoinEvent.fetchCoins() = _FetchCoins;
-  const factory CoinEvent.updateCoinList(Coin coins) = _UpdateCoinList;
   const factory CoinEvent.fetchCoinSuccess(List<Coin> coins) =
       _FetchCoinSuccess;
   const factory CoinEvent.fetchCoinFailure([String? errorMessage]) =
@@ -17,4 +16,5 @@ class CoinEvent with _$CoinEvent {
   const factory CoinEvent.sortByMarketCapDesc() = _SortByMarketCapDesc;
   const factory CoinEvent.sortByPriceDesc() = _SortByPriceDesc;
   const factory CoinEvent.sortBy24hChangeDesc() = _SortBy24hChangeDesc;
+  const factory CoinEvent.init() = _Init;
 }

@@ -20,7 +20,6 @@ mixin _$CoinEvent {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -29,13 +28,13 @@ mixin _$CoinEvent {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -43,13 +42,13 @@ mixin _$CoinEvent {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -57,6 +56,7 @@ mixin _$CoinEvent {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -64,7 +64,6 @@ mixin _$CoinEvent {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -73,13 +72,13 @@ mixin _$CoinEvent {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -88,13 +87,13 @@ mixin _$CoinEvent {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -103,6 +102,7 @@ mixin _$CoinEvent {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -171,7 +171,6 @@ class _$CoinEventImpl implements _CoinEvent {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -180,6 +179,7 @@ class _$CoinEventImpl implements _CoinEvent {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return $default();
   }
@@ -189,7 +189,6 @@ class _$CoinEventImpl implements _CoinEvent {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -197,6 +196,7 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return $default?.call();
   }
@@ -206,7 +206,6 @@ class _$CoinEventImpl implements _CoinEvent {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -214,6 +213,7 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -227,7 +227,6 @@ class _$CoinEventImpl implements _CoinEvent {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -236,6 +235,7 @@ class _$CoinEventImpl implements _CoinEvent {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return $default(this);
   }
@@ -245,7 +245,6 @@ class _$CoinEventImpl implements _CoinEvent {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -254,6 +253,7 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return $default?.call(this);
   }
@@ -263,7 +263,6 @@ class _$CoinEventImpl implements _CoinEvent {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -272,6 +271,7 @@ class _$CoinEventImpl implements _CoinEvent {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -328,7 +328,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -337,6 +336,7 @@ class _$FetchCoinsImpl implements _FetchCoins {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return fetchCoins();
   }
@@ -346,7 +346,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -354,6 +353,7 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return fetchCoins?.call();
   }
@@ -363,7 +363,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -371,6 +370,7 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (fetchCoins != null) {
@@ -384,7 +384,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -393,6 +392,7 @@ class _$FetchCoinsImpl implements _FetchCoins {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return fetchCoins(this);
   }
@@ -402,7 +402,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -411,6 +410,7 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return fetchCoins?.call(this);
   }
@@ -420,7 +420,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -429,6 +428,7 @@ class _$FetchCoinsImpl implements _FetchCoins {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (fetchCoins != null) {
@@ -440,199 +440,6 @@ class _$FetchCoinsImpl implements _FetchCoins {
 
 abstract class _FetchCoins implements CoinEvent {
   const factory _FetchCoins() = _$FetchCoinsImpl;
-}
-
-/// @nodoc
-abstract class _$$UpdateCoinListImplCopyWith<$Res> {
-  factory _$$UpdateCoinListImplCopyWith(_$UpdateCoinListImpl value,
-          $Res Function(_$UpdateCoinListImpl) then) =
-      __$$UpdateCoinListImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({Coin coins});
-}
-
-/// @nodoc
-class __$$UpdateCoinListImplCopyWithImpl<$Res>
-    extends _$CoinEventCopyWithImpl<$Res, _$UpdateCoinListImpl>
-    implements _$$UpdateCoinListImplCopyWith<$Res> {
-  __$$UpdateCoinListImplCopyWithImpl(
-      _$UpdateCoinListImpl _value, $Res Function(_$UpdateCoinListImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of CoinEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? coins = null,
-  }) {
-    return _then(_$UpdateCoinListImpl(
-      null == coins
-          ? _value.coins
-          : coins // ignore: cast_nullable_to_non_nullable
-              as Coin,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UpdateCoinListImpl implements _UpdateCoinList {
-  const _$UpdateCoinListImpl(this.coins);
-
-  @override
-  final Coin coins;
-
-  @override
-  String toString() {
-    return 'CoinEvent.updateCoinList(coins: $coins)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdateCoinListImpl &&
-            (identical(other.coins, coins) || other.coins == coins));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, coins);
-
-  /// Create a copy of CoinEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UpdateCoinListImplCopyWith<_$UpdateCoinListImpl> get copyWith =>
-      __$$UpdateCoinListImplCopyWithImpl<_$UpdateCoinListImpl>(
-          this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function() $default, {
-    required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
-    required TResult Function(List<Coin> coins) fetchCoinSuccess,
-    required TResult Function(String? errorMessage) fetchCoinFailure,
-    required TResult Function(String cryptoSearchString) searchCrypto,
-    required TResult Function(String cryptoSearchString)
-        cryptoSearchStringChanged,
-    required TResult Function() sortByMarketCapDesc,
-    required TResult Function() sortByPriceDesc,
-    required TResult Function() sortBy24hChangeDesc,
-  }) {
-    return updateCoinList(coins);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function()? $default, {
-    TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
-    TResult? Function(List<Coin> coins)? fetchCoinSuccess,
-    TResult? Function(String? errorMessage)? fetchCoinFailure,
-    TResult? Function(String cryptoSearchString)? searchCrypto,
-    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
-    TResult? Function()? sortByMarketCapDesc,
-    TResult? Function()? sortByPriceDesc,
-    TResult? Function()? sortBy24hChangeDesc,
-  }) {
-    return updateCoinList?.call(coins);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function()? $default, {
-    TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
-    TResult Function(List<Coin> coins)? fetchCoinSuccess,
-    TResult Function(String? errorMessage)? fetchCoinFailure,
-    TResult Function(String cryptoSearchString)? searchCrypto,
-    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
-    TResult Function()? sortByMarketCapDesc,
-    TResult Function()? sortByPriceDesc,
-    TResult Function()? sortBy24hChangeDesc,
-    required TResult orElse(),
-  }) {
-    if (updateCoinList != null) {
-      return updateCoinList(coins);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_CoinEvent value) $default, {
-    required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
-    required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
-    required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
-    required TResult Function(_SearchCrypto value) searchCrypto,
-    required TResult Function(_CryptoSearchStringChanged value)
-        cryptoSearchStringChanged,
-    required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
-    required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
-    required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
-  }) {
-    return updateCoinList(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_CoinEvent value)? $default, {
-    TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
-    TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
-    TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
-    TResult? Function(_SearchCrypto value)? searchCrypto,
-    TResult? Function(_CryptoSearchStringChanged value)?
-        cryptoSearchStringChanged,
-    TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
-    TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
-    TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
-  }) {
-    return updateCoinList?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_CoinEvent value)? $default, {
-    TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
-    TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
-    TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
-    TResult Function(_SearchCrypto value)? searchCrypto,
-    TResult Function(_CryptoSearchStringChanged value)?
-        cryptoSearchStringChanged,
-    TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
-    TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
-    TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
-    required TResult orElse(),
-  }) {
-    if (updateCoinList != null) {
-      return updateCoinList(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _UpdateCoinList implements CoinEvent {
-  const factory _UpdateCoinList(final Coin coins) = _$UpdateCoinListImpl;
-
-  Coin get coins;
-
-  /// Create a copy of CoinEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$UpdateCoinListImplCopyWith<_$UpdateCoinListImpl> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -712,7 +519,6 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -721,6 +527,7 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return fetchCoinSuccess(coins);
   }
@@ -730,7 +537,6 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -738,6 +544,7 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return fetchCoinSuccess?.call(coins);
   }
@@ -747,7 +554,6 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -755,6 +561,7 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (fetchCoinSuccess != null) {
@@ -768,7 +575,6 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -777,6 +583,7 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return fetchCoinSuccess(this);
   }
@@ -786,7 +593,6 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -795,6 +601,7 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return fetchCoinSuccess?.call(this);
   }
@@ -804,7 +611,6 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -813,6 +619,7 @@ class _$FetchCoinSuccessImpl implements _FetchCoinSuccess {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (fetchCoinSuccess != null) {
@@ -907,7 +714,6 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -916,6 +722,7 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return fetchCoinFailure(errorMessage);
   }
@@ -925,7 +732,6 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -933,6 +739,7 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return fetchCoinFailure?.call(errorMessage);
   }
@@ -942,7 +749,6 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -950,6 +756,7 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (fetchCoinFailure != null) {
@@ -963,7 +770,6 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -972,6 +778,7 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return fetchCoinFailure(this);
   }
@@ -981,7 +788,6 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -990,6 +796,7 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return fetchCoinFailure?.call(this);
   }
@@ -999,7 +806,6 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -1008,6 +814,7 @@ class _$FetchCoinFailureImpl implements _FetchCoinFailure {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (fetchCoinFailure != null) {
@@ -1101,7 +908,6 @@ class _$SearchCryptoImpl implements _SearchCrypto {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -1110,6 +916,7 @@ class _$SearchCryptoImpl implements _SearchCrypto {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return searchCrypto(cryptoSearchString);
   }
@@ -1119,7 +926,6 @@ class _$SearchCryptoImpl implements _SearchCrypto {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -1127,6 +933,7 @@ class _$SearchCryptoImpl implements _SearchCrypto {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return searchCrypto?.call(cryptoSearchString);
   }
@@ -1136,7 +943,6 @@ class _$SearchCryptoImpl implements _SearchCrypto {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -1144,6 +950,7 @@ class _$SearchCryptoImpl implements _SearchCrypto {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (searchCrypto != null) {
@@ -1157,7 +964,6 @@ class _$SearchCryptoImpl implements _SearchCrypto {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -1166,6 +972,7 @@ class _$SearchCryptoImpl implements _SearchCrypto {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return searchCrypto(this);
   }
@@ -1175,7 +982,6 @@ class _$SearchCryptoImpl implements _SearchCrypto {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -1184,6 +990,7 @@ class _$SearchCryptoImpl implements _SearchCrypto {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return searchCrypto?.call(this);
   }
@@ -1193,7 +1000,6 @@ class _$SearchCryptoImpl implements _SearchCrypto {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -1202,6 +1008,7 @@ class _$SearchCryptoImpl implements _SearchCrypto {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (searchCrypto != null) {
@@ -1298,7 +1105,6 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -1307,6 +1113,7 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return cryptoSearchStringChanged(cryptoSearchString);
   }
@@ -1316,7 +1123,6 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -1324,6 +1130,7 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return cryptoSearchStringChanged?.call(cryptoSearchString);
   }
@@ -1333,7 +1140,6 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -1341,6 +1147,7 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (cryptoSearchStringChanged != null) {
@@ -1354,7 +1161,6 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -1363,6 +1169,7 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return cryptoSearchStringChanged(this);
   }
@@ -1372,7 +1179,6 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -1381,6 +1187,7 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return cryptoSearchStringChanged?.call(this);
   }
@@ -1390,7 +1197,6 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -1399,6 +1205,7 @@ class _$CryptoSearchStringChangedImpl implements _CryptoSearchStringChanged {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (cryptoSearchStringChanged != null) {
@@ -1465,7 +1272,6 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -1474,6 +1280,7 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return sortByMarketCapDesc();
   }
@@ -1483,7 +1290,6 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -1491,6 +1297,7 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return sortByMarketCapDesc?.call();
   }
@@ -1500,7 +1307,6 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -1508,6 +1314,7 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (sortByMarketCapDesc != null) {
@@ -1521,7 +1328,6 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -1530,6 +1336,7 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return sortByMarketCapDesc(this);
   }
@@ -1539,7 +1346,6 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -1548,6 +1354,7 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return sortByMarketCapDesc?.call(this);
   }
@@ -1557,7 +1364,6 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -1566,6 +1372,7 @@ class _$SortByMarketCapDescImpl implements _SortByMarketCapDesc {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (sortByMarketCapDesc != null) {
@@ -1622,7 +1429,6 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -1631,6 +1437,7 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return sortByPriceDesc();
   }
@@ -1640,7 +1447,6 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -1648,6 +1454,7 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return sortByPriceDesc?.call();
   }
@@ -1657,7 +1464,6 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -1665,6 +1471,7 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (sortByPriceDesc != null) {
@@ -1678,7 +1485,6 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -1687,6 +1493,7 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return sortByPriceDesc(this);
   }
@@ -1696,7 +1503,6 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -1705,6 +1511,7 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return sortByPriceDesc?.call(this);
   }
@@ -1714,7 +1521,6 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -1723,6 +1529,7 @@ class _$SortByPriceDescImpl implements _SortByPriceDesc {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (sortByPriceDesc != null) {
@@ -1780,7 +1587,6 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
   TResult when<TResult extends Object?>(
     TResult Function() $default, {
     required TResult Function() fetchCoins,
-    required TResult Function(Coin coins) updateCoinList,
     required TResult Function(List<Coin> coins) fetchCoinSuccess,
     required TResult Function(String? errorMessage) fetchCoinFailure,
     required TResult Function(String cryptoSearchString) searchCrypto,
@@ -1789,6 +1595,7 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
     required TResult Function() sortByMarketCapDesc,
     required TResult Function() sortByPriceDesc,
     required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
   }) {
     return sortBy24hChangeDesc();
   }
@@ -1798,7 +1605,6 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function()? $default, {
     TResult? Function()? fetchCoins,
-    TResult? Function(Coin coins)? updateCoinList,
     TResult? Function(List<Coin> coins)? fetchCoinSuccess,
     TResult? Function(String? errorMessage)? fetchCoinFailure,
     TResult? Function(String cryptoSearchString)? searchCrypto,
@@ -1806,6 +1612,7 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
     TResult? Function()? sortByMarketCapDesc,
     TResult? Function()? sortByPriceDesc,
     TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
   }) {
     return sortBy24hChangeDesc?.call();
   }
@@ -1815,7 +1622,6 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function()? $default, {
     TResult Function()? fetchCoins,
-    TResult Function(Coin coins)? updateCoinList,
     TResult Function(List<Coin> coins)? fetchCoinSuccess,
     TResult Function(String? errorMessage)? fetchCoinFailure,
     TResult Function(String cryptoSearchString)? searchCrypto,
@@ -1823,6 +1629,7 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
     TResult Function()? sortByMarketCapDesc,
     TResult Function()? sortByPriceDesc,
     TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
     required TResult orElse(),
   }) {
     if (sortBy24hChangeDesc != null) {
@@ -1836,7 +1643,6 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
   TResult map<TResult extends Object?>(
     TResult Function(_CoinEvent value) $default, {
     required TResult Function(_FetchCoins value) fetchCoins,
-    required TResult Function(_UpdateCoinList value) updateCoinList,
     required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
     required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
     required TResult Function(_SearchCrypto value) searchCrypto,
@@ -1845,6 +1651,7 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
     required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
     required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
     required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
   }) {
     return sortBy24hChangeDesc(this);
   }
@@ -1854,7 +1661,6 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
   TResult? mapOrNull<TResult extends Object?>(
     TResult? Function(_CoinEvent value)? $default, {
     TResult? Function(_FetchCoins value)? fetchCoins,
-    TResult? Function(_UpdateCoinList value)? updateCoinList,
     TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult? Function(_SearchCrypto value)? searchCrypto,
@@ -1863,6 +1669,7 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
     TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
   }) {
     return sortBy24hChangeDesc?.call(this);
   }
@@ -1872,7 +1679,6 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
   TResult maybeMap<TResult extends Object?>(
     TResult Function(_CoinEvent value)? $default, {
     TResult Function(_FetchCoins value)? fetchCoins,
-    TResult Function(_UpdateCoinList value)? updateCoinList,
     TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
     TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
     TResult Function(_SearchCrypto value)? searchCrypto,
@@ -1881,6 +1687,7 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
     TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
     TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
     TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
     required TResult orElse(),
   }) {
     if (sortBy24hChangeDesc != null) {
@@ -1892,6 +1699,162 @@ class _$SortBy24hChangeDescImpl implements _SortBy24hChangeDesc {
 
 abstract class _SortBy24hChangeDesc implements CoinEvent {
   const factory _SortBy24hChangeDesc() = _$SortBy24hChangeDescImpl;
+}
+
+/// @nodoc
+abstract class _$$InitImplCopyWith<$Res> {
+  factory _$$InitImplCopyWith(
+          _$InitImpl value, $Res Function(_$InitImpl) then) =
+      __$$InitImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$InitImplCopyWithImpl<$Res>
+    extends _$CoinEventCopyWithImpl<$Res, _$InitImpl>
+    implements _$$InitImplCopyWith<$Res> {
+  __$$InitImplCopyWithImpl(_$InitImpl _value, $Res Function(_$InitImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CoinEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$InitImpl implements _Init {
+  const _$InitImpl();
+
+  @override
+  String toString() {
+    return 'CoinEvent.init()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$InitImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() fetchCoins,
+    required TResult Function(List<Coin> coins) fetchCoinSuccess,
+    required TResult Function(String? errorMessage) fetchCoinFailure,
+    required TResult Function(String cryptoSearchString) searchCrypto,
+    required TResult Function(String cryptoSearchString)
+        cryptoSearchStringChanged,
+    required TResult Function() sortByMarketCapDesc,
+    required TResult Function() sortByPriceDesc,
+    required TResult Function() sortBy24hChangeDesc,
+    required TResult Function() init,
+  }) {
+    return init();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function()? fetchCoins,
+    TResult? Function(List<Coin> coins)? fetchCoinSuccess,
+    TResult? Function(String? errorMessage)? fetchCoinFailure,
+    TResult? Function(String cryptoSearchString)? searchCrypto,
+    TResult? Function(String cryptoSearchString)? cryptoSearchStringChanged,
+    TResult? Function()? sortByMarketCapDesc,
+    TResult? Function()? sortByPriceDesc,
+    TResult? Function()? sortBy24hChangeDesc,
+    TResult? Function()? init,
+  }) {
+    return init?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? fetchCoins,
+    TResult Function(List<Coin> coins)? fetchCoinSuccess,
+    TResult Function(String? errorMessage)? fetchCoinFailure,
+    TResult Function(String cryptoSearchString)? searchCrypto,
+    TResult Function(String cryptoSearchString)? cryptoSearchStringChanged,
+    TResult Function()? sortByMarketCapDesc,
+    TResult Function()? sortByPriceDesc,
+    TResult Function()? sortBy24hChangeDesc,
+    TResult Function()? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_CoinEvent value) $default, {
+    required TResult Function(_FetchCoins value) fetchCoins,
+    required TResult Function(_FetchCoinSuccess value) fetchCoinSuccess,
+    required TResult Function(_FetchCoinFailure value) fetchCoinFailure,
+    required TResult Function(_SearchCrypto value) searchCrypto,
+    required TResult Function(_CryptoSearchStringChanged value)
+        cryptoSearchStringChanged,
+    required TResult Function(_SortByMarketCapDesc value) sortByMarketCapDesc,
+    required TResult Function(_SortByPriceDesc value) sortByPriceDesc,
+    required TResult Function(_SortBy24hChangeDesc value) sortBy24hChangeDesc,
+    required TResult Function(_Init value) init,
+  }) {
+    return init(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_CoinEvent value)? $default, {
+    TResult? Function(_FetchCoins value)? fetchCoins,
+    TResult? Function(_FetchCoinSuccess value)? fetchCoinSuccess,
+    TResult? Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult? Function(_SearchCrypto value)? searchCrypto,
+    TResult? Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
+    TResult? Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
+    TResult? Function(_SortByPriceDesc value)? sortByPriceDesc,
+    TResult? Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult? Function(_Init value)? init,
+  }) {
+    return init?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_CoinEvent value)? $default, {
+    TResult Function(_FetchCoins value)? fetchCoins,
+    TResult Function(_FetchCoinSuccess value)? fetchCoinSuccess,
+    TResult Function(_FetchCoinFailure value)? fetchCoinFailure,
+    TResult Function(_SearchCrypto value)? searchCrypto,
+    TResult Function(_CryptoSearchStringChanged value)?
+        cryptoSearchStringChanged,
+    TResult Function(_SortByMarketCapDesc value)? sortByMarketCapDesc,
+    TResult Function(_SortByPriceDesc value)? sortByPriceDesc,
+    TResult Function(_SortBy24hChangeDesc value)? sortBy24hChangeDesc,
+    TResult Function(_Init value)? init,
+    required TResult orElse(),
+  }) {
+    if (init != null) {
+      return init(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Init implements CoinEvent {
+  const factory _Init() = _$InitImpl;
 }
 
 /// @nodoc

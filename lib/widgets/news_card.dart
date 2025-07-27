@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -51,30 +52,42 @@ class NewsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.grey.withAlpha(3),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.shade600,
-                                offset: const Offset(7, 10),
-                                blurRadius: 16,
-                                spreadRadius: 1),
-                            const BoxShadow(
-                                color: Colors.white70,
-                                offset: Offset(-10, -7),
-                                blurRadius: 16,
-                                spreadRadius: 1),
-                          ]),
-                      height: 15.h,
-                      width: 15.w,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.network(urlToImage),
-                      )),
-                ),
+                    padding: const EdgeInsets.all(15.0),
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.grey.withAlpha(3),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.shade600,
+                                  offset: const Offset(7, 10),
+                                  blurRadius: 16,
+                                  spreadRadius: 1),
+                              const BoxShadow(
+                                  color: Colors.white70,
+                                  offset: Offset(-10, -7),
+                                  blurRadius: 16,
+                                  spreadRadius: 1),
+                            ]),
+                        height: 15.h,
+                        width: 15.w,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: CachedNetworkImage(
+                            imageUrl: urlToImage,
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.black),
+                            ),
+                            errorWidget: (context, url, error) => const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: 50,
+                            ),
+                          ),
+                        ))),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

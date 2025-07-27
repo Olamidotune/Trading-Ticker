@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'coin_client.dart';
+part of 'news_client.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'coin_client.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _CoinClient implements CoinClient {
-  _CoinClient(
+class _NewsClient implements NewsClient {
+  _NewsClient(
     this._dio, {
     this.baseUrl,
   });
@@ -19,20 +19,21 @@ class _CoinClient implements CoinClient {
   String? baseUrl;
 
   @override
-  Future<List<Coin>> getCoins() async {
+  Future<News> getNews(String? searchKey) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
     final _result =
-        await _dio.fetch<List<dynamic>>(_setStreamType<List<Coin>>(Options(
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<News>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=5&page=1&sparkline=false',
+              'https://newsapi.org/v2/everything?q=${searchKey}&apiKey=9c337956eae7413bbc102eb80bc23327',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -41,9 +42,7 @@ class _CoinClient implements CoinClient {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var _value = _result.data!
-        .map((dynamic i) => Coin.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final _value = News.fromJson(_result.data!);
     return _value;
   }
 

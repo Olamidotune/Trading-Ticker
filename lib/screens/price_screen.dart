@@ -21,11 +21,11 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<CoinBloc>().add(const CoinEvent.fetchCoins());
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   context.read<CoinBloc>().add(const CoinEvent.fetchCoins());
+  // }
 
   @override
   Widget build(BuildContext context) {

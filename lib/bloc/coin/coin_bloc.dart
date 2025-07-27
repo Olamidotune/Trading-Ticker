@@ -26,15 +26,22 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_SortBy24hChangeDesc>(_sortBy24hChangeDesc);
     on<_SortByMarketCapDesc>(_sortByMarketCapDesc);
     on<_SortByPriceDesc>(_sortByPriceDesc);
+    on<_Init>(_init);
 
+    add(const CoinEvent.init());
     _startPolling();
+  }
+
+  void _init(_Init event, Emitter<CoinState> emit) {
+    emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.initial));
+    add(const CoinEvent.fetchCoins());
+    logInfo('CoinBloc initialized');
   }
 
   void _startPolling() {
     _timer = Timer.periodic(const Duration(minutes: 1), (_) {
       add(const CoinEvent.fetchCoins());
     });
-    logInfo('CoinBloc started polling every 30 seconds');
   }
 
   void _fetchCoins(_FetchCoins event, Emitter<CoinState> emit) async {
