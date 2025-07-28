@@ -55,14 +55,8 @@ class CustomTextFormField extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.topLeft,
-          child: Text(
-            title ?? '',
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: AppColors.textColor,
-                  fontWeight: FontWeight.w300,
-                  fontSize: 12,
-                ),
-          ),
+          child:
+              Text(title ?? '', style: Theme.of(context).textTheme.bodySmall),
         ),
         AppSpacing.verticalSpaceSmall,
         TextFormField(
@@ -71,10 +65,7 @@ class CustomTextFormField extends StatelessWidget {
           onEditingComplete: onFieldSubmitted,
           onChanged: onChanged,
           readOnly: readOnly,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 14,
-                color: AppColors.textColor,
-              ),
+          style: Theme.of(context).textTheme.bodyMedium,
           focusNode: focusNode,
           textInputAction: textInputAction,
           controller: controller,
@@ -99,10 +90,9 @@ class CustomTextFormField extends StatelessWidget {
               padding: const EdgeInsets.all(15),
               child: prefixIcon == null
                   ? null
-                  : SvgPicture.asset(
-                      'assets/svg/$prefixIcon.svg',
-                      color: AppColors.greyColor.withOpacity(1),
-                    ),
+                  : SvgPicture.asset('assets/svg/$prefixIcon.svg',
+                      colorFilter: const ColorFilter.mode(
+                          AppColors.greyColor, BlendMode.srcIn)),
             ),
             suffixIcon: customFilled ?? false
                 ? Padding(

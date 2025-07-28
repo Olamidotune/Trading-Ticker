@@ -1,80 +1,96 @@
+import 'dart:io';
+
+import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Button extends StatelessWidget {
-  const Button({
-    required this.text,
-    this.onPressed,
-    this.buttonColor = Colors.blue,
-    this.textColor = Colors.white,
-    this.busy = false,
-    this.pill = false,
-    this.deleteButton = false,
-    this.isWeb = false,
-    super.key,
-  });
-
-  final String text;
   final VoidCallback? onPressed;
-  final Color buttonColor;
+  final String? text;
   final Color textColor;
+  final Color disabledTextColor;
+  final Color? color;
+  final IconData? icon;
+  final Color? iconColor;
   final bool busy;
   final bool pill;
-  final bool deleteButton;
-  final bool isWeb;
+  final String? busyText;
+
+  const Button(
+    this.text, {
+    super.key,
+    this.onPressed,
+    this.color,
+    this.icon,
+    this.iconColor,
+    this.textColor = Colors.white,
+    this.disabledTextColor = Colors.white,
+    this.busy = false,
+    this.pill = false,
+    this.busyText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 45,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: double.infinity,
+        maxWidth: double.infinity,
+        minHeight: 52.0,
+      ),
       child: ElevatedButton(
-        onPressed: onPressed,
         style: ButtonStyle(
-          enableFeedback: true,
-          backgroundColor: WidgetStateProperty.resolveWith<Color>(
-            (states) {
-              if (states.contains(WidgetState.pressed)) {
-                return buttonColor.withOpacity(0.5);
-              } else if (states.contains(WidgetState.disabled)) {
-                return buttonColor.withOpacity(0.5);
-              }
-              return buttonColor;
-            },
-          ),
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((
+            Set<WidgetState> states,
+          ) {
+            if (states.contains(WidgetState.pressed)) {
+              return AppColors.primaryColor;
+            } else if (states.contains(WidgetState.disabled)) {
+              return AppColors.darkSurface;
+            }
+            return color ?? AppColors.primaryColor;
+          }),
+          padding:
+              WidgetStateProperty.all<EdgeInsets>(const EdgeInsets.all(10)),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              side: BorderSide(
-                color: deleteButton
-                    ? Colors.red
-                    : buttonColor == Colors.white
-                        ? Colors.blue
-                        : Colors.grey,
-              ),
-              borderRadius: BorderRadius.circular(pill ? 50 : 10),
+              borderRadius: BorderRadius.all(Radius.circular(pill ? 40 : 10.0)),
             ),
           ),
         ),
+        onPressed: onPressed,
         child: busy
-            ? const SizedBox(
-                width: 20,
-                height: 20,
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ),
-              )
-            : Text(
-                text,
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                      fontSize: isWeb ? 24 : 16,
-                      color: deleteButton
-                          ? Colors.red
-                          : buttonColor == Colors.white
-                              ? Colors.blue
-                              : textColor,
-                      fontWeight: FontWeight.w500,
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 20.0,
+                    height: 20.0,
+                    child: CircularProgressIndicator.adaptive(
+                      valueColor:
+                          const AlwaysStoppedAnimation<Color>(Colors.white),
+                      backgroundColor: Platform.isIOS ? Colors.white : null,
                     ),
-                textAlign: TextAlign.center,
-              ),
+                  ),
+                  if (busyText != null)
+                    Text(
+                      "     $busyText",
+                      style:
+                          const TextStyle(color: Colors.white, fontSize: 16.0),
+                      textAlign: TextAlign.center,
+                    ),
+                ],
+              )
+            : (icon == null
+                ? Text(
+                    text!,
+                    style: TextStyle(
+                      color: onPressed == null ? disabledTextColor : textColor,
+                      fontSize: 16.0,
+                      fontFamily: "HelveticaRounded",
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                : Icon(icon, color: iconColor ?? Colors.black)),
       ),
     );
   }

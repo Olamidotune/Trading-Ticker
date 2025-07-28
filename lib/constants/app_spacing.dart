@@ -29,7 +29,7 @@ class AppSpacing {
   static SizedBox horizontalSpaceHuge = SizedBox(width: 32);
   static SizedBox horizontalSpaceMassive = SizedBox(width: 40);
 
-  static double horizontalSpacing = 16;
+  static double horizontalSpacing = 20;
   static double horizontalSpacingTiny = 4;
   static double horizontalSpacingSmall = 8;
   static double horizontalSpacingMedium = 20;

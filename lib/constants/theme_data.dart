@@ -1,6 +1,7 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
+//LIGHT MODE
 final ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: AppColors.lightBg,
@@ -43,6 +44,7 @@ final ThemeData lightTheme = ThemeData(
   ),
 );
 
+//DARK MODE
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: AppColors.darkBg,
@@ -51,7 +53,6 @@ final ThemeData darkTheme = ThemeData(
     primary: AppColors.accentNeon,
     secondary: AppColors.accentNeon,
     surface: AppColors.darkSurface,
-    background: AppColors.darkBg,
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: AppColors.darkSurface,
@@ -65,7 +66,7 @@ final ThemeData darkTheme = ThemeData(
   ),
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(color: AppColors.mutedText),
+    bodyMedium: TextStyle(color: AppColors.whiteColor),
     displaySmall: TextStyle(color: AppColors.accentNeon, fontSize: 18),
   ),
   inputDecorationTheme: InputDecorationTheme(
