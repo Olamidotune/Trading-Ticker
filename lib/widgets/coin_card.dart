@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -104,8 +105,10 @@ class CoinCard extends StatelessWidget {
                 const Spacer(),
                 Text(
                   '\$${formatPrices(coinPrice)}',
-                  style:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.blackColor),
                 ),
               ],
             ),
