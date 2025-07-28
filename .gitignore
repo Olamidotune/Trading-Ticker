@@ -51,7 +51,15 @@ app.*.map.json
 # Android NDK build artifacts
 android/app/.cxx/
 
-
-# ios/GoogleService-Info.plist
-
 .env
+
+
+# iOS related
+/ios/build/
+
+# Generated Files.
+*.g.dart
+*.freezed.dart
+
+#Firebase
+lib/firebase_options.dart
