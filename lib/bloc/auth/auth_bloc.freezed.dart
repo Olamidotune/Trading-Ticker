@@ -22,6 +22,9 @@ mixin _$AuthEvent {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -36,6 +39,9 @@ mixin _$AuthEvent {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -50,6 +56,9 @@ mixin _$AuthEvent {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -65,6 +74,9 @@ mixin _$AuthEvent {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -80,6 +92,9 @@ mixin _$AuthEvent {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -94,6 +109,9 @@ mixin _$AuthEvent {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -170,6 +188,9 @@ class _$AuthEventImpl implements _AuthEvent {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -187,6 +208,9 @@ class _$AuthEventImpl implements _AuthEvent {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -204,6 +228,9 @@ class _$AuthEventImpl implements _AuthEvent {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -225,6 +252,9 @@ class _$AuthEventImpl implements _AuthEvent {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -243,6 +273,9 @@ class _$AuthEventImpl implements _AuthEvent {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -260,6 +293,9 @@ class _$AuthEventImpl implements _AuthEvent {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -324,6 +360,9 @@ class _$SignUpImpl implements _SignUp {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -341,6 +380,9 @@ class _$SignUpImpl implements _SignUp {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -358,6 +400,9 @@ class _$SignUpImpl implements _SignUp {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -379,6 +424,9 @@ class _$SignUpImpl implements _SignUp {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -397,6 +445,9 @@ class _$SignUpImpl implements _SignUp {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -414,6 +465,9 @@ class _$SignUpImpl implements _SignUp {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -478,6 +532,9 @@ class _$SignUpSuccessImpl implements _SignUpSuccess {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -495,6 +552,9 @@ class _$SignUpSuccessImpl implements _SignUpSuccess {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -512,6 +572,9 @@ class _$SignUpSuccessImpl implements _SignUpSuccess {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -533,6 +596,9 @@ class _$SignUpSuccessImpl implements _SignUpSuccess {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -551,6 +617,9 @@ class _$SignUpSuccessImpl implements _SignUpSuccess {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -568,6 +637,9 @@ class _$SignUpSuccessImpl implements _SignUpSuccess {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -660,6 +732,9 @@ class _$SignUpFailureImpl implements _SignUpFailure {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -677,6 +752,9 @@ class _$SignUpFailureImpl implements _SignUpFailure {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -694,6 +772,9 @@ class _$SignUpFailureImpl implements _SignUpFailure {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -715,6 +796,9 @@ class _$SignUpFailureImpl implements _SignUpFailure {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -733,6 +817,9 @@ class _$SignUpFailureImpl implements _SignUpFailure {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -750,6 +837,9 @@ class _$SignUpFailureImpl implements _SignUpFailure {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -774,6 +864,558 @@ abstract class _SignUpFailure implements AuthEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SignUpFailureImplCopyWith<_$SignUpFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$SignInImplCopyWith<$Res> {
+  factory _$$SignInImplCopyWith(
+          _$SignInImpl value, $Res Function(_$SignInImpl) then) =
+      __$$SignInImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignInImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SignInImpl>
+    implements _$$SignInImplCopyWith<$Res> {
+  __$$SignInImplCopyWithImpl(
+      _$SignInImpl _value, $Res Function(_$SignInImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SignInImpl implements _SignIn {
+  const _$SignInImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.signIn()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SignInImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() signUp,
+    required TResult Function() signUpSuccess,
+    required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confirmPassword) confirmPasswordChanged,
+    required TResult Function(String fullName) fullNameChanged,
+    required TResult Function() init,
+    required TResult Function(String? errorMessage) errorMessage,
+  }) {
+    return signIn();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function()? signUp,
+    TResult? Function()? signUpSuccess,
+    TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confirmPassword)? confirmPasswordChanged,
+    TResult? Function(String fullName)? fullNameChanged,
+    TResult? Function()? init,
+    TResult? Function(String? errorMessage)? errorMessage,
+  }) {
+    return signIn?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? signUp,
+    TResult Function()? signUpSuccess,
+    TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confirmPassword)? confirmPasswordChanged,
+    TResult Function(String fullName)? fullNameChanged,
+    TResult Function()? init,
+    TResult Function(String? errorMessage)? errorMessage,
+    required TResult orElse(),
+  }) {
+    if (signIn != null) {
+      return signIn();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_AuthEvent value) $default, {
+    required TResult Function(_SignUp value) signUp,
+    required TResult Function(_SignUpSuccess value) signUpSuccess,
+    required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
+    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_PasswordChanged value) passwordChanged,
+    required TResult Function(_ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(_FullNameChanged value) fullNameChanged,
+    required TResult Function(_Init value) init,
+    required TResult Function(_ErrorMessage value) errorMessage,
+  }) {
+    return signIn(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_AuthEvent value)? $default, {
+    TResult? Function(_SignUp value)? signUp,
+    TResult? Function(_SignUpSuccess value)? signUpSuccess,
+    TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
+    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_PasswordChanged value)? passwordChanged,
+    TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(_FullNameChanged value)? fullNameChanged,
+    TResult? Function(_Init value)? init,
+    TResult? Function(_ErrorMessage value)? errorMessage,
+  }) {
+    return signIn?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_AuthEvent value)? $default, {
+    TResult Function(_SignUp value)? signUp,
+    TResult Function(_SignUpSuccess value)? signUpSuccess,
+    TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
+    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_PasswordChanged value)? passwordChanged,
+    TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(_FullNameChanged value)? fullNameChanged,
+    TResult Function(_Init value)? init,
+    TResult Function(_ErrorMessage value)? errorMessage,
+    required TResult orElse(),
+  }) {
+    if (signIn != null) {
+      return signIn(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignIn implements AuthEvent {
+  const factory _SignIn() = _$SignInImpl;
+}
+
+/// @nodoc
+abstract class _$$SignInSuccessImplCopyWith<$Res> {
+  factory _$$SignInSuccessImplCopyWith(
+          _$SignInSuccessImpl value, $Res Function(_$SignInSuccessImpl) then) =
+      __$$SignInSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$SignInSuccessImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SignInSuccessImpl>
+    implements _$$SignInSuccessImplCopyWith<$Res> {
+  __$$SignInSuccessImplCopyWithImpl(
+      _$SignInSuccessImpl _value, $Res Function(_$SignInSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$SignInSuccessImpl implements _SignInSuccess {
+  const _$SignInSuccessImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.signInSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$SignInSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() signUp,
+    required TResult Function() signUpSuccess,
+    required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confirmPassword) confirmPasswordChanged,
+    required TResult Function(String fullName) fullNameChanged,
+    required TResult Function() init,
+    required TResult Function(String? errorMessage) errorMessage,
+  }) {
+    return signInSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function()? signUp,
+    TResult? Function()? signUpSuccess,
+    TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confirmPassword)? confirmPasswordChanged,
+    TResult? Function(String fullName)? fullNameChanged,
+    TResult? Function()? init,
+    TResult? Function(String? errorMessage)? errorMessage,
+  }) {
+    return signInSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? signUp,
+    TResult Function()? signUpSuccess,
+    TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confirmPassword)? confirmPasswordChanged,
+    TResult Function(String fullName)? fullNameChanged,
+    TResult Function()? init,
+    TResult Function(String? errorMessage)? errorMessage,
+    required TResult orElse(),
+  }) {
+    if (signInSuccess != null) {
+      return signInSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_AuthEvent value) $default, {
+    required TResult Function(_SignUp value) signUp,
+    required TResult Function(_SignUpSuccess value) signUpSuccess,
+    required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
+    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_PasswordChanged value) passwordChanged,
+    required TResult Function(_ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(_FullNameChanged value) fullNameChanged,
+    required TResult Function(_Init value) init,
+    required TResult Function(_ErrorMessage value) errorMessage,
+  }) {
+    return signInSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_AuthEvent value)? $default, {
+    TResult? Function(_SignUp value)? signUp,
+    TResult? Function(_SignUpSuccess value)? signUpSuccess,
+    TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
+    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_PasswordChanged value)? passwordChanged,
+    TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(_FullNameChanged value)? fullNameChanged,
+    TResult? Function(_Init value)? init,
+    TResult? Function(_ErrorMessage value)? errorMessage,
+  }) {
+    return signInSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_AuthEvent value)? $default, {
+    TResult Function(_SignUp value)? signUp,
+    TResult Function(_SignUpSuccess value)? signUpSuccess,
+    TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
+    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_PasswordChanged value)? passwordChanged,
+    TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(_FullNameChanged value)? fullNameChanged,
+    TResult Function(_Init value)? init,
+    TResult Function(_ErrorMessage value)? errorMessage,
+    required TResult orElse(),
+  }) {
+    if (signInSuccess != null) {
+      return signInSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignInSuccess implements AuthEvent {
+  const factory _SignInSuccess() = _$SignInSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$SignInFailureImplCopyWith<$Res> {
+  factory _$$SignInFailureImplCopyWith(
+          _$SignInFailureImpl value, $Res Function(_$SignInFailureImpl) then) =
+      __$$SignInFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$SignInFailureImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$SignInFailureImpl>
+    implements _$$SignInFailureImplCopyWith<$Res> {
+  __$$SignInFailureImplCopyWithImpl(
+      _$SignInFailureImpl _value, $Res Function(_$SignInFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$SignInFailureImpl(
+      null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SignInFailureImpl implements _SignInFailure {
+  const _$SignInFailureImpl(this.errorMessage);
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'AuthEvent.signInFailure(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SignInFailureImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SignInFailureImplCopyWith<_$SignInFailureImpl> get copyWith =>
+      __$$SignInFailureImplCopyWithImpl<_$SignInFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>(
+    TResult Function() $default, {
+    required TResult Function() signUp,
+    required TResult Function() signUpSuccess,
+    required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
+    required TResult Function(String email) emailChanged,
+    required TResult Function(String password) passwordChanged,
+    required TResult Function(String confirmPassword) confirmPasswordChanged,
+    required TResult Function(String fullName) fullNameChanged,
+    required TResult Function() init,
+    required TResult Function(String? errorMessage) errorMessage,
+  }) {
+    return signInFailure(this.errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult? Function()? $default, {
+    TResult? Function()? signUp,
+    TResult? Function()? signUpSuccess,
+    TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
+    TResult? Function(String email)? emailChanged,
+    TResult? Function(String password)? passwordChanged,
+    TResult? Function(String confirmPassword)? confirmPasswordChanged,
+    TResult? Function(String fullName)? fullNameChanged,
+    TResult? Function()? init,
+    TResult? Function(String? errorMessage)? errorMessage,
+  }) {
+    return signInFailure?.call(this.errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function()? $default, {
+    TResult Function()? signUp,
+    TResult Function()? signUpSuccess,
+    TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
+    TResult Function(String email)? emailChanged,
+    TResult Function(String password)? passwordChanged,
+    TResult Function(String confirmPassword)? confirmPasswordChanged,
+    TResult Function(String fullName)? fullNameChanged,
+    TResult Function()? init,
+    TResult Function(String? errorMessage)? errorMessage,
+    required TResult orElse(),
+  }) {
+    if (signInFailure != null) {
+      return signInFailure(this.errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>(
+    TResult Function(_AuthEvent value) $default, {
+    required TResult Function(_SignUp value) signUp,
+    required TResult Function(_SignUpSuccess value) signUpSuccess,
+    required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
+    required TResult Function(_EmailChanged value) emailChanged,
+    required TResult Function(_PasswordChanged value) passwordChanged,
+    required TResult Function(_ConfirmPasswordChanged value)
+        confirmPasswordChanged,
+    required TResult Function(_FullNameChanged value) fullNameChanged,
+    required TResult Function(_Init value) init,
+    required TResult Function(_ErrorMessage value) errorMessage,
+  }) {
+    return signInFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult? Function(_AuthEvent value)? $default, {
+    TResult? Function(_SignUp value)? signUp,
+    TResult? Function(_SignUpSuccess value)? signUpSuccess,
+    TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
+    TResult? Function(_EmailChanged value)? emailChanged,
+    TResult? Function(_PasswordChanged value)? passwordChanged,
+    TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult? Function(_FullNameChanged value)? fullNameChanged,
+    TResult? Function(_Init value)? init,
+    TResult? Function(_ErrorMessage value)? errorMessage,
+  }) {
+    return signInFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(_AuthEvent value)? $default, {
+    TResult Function(_SignUp value)? signUp,
+    TResult Function(_SignUpSuccess value)? signUpSuccess,
+    TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
+    TResult Function(_EmailChanged value)? emailChanged,
+    TResult Function(_PasswordChanged value)? passwordChanged,
+    TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
+    TResult Function(_FullNameChanged value)? fullNameChanged,
+    TResult Function(_Init value)? init,
+    TResult Function(_ErrorMessage value)? errorMessage,
+    required TResult orElse(),
+  }) {
+    if (signInFailure != null) {
+      return signInFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _SignInFailure implements AuthEvent {
+  const factory _SignInFailure(final String errorMessage) = _$SignInFailureImpl;
+
+  String get errorMessage;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SignInFailureImplCopyWith<_$SignInFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -849,6 +1491,9 @@ class _$EmailChangedImpl implements _EmailChanged {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -866,6 +1511,9 @@ class _$EmailChangedImpl implements _EmailChanged {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -883,6 +1531,9 @@ class _$EmailChangedImpl implements _EmailChanged {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -904,6 +1555,9 @@ class _$EmailChangedImpl implements _EmailChanged {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -922,6 +1576,9 @@ class _$EmailChangedImpl implements _EmailChanged {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -939,6 +1596,9 @@ class _$EmailChangedImpl implements _EmailChanged {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1040,6 +1700,9 @@ class _$PasswordChangedImpl implements _PasswordChanged {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -1057,6 +1720,9 @@ class _$PasswordChangedImpl implements _PasswordChanged {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -1074,6 +1740,9 @@ class _$PasswordChangedImpl implements _PasswordChanged {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -1095,6 +1764,9 @@ class _$PasswordChangedImpl implements _PasswordChanged {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -1113,6 +1785,9 @@ class _$PasswordChangedImpl implements _PasswordChanged {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1130,6 +1805,9 @@ class _$PasswordChangedImpl implements _PasswordChanged {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1233,6 +1911,9 @@ class _$ConfirmPasswordChangedImpl implements _ConfirmPasswordChanged {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -1250,6 +1931,9 @@ class _$ConfirmPasswordChangedImpl implements _ConfirmPasswordChanged {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -1267,6 +1951,9 @@ class _$ConfirmPasswordChangedImpl implements _ConfirmPasswordChanged {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -1288,6 +1975,9 @@ class _$ConfirmPasswordChangedImpl implements _ConfirmPasswordChanged {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -1306,6 +1996,9 @@ class _$ConfirmPasswordChangedImpl implements _ConfirmPasswordChanged {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1323,6 +2016,9 @@ class _$ConfirmPasswordChangedImpl implements _ConfirmPasswordChanged {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1425,6 +2121,9 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -1442,6 +2141,9 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -1459,6 +2161,9 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -1480,6 +2185,9 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -1498,6 +2206,9 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1515,6 +2226,9 @@ class _$FullNameChangedImpl implements _FullNameChanged {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1586,6 +2300,9 @@ class _$InitImpl implements _Init {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -1603,6 +2320,9 @@ class _$InitImpl implements _Init {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -1620,6 +2340,9 @@ class _$InitImpl implements _Init {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -1641,6 +2364,9 @@ class _$InitImpl implements _Init {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -1659,6 +2385,9 @@ class _$InitImpl implements _Init {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1676,6 +2405,9 @@ class _$InitImpl implements _Init {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1768,6 +2500,9 @@ class _$ErrorMessageImpl implements _ErrorMessage {
     required TResult Function() signUp,
     required TResult Function() signUpSuccess,
     required TResult Function(String errorMessage) signUpFailure,
+    required TResult Function() signIn,
+    required TResult Function() signInSuccess,
+    required TResult Function(String errorMessage) signInFailure,
     required TResult Function(String email) emailChanged,
     required TResult Function(String password) passwordChanged,
     required TResult Function(String confirmPassword) confirmPasswordChanged,
@@ -1785,6 +2520,9 @@ class _$ErrorMessageImpl implements _ErrorMessage {
     TResult? Function()? signUp,
     TResult? Function()? signUpSuccess,
     TResult? Function(String errorMessage)? signUpFailure,
+    TResult? Function()? signIn,
+    TResult? Function()? signInSuccess,
+    TResult? Function(String errorMessage)? signInFailure,
     TResult? Function(String email)? emailChanged,
     TResult? Function(String password)? passwordChanged,
     TResult? Function(String confirmPassword)? confirmPasswordChanged,
@@ -1802,6 +2540,9 @@ class _$ErrorMessageImpl implements _ErrorMessage {
     TResult Function()? signUp,
     TResult Function()? signUpSuccess,
     TResult Function(String errorMessage)? signUpFailure,
+    TResult Function()? signIn,
+    TResult Function()? signInSuccess,
+    TResult Function(String errorMessage)? signInFailure,
     TResult Function(String email)? emailChanged,
     TResult Function(String password)? passwordChanged,
     TResult Function(String confirmPassword)? confirmPasswordChanged,
@@ -1823,6 +2564,9 @@ class _$ErrorMessageImpl implements _ErrorMessage {
     required TResult Function(_SignUp value) signUp,
     required TResult Function(_SignUpSuccess value) signUpSuccess,
     required TResult Function(_SignUpFailure value) signUpFailure,
+    required TResult Function(_SignIn value) signIn,
+    required TResult Function(_SignInSuccess value) signInSuccess,
+    required TResult Function(_SignInFailure value) signInFailure,
     required TResult Function(_EmailChanged value) emailChanged,
     required TResult Function(_PasswordChanged value) passwordChanged,
     required TResult Function(_ConfirmPasswordChanged value)
@@ -1841,6 +2585,9 @@ class _$ErrorMessageImpl implements _ErrorMessage {
     TResult? Function(_SignUp value)? signUp,
     TResult? Function(_SignUpSuccess value)? signUpSuccess,
     TResult? Function(_SignUpFailure value)? signUpFailure,
+    TResult? Function(_SignIn value)? signIn,
+    TResult? Function(_SignInSuccess value)? signInSuccess,
+    TResult? Function(_SignInFailure value)? signInFailure,
     TResult? Function(_EmailChanged value)? emailChanged,
     TResult? Function(_PasswordChanged value)? passwordChanged,
     TResult? Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1858,6 +2605,9 @@ class _$ErrorMessageImpl implements _ErrorMessage {
     TResult Function(_SignUp value)? signUp,
     TResult Function(_SignUpSuccess value)? signUpSuccess,
     TResult Function(_SignUpFailure value)? signUpFailure,
+    TResult Function(_SignIn value)? signIn,
+    TResult Function(_SignInSuccess value)? signInSuccess,
+    TResult Function(_SignInFailure value)? signInFailure,
     TResult Function(_EmailChanged value)? emailChanged,
     TResult Function(_PasswordChanged value)? passwordChanged,
     TResult Function(_ConfirmPasswordChanged value)? confirmPasswordChanged,
@@ -1889,6 +2639,7 @@ abstract class _ErrorMessage implements AuthEvent {
 /// @nodoc
 mixin _$AuthState {
   FormzSubmissionStatus get signUpStatus => throw _privateConstructorUsedError;
+  FormzSubmissionStatus get signInStatus => throw _privateConstructorUsedError;
   EmailFormz get email => throw _privateConstructorUsedError;
   PasswordFormz get password => throw _privateConstructorUsedError;
   ConfirmPasswordFormz get confirmPassword =>
@@ -1912,6 +2663,7 @@ abstract class $AuthStateCopyWith<$Res> {
   @useResult
   $Res call(
       {FormzSubmissionStatus signUpStatus,
+      FormzSubmissionStatus signInStatus,
       EmailFormz email,
       PasswordFormz password,
       ConfirmPasswordFormz confirmPassword,
@@ -1937,6 +2689,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
   @override
   $Res call({
     Object? signUpStatus = null,
+    Object? signInStatus = null,
     Object? email = null,
     Object? password = null,
     Object? confirmPassword = null,
@@ -1949,6 +2702,10 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
       signUpStatus: null == signUpStatus
           ? _value.signUpStatus
           : signUpStatus // ignore: cast_nullable_to_non_nullable
+              as FormzSubmissionStatus,
+      signInStatus: null == signInStatus
+          ? _value.signInStatus
+          : signInStatus // ignore: cast_nullable_to_non_nullable
               as FormzSubmissionStatus,
       email: null == email
           ? _value.email
@@ -1992,6 +2749,7 @@ abstract class _$$AuthStateImplCopyWith<$Res>
   @useResult
   $Res call(
       {FormzSubmissionStatus signUpStatus,
+      FormzSubmissionStatus signInStatus,
       EmailFormz email,
       PasswordFormz password,
       ConfirmPasswordFormz confirmPassword,
@@ -2015,6 +2773,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? signUpStatus = null,
+    Object? signInStatus = null,
     Object? email = null,
     Object? password = null,
     Object? confirmPassword = null,
@@ -2027,6 +2786,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
       signUpStatus: null == signUpStatus
           ? _value.signUpStatus
           : signUpStatus // ignore: cast_nullable_to_non_nullable
+              as FormzSubmissionStatus,
+      signInStatus: null == signInStatus
+          ? _value.signInStatus
+          : signInStatus // ignore: cast_nullable_to_non_nullable
               as FormzSubmissionStatus,
       email: null == email
           ? _value.email
@@ -2065,6 +2828,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 class _$AuthStateImpl extends _AuthState {
   _$AuthStateImpl(
       {this.signUpStatus = FormzSubmissionStatus.initial,
+      this.signInStatus = FormzSubmissionStatus.initial,
       this.email = const EmailFormz.pure(),
       this.password = const PasswordFormz.pure(),
       this.confirmPassword = const ConfirmPasswordFormz.pure(),
@@ -2077,6 +2841,9 @@ class _$AuthStateImpl extends _AuthState {
   @override
   @JsonKey()
   final FormzSubmissionStatus signUpStatus;
+  @override
+  @JsonKey()
+  final FormzSubmissionStatus signInStatus;
   @override
   @JsonKey()
   final EmailFormz email;
@@ -2098,7 +2865,7 @@ class _$AuthStateImpl extends _AuthState {
 
   @override
   String toString() {
-    return 'AuthState(signUpStatus: $signUpStatus, email: $email, password: $password, confirmPassword: $confirmPassword, fullName: $fullName, confirmPasswordFocusNode: $confirmPasswordFocusNode, name: $name, errorMessage: $errorMessage)';
+    return 'AuthState(signUpStatus: $signUpStatus, signInStatus: $signInStatus, email: $email, password: $password, confirmPassword: $confirmPassword, fullName: $fullName, confirmPasswordFocusNode: $confirmPasswordFocusNode, name: $name, errorMessage: $errorMessage)';
   }
 
   @override
@@ -2108,6 +2875,8 @@ class _$AuthStateImpl extends _AuthState {
             other is _$AuthStateImpl &&
             (identical(other.signUpStatus, signUpStatus) ||
                 other.signUpStatus == signUpStatus) &&
+            (identical(other.signInStatus, signInStatus) ||
+                other.signInStatus == signInStatus) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.password, password) ||
                 other.password == password) &&
@@ -2124,8 +2893,17 @@ class _$AuthStateImpl extends _AuthState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, signUpStatus, email, password,
-      confirmPassword, fullName, confirmPasswordFocusNode, name, errorMessage);
+  int get hashCode => Object.hash(
+      runtimeType,
+      signUpStatus,
+      signInStatus,
+      email,
+      password,
+      confirmPassword,
+      fullName,
+      confirmPasswordFocusNode,
+      name,
+      errorMessage);
 
   /// Create a copy of AuthState
   /// with the given fields replaced by the non-null parameter values.
@@ -2139,6 +2917,7 @@ class _$AuthStateImpl extends _AuthState {
 abstract class _AuthState extends AuthState {
   factory _AuthState(
       {final FormzSubmissionStatus signUpStatus,
+      final FormzSubmissionStatus signInStatus,
       final EmailFormz email,
       final PasswordFormz password,
       final ConfirmPasswordFormz confirmPassword,
@@ -2150,6 +2929,8 @@ abstract class _AuthState extends AuthState {
 
   @override
   FormzSubmissionStatus get signUpStatus;
+  @override
+  FormzSubmissionStatus get signInStatus;
   @override
   EmailFormz get email;
   @override

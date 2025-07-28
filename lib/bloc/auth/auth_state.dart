@@ -5,6 +5,7 @@ class AuthState with _$AuthState {
   const AuthState._();
   factory AuthState({
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus signUpStatus,
+    @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus signInStatus,
     @Default(EmailFormz.pure()) EmailFormz email,
     @Default(PasswordFormz.pure()) PasswordFormz password,
     @Default(ConfirmPasswordFormz.pure()) ConfirmPasswordFormz confirmPassword,
@@ -15,6 +16,8 @@ class AuthState with _$AuthState {
   }) = _AuthState;
 
   bool get isSignUpFormValid => Formz.validate([fullName, email, password]);
+
+  bool get isSignInFormValid => Formz.validate([email, password]);
 }
 
 //==============================================================================

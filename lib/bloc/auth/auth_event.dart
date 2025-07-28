@@ -6,6 +6,9 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.signUp() = _SignUp;
   const factory AuthEvent.signUpSuccess() = _SignUpSuccess;
   const factory AuthEvent.signUpFailure(String errorMessage) = _SignUpFailure;
+  const factory AuthEvent.signIn() = _SignIn;
+  const factory AuthEvent.signInSuccess() = _SignInSuccess;
+  const factory AuthEvent.signInFailure(String errorMessage) = _SignInFailure;
   const factory AuthEvent.emailChanged(String email) = _EmailChanged;
   const factory AuthEvent.passwordChanged(String password) = _PasswordChanged;
   const factory AuthEvent.confirmPasswordChanged(String confirmPassword) =

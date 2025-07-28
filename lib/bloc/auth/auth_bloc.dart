@@ -19,6 +19,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_SignUp>(_signUp);
     on<_SignUpSuccess>(_signUpSuccess);
     on<_SignUpFailure>(_signUpFailure);
+    on<_SignIn>(_signIn);
+    on<_SignInSuccess>(_signInSuccess);
+    on<_SignInFailure>(_signInFailure);
     on<_EmailChanged>(_emailChanged);
     on<_PasswordChanged>(_passwordChanged);
     on<_ConfirmPasswordChanged>(_confirmPasswordChanged);
@@ -90,12 +93,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       errorMessage: event.errorMessage,
     ));
     // Optionally, you can reset the form fields here
-    emit(state.copyWith(
-      email: const EmailFormz.pure(),
-      password: const PasswordFormz.pure(),
-      confirmPassword: const ConfirmPasswordFormz.pure(),
-      fullName: const FullNameFormz.pure(),
-    ));
+    // emit(state.copyWith(
+    //   email: const EmailFormz.pure(),
+    //   password: const PasswordFormz.pure(),
+    //   confirmPassword: const ConfirmPasswordFormz.pure(),
+    //   fullName: const FullNameFormz.pure(),
+    // ));
   }
 
   void _emailChanged(_EmailChanged event, Emitter<AuthState> emit) {
@@ -147,6 +150,55 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   void _errorMessage(_ErrorMessage event, Emitter<AuthState> emit) {
-    // TODO: implement error message logic
+    emit(state.copyWith(errorMessage: event.errorMessage));
+  }
+
+  Future<void> _signIn(_SignIn event, Emitter<AuthState> emit) async {
+    if (state.signInStatus == FormzSubmissionStatus.inProgress) return;
+
+    if (!state.isSignInFormValid) {
+      emit(
+        state.copyWith(
+          email: EmailFormz.dirty(state.email.value),
+          password: PasswordFormz.dirty(state.password.value),
+          errorMessage: 'Please fill in all fields correctly.',
+        ),
+      );
+      return;
+    }
+
+    emit(state.copyWith(signInStatus: FormzSubmissionStatus.inProgress));
+
+    try {
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: state.email.value,
+        password: state.password.value,
+      );
+
+      logInfo('User signed in successfully: ${userCredential.user!.uid}');
+      add(const AuthEvent.signInSuccess());
+    } on FirebaseAuthException catch (error, trace) {
+      logError(error, trace);
+      add(AuthEvent.signInFailure(error.message ?? 'Sign in failed'));
+    }
+  }
+
+  void _signInSuccess(_SignInSuccess event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      signInStatus: FormzSubmissionStatus.success,
+      errorMessage: null,
+    ));
+
+    emit(state.copyWith(
+      email: const EmailFormz.pure(),
+      password: const PasswordFormz.pure(),
+    ));
+  }
+
+  void _signInFailure(_SignInFailure event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      signInStatus: FormzSubmissionStatus.failure,
+      errorMessage: event.errorMessage,
+    ));
   }
 }

@@ -60,9 +60,10 @@ class MyApp extends StatelessWidget {
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 themeMode: currentMode,
-                home: const BottomNavBar(),
+                // home: const BottomNavBar(),
                 initialRoute: SignUpScreen.routeName,
                 routes: {
+                  BottomNavBar.routeName: (context) => const BottomNavBar(),
                   PriceScreen.routeName: (context) => const PriceScreen(),
                   NewsScreen.routeName: (context) => const NewsScreen(),
                   AboutScreen.routeName: (context) => const AboutScreen(),

@@ -3,6 +3,7 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/services/toast_service.dart';
+import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
 import 'package:cointicker/widgets/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
@@ -29,6 +30,8 @@ class SignUpScreen extends HookWidget {
 
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
+        buildWhen: (previous, current) =>
+            _signUpBuildWhen(context, current, previous),
         builder: (context, state) {
           return SafeArea(
             child: Padding(
@@ -175,7 +178,7 @@ class SignUpScreen extends HookWidget {
                               if (value.length < 6) {
                                 return 'Password must be at least 6 characters';
                               }
-                              if (value != state.confirmPassword.value) {
+                              if (value != state.password.value) {
                                 return 'Passwords do not match';
                               }
 
@@ -243,5 +246,22 @@ class SignUpScreen extends HookWidget {
         },
       ),
     );
+  }
+
+  bool _signUpBuildWhen(
+      BuildContext context, AuthState current, AuthState previous) {
+    if (previous.signUpStatus.isInProgress && current.signUpStatus.isSuccess) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        BottomNavBar.routeName,
+        (_) => false,
+      );
+      ToastService.toast('Sign Up Successful');
+    } else if (previous.errorMessage != current.errorMessage &&
+        current.errorMessage != null) {
+      ToastService.toast('${current.errorMessage}', ToastType.error);
+      context.read<AuthBloc>().add(const AuthEvent.errorMessage(null));
+      return false;
+    }
+    return true;
   }
 }

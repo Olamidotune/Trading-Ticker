@@ -3,6 +3,7 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/services/toast_service.dart';
+import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
 import 'package:cointicker/widgets/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
@@ -21,12 +22,13 @@ class SignInScreen extends HookWidget {
   Widget build(BuildContext context) {
     final emailNode = useFocusNode();
     final passwordNode = useFocusNode();
-    final confirmPasswordNode = useFocusNode();
     final obscurePassword = useState(true);
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
+        buildWhen: (previous, current) =>
+            _signInBuildWhen(context, current, previous),
         builder: (context, state) {
           return SafeArea(
             child: Padding(
@@ -106,7 +108,9 @@ class SignInScreen extends HookWidget {
                                   );
                             },
                             onFieldSubmitted: () {
-                              confirmPasswordNode.requestFocus();
+                              context
+                                  .read<AuthBloc>()
+                                  .add(const AuthEvent.signIn());
                             },
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -123,18 +127,13 @@ class SignInScreen extends HookWidget {
                           AppSpacing.verticalSpaceLarge,
                           Button(
                             'Sign In',
-                            busy: state.signUpStatus ==
+                            busy: state.signInStatus ==
                                 FormzSubmissionStatus.inProgress,
                             onPressed: () {
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<AuthBloc>().add(
-                                      const AuthEvent.signUp(),
+                                      const AuthEvent.signIn(),
                                     );
-                              } else {
-                                ToastService.toast(
-                                  'Please fill in all fields correctly.',
-                                  ToastType.error,
-                                );
                               }
                             },
                           ),
@@ -179,5 +178,22 @@ class SignInScreen extends HookWidget {
         },
       ),
     );
+  }
+
+  bool _signInBuildWhen(
+      BuildContext context, AuthState current, AuthState previous) {
+    if (previous.signInStatus.isInProgress && current.signInStatus.isSuccess) {
+      Navigator.of(context).pushNamedAndRemoveUntil(
+        BottomNavBar.routeName,
+        (_) => false,
+      );
+      ToastService.toast('Welcome');
+    } else if (previous.errorMessage != current.errorMessage &&
+        current.errorMessage != null) {
+      ToastService.toast('${current.errorMessage}', ToastType.error);
+      context.read<AuthBloc>().add(const AuthEvent.errorMessage(null));
+      return false;
+    }
+    return true;
   }
 }
