@@ -78,7 +78,7 @@ class CustomTextFormField extends StatelessWidget {
             ),
             fillColor: fillColor ??
                 (customFilled ?? true
-                    ? AppColors.greyColor.withOpacity(0.1)
+                    ? AppColors.greyColor.withValues(alpha: .1)
                     : null),
             filled: isFilled,
             hintText: hintText,

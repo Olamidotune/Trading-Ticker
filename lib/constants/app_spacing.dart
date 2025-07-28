@@ -23,11 +23,11 @@ class AppSpacing {
 
   // Horizontal Spacing.
   static SizedBox horizontalSpaceTiny = const SizedBox(width: 4);
-  static SizedBox horizontalSpaceSmall = SizedBox(width: 8);
-  static SizedBox horizontalSpaceMedium = SizedBox(width: 16);
-  static SizedBox horizontalSpaceLarge = SizedBox(width: 24);
-  static SizedBox horizontalSpaceHuge = SizedBox(width: 32);
-  static SizedBox horizontalSpaceMassive = SizedBox(width: 40);
+  static SizedBox horizontalSpaceSmall = const SizedBox(width: 8);
+  static SizedBox horizontalSpaceMedium = const SizedBox(width: 16);
+  static SizedBox horizontalSpaceLarge = const SizedBox(width: 24);
+  static SizedBox horizontalSpaceHuge = const SizedBox(width: 32);
+  static SizedBox horizontalSpaceMassive = const SizedBox(width: 40);
 
   static double horizontalSpacing = 20;
   static double horizontalSpacingTiny = 4;

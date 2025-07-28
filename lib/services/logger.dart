@@ -27,7 +27,7 @@ class ResponseLoggingInterceptor extends Interceptor {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     logInfo({
       'type': 'Response<---!!!!!!!!!!!',
       'url': err.response?.realUri.toString(),
