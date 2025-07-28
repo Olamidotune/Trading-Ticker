@@ -4,6 +4,7 @@ import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/theme_data.dart';
 import 'package:cointicker/firebase_options.dart';
 import 'package:cointicker/screens/about_screen.dart';
+import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/screens/price_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
                   NewsScreen.routeName: (context) => const NewsScreen(),
                   AboutScreen.routeName: (context) => const AboutScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),
+                  SignInScreen.routeName: (context) => const SignInScreen(),
                 },
               ),
             );

@@ -1,7 +1,7 @@
 import 'package:cointicker/bloc/auth/auth_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/auth/sign_in_screen.dart';
+import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/services/toast_service.dart';
 import 'package:cointicker/widgets/button.dart';
 import 'package:cointicker/widgets/custom_text_field.dart';
@@ -12,19 +12,17 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:formz/formz.dart';
 
-class SignUpScreen extends HookWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends HookWidget {
+  const SignInScreen({super.key});
 
-  static const routeName = '/sign-up';
+  static const routeName = '/sign-in';
 
   @override
   Widget build(BuildContext context) {
     final emailNode = useFocusNode();
     final passwordNode = useFocusNode();
     final confirmPasswordNode = useFocusNode();
-    final fullNameNode = useFocusNode();
     final obscurePassword = useState(true);
-    final obscureConfirmPassword = useState(true);
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return Scaffold(
@@ -61,11 +59,11 @@ class SignUpScreen extends HookWidget {
                       ],
                     ),
                     AppSpacing.verticalSpaceMassive,
-                    Text('Sign Up',
+                    Text('Sign In',
                         style: Theme.of(context).textTheme.displayLarge),
                     const SizedBox(height: 10),
                     Text(
-                      'Welcome, we are delighted to have you here.',
+                      'Welcome back',
                       style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.justify,
                     ),
@@ -95,26 +93,6 @@ class SignUpScreen extends HookWidget {
                           AppSpacing.verticalSpaceLarge,
                           CustomTextFormField(
                             textInputAction: TextInputAction.next,
-                            focusNode: fullNameNode,
-                            title: 'Full Name',
-                            hintText: 'Enter your full name',
-                            keyboardType: TextInputType.name,
-                            prefixIcon: 'user',
-                            onChanged: (value) {
-                              context.read<AuthBloc>().add(
-                                    AuthEvent.fullNameChanged(value),
-                                  );
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field cannot be empty';
-                              }
-                              return null;
-                            },
-                          ),
-                          AppSpacing.verticalSpaceLarge,
-                          CustomTextFormField(
-                            textInputAction: TextInputAction.next,
                             focusNode: passwordNode,
                             title: 'Password',
                             hintText: 'Input your preferred password',
@@ -137,56 +115,14 @@ class SignUpScreen extends HookWidget {
                               if (value.length < 6) {
                                 return 'Password must be at least 6 characters';
                               }
-                              if (value != state.confirmPassword.value) {
-                                return 'Passwords do not match';
-                              }
-
                               return null;
                             },
                             onSuffixIconPressed: () =>
                                 obscurePassword.value = !obscurePassword.value,
                           ),
                           AppSpacing.verticalSpaceLarge,
-                          CustomTextFormField(
-                            textInputAction: TextInputAction.go,
-                            focusNode: confirmPasswordNode,
-                            title: 'Confirm Password',
-                            hintText: 'Input your preferred password',
-                            keyboardType: TextInputType.text,
-                            prefixIcon: 'password',
-                            obscureText: obscureConfirmPassword.value,
-                            isPassword: true,
-                            onFieldSubmitted: () {
-                              if (formKey.currentState?.validate() ?? false) {
-                                context.read<AuthBloc>().add(
-                                      const AuthEvent.signUp(),
-                                    );
-                              }
-                            },
-                            onChanged: (value) {
-                              context.read<AuthBloc>().add(
-                                    AuthEvent.confirmPasswordChanged(value),
-                                  );
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field cannot be empty';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              if (value != state.confirmPassword.value) {
-                                return 'Passwords do not match';
-                              }
-
-                              return null;
-                            },
-                            onSuffixIconPressed: () => obscureConfirmPassword
-                                .value = !obscureConfirmPassword.value,
-                          ),
-                          AppSpacing.verticalSpaceLarge,
                           Button(
-                            'Sign Up',
+                            'Sign In',
                             busy: state.signUpStatus ==
                                 FormzSubmissionStatus.inProgress,
                             onPressed: () {
@@ -216,11 +152,11 @@ class SignUpScreen extends HookWidget {
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.of(context).pushNamedAndRemoveUntil(
-                                    SignInScreen.routeName,
+                                    SignUpScreen.routeName,
                                     (_) => false,
                                   );
                                 },
-                              text: 'Sign in',
+                              text: 'Sign up',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
