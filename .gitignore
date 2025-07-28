@@ -47,3 +47,11 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android NDK build artifacts
+android/app/.cxx/
+
+
+# ios/GoogleService-Info.plist
+
+.env
