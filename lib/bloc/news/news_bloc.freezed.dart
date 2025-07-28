@@ -820,8 +820,7 @@ abstract class _FetchNewsFailure implements NewsEvent {
 
 /// @nodoc
 mixin _$NewsState {
-  FormzSubmissionStatus get getNewsStatus =>
-      throw _privateConstructorUsedError; // News? news,
+  FormzSubmissionStatus get getNewsStatus => throw _privateConstructorUsedError;
   List<Article>? get news => throw _privateConstructorUsedError;
   String? get searchKey => throw _privateConstructorUsedError;
   String? get errorMessage => throw _privateConstructorUsedError;
@@ -954,9 +953,7 @@ class _$NewsStateImpl extends _NewsState {
   @override
   @JsonKey()
   final FormzSubmissionStatus getNewsStatus;
-// News? news,
   final List<Article>? _news;
-// News? news,
   @override
   List<Article>? get news {
     final value = _news;
@@ -1012,7 +1009,7 @@ abstract class _NewsState extends NewsState {
   _NewsState._() : super._();
 
   @override
-  FormzSubmissionStatus get getNewsStatus; // News? news,
+  FormzSubmissionStatus get getNewsStatus;
   @override
   List<Article>? get news;
   @override
