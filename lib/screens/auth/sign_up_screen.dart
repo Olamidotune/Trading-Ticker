@@ -21,15 +21,12 @@ class SignUpScreen extends HookWidget {
     final passwordNode = useFocusNode();
     final confirmPasswordNode = useFocusNode();
     final fullNameNode = useFocusNode();
-
-    // obscure password
     final obscurePassword = useState(true);
-    // obscure confirm password
     final obscureConfirmPassword = useState(true);
-
-    // Form key
     final formKey = useMemoized(GlobalKey<FormState>.new);
+
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           return Padding(
