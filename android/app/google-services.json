@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "839188101886",
+    "project_id": "coinstalk-501a3",
+    "storage_bucket": "coinstalk-501a3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:839188101886:android:d6800b77f8bc538ea343af",
+        "android_client_info": {
+          "package_name": "com.example.cointicker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAzXycFMbYhHyUrXf_IwKLEXoFsS5dZGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
