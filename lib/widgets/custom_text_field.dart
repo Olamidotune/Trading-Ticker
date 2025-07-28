@@ -58,7 +58,7 @@ class CustomTextFormField extends StatelessWidget {
           child: Text(
             title ?? '',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  color: AppColors.primaryTextColor,
+                  color: AppColors.textColor,
                   fontWeight: FontWeight.w300,
                   fontSize: 12,
                 ),
@@ -73,7 +73,7 @@ class CustomTextFormField extends StatelessWidget {
           readOnly: readOnly,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 14,
-                color: AppColors.primaryTextColor,
+                color: AppColors.textColor,
               ),
           focusNode: focusNode,
           textInputAction: textInputAction,
