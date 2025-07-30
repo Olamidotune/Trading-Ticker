@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cointicker/enums/validation_error.dart';
 import 'package:cointicker/services/logging_helper.dart';
+import 'package:cointicker/services/persistence_service.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
@@ -85,6 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       signUpStatus: FormzSubmissionStatus.success,
       errorMessage: null,
     ));
+    PersistenceService().saveSignInStatus(true);
   }
 
   void _signUpFailure(_SignUpFailure event, Emitter<AuthState> emit) {
@@ -183,7 +185,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _signInSuccess(_SignInSuccess event, Emitter<AuthState> emit) {
+  void _signInSuccess(_SignInSuccess event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
       signInStatus: FormzSubmissionStatus.success,
       errorMessage: null,
@@ -193,6 +195,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       email: const EmailFormz.pure(),
       password: const PasswordFormz.pure(),
     ));
+
+    await PersistenceService().saveSignInStatus(true);
+    final signInStatus = await PersistenceService().getSignInStatus();
+    logInfo('Sign-in status: $signInStatus');
   }
 
   void _signInFailure(_SignInFailure event, Emitter<AuthState> emit) {
