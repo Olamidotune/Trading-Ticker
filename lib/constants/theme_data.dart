@@ -1,5 +1,6 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //LIGHT MODE
 final ThemeData lightTheme = ThemeData(
@@ -20,13 +21,15 @@ final ThemeData lightTheme = ThemeData(
       color: AppColors.textColor,
     ),
   ),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: AppColors.textColor),
-    bodyMedium: TextStyle(color: AppColors.textColor),
-    bodySmall: TextStyle(
+  textTheme: TextTheme(
+    bodyLarge: GoogleFonts.manrope(
+      color: AppColors.textColor,
+    ),
+    bodyMedium: GoogleFonts.manrope(color: AppColors.textColor),
+    bodySmall: GoogleFonts.manrope(
       color: AppColors.greyColor,
     ),
-    displaySmall: TextStyle(color: AppColors.textColor),
+    displaySmall: GoogleFonts.manrope(color: AppColors.textColor),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
@@ -67,13 +70,14 @@ final ThemeData darkTheme = ThemeData(
       color: Colors.white,
     ),
   ),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(color: AppColors.whiteColor),
-    bodySmall: TextStyle(
+  textTheme: TextTheme(
+    bodyLarge: GoogleFonts.manrope(color: Colors.white),
+    bodyMedium: GoogleFonts.manrope(color: AppColors.whiteColor),
+    bodySmall: GoogleFonts.manrope(
       color: AppColors.whiteColor,
     ),
-    displaySmall: TextStyle(color: AppColors.accentNeon, fontSize: 18),
+    displaySmall:
+        GoogleFonts.manrope(color: AppColors.accentNeon, fontSize: 18),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
