@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +17,7 @@ class CoinCard extends StatelessWidget {
   final num rank;
   final double priceChangePercentage;
   final VoidCallback? onPressed;
+  final List<double> sparklinePrices;
 
   const CoinCard({
     super.key,
@@ -26,6 +29,7 @@ class CoinCard extends StatelessWidget {
     required this.rank,
     required this.marketCap,
     this.onPressed,
+    required this.sparklinePrices,
   });
 
   @override
@@ -53,97 +57,127 @@ class CoinCard extends StatelessWidget {
     }
 
     return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          height: 10.h,
-          decoration: BoxDecoration(
-            color: Theme.of(context).inputDecorationTheme.fillColor,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
-              BoxShadow(
-                  color: Colors.blueGrey,
-                  offset: Offset(5, 5),
-                  blurRadius: 2,
-                  spreadRadius: 1),
-              BoxShadow(
-                  color: Colors.grey,
-                  offset: Offset(-3, -3),
-                  blurRadius: 10,
-                  spreadRadius: 2)
+      padding: const EdgeInsets.all(5.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border:
+              Border.all(color: AppColors.primaryColor.withValues(alpha: .1)),
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).inputDecorationTheme.fillColor,
+        ),
+        child: ListTile(
+          onTap: onPressed,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                rank.toString(),
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 10),
+              CachedNetworkImage(
+                imageUrl: coinImage,
+                height: 40,
+                width: 40,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(color: Colors.black),
+                ),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.image_not_supported_outlined,
+                  size: 50,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Text(
+                coinSymbol.toUpperCase(),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Text(
+                '\$${formatPrices(coinPrice)}',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
-          child: ListTile(
-            title: Row(
-              children: [
-                Text(
-                  rank.toString(),
-                  style:
-                      TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(width: 10),
-                CachedNetworkImage(
-                  imageUrl: coinImage,
-                  height: 40,
-                  width: 40,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(color: Colors.black),
+          subtitle: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  AppSpacing.verticalSpaceTiny,
+                  Text('Market Cap',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    '\$${formatMarketCap(marketCap)}',
+                    style: TextStyle(fontSize: 12.sp),
                   ),
-                  errorWidget: (context, url, error) => const Icon(
-                    Icons.image_not_supported_outlined,
-                    size: 50,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  coinSymbol.toUpperCase(),
-                  style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const Spacer(),
-                Text(
-                  '\$${formatPrices(coinPrice)}',
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            subtitle: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    AppSpacing.verticalSpaceTiny,
-                    Text('Market Cap',
-                        style: Theme.of(context).textTheme.bodySmall),
-                    Text(
-                      '\$${formatMarketCap(marketCap)}',
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                      ),
+                ],
+              ),
+              LineGraph(sparklinePrices: sparklinePrices, color: textColor),
+              Column(
+                children: [
+                  AppSpacing.verticalSpaceTiny,
+                  Text('24hr Change %',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    '$icon ${change.toStringAsFixed(2)}%',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
                     ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    AppSpacing.verticalSpaceTiny,
-                    Text('24hr Change %',
-                        style: Theme.of(context).textTheme.bodySmall),
-                    Text(
-                      '$icon ${change.toStringAsFixed(2)}%',
-                      style: TextStyle(
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.bold,
-                          color: textColor),
-                    ),
-                  ],
-                )
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LineGraph extends StatelessWidget {
+  const LineGraph({
+    super.key,
+    required this.sparklinePrices,
+    required this.color,
+  });
+
+  final List<double> sparklinePrices;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 80,
+      height: 40,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10.0),
+        child: LineChart(
+          LineChartData(
+            lineBarsData: [
+              LineChartBarData(
+                spots: sparklinePrices
+                    .asMap()
+                    .entries
+                    .map((e) => FlSpot(e.key.toDouble(), e.value))
+                    .toList(),
+                isCurved: true,
+                dotData: const FlDotData(show: false),
+                color: color,
+                belowBarData: BarAreaData(show: false),
+                barWidth: 2,
+              ),
+            ],
+            titlesData: const FlTitlesData(show: false),
+            gridData: const FlGridData(show: false),
+            borderData: FlBorderData(show: false),
           ),
         ),
       ),

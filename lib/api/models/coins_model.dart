@@ -75,8 +75,7 @@ class Coin {
   @JsonKey(name: "sparkline_in_7d")
   final SparkLine? sparklineIn7D;
 
-  Coin(
-    this.sparklineIn7D, {
+  Coin({
     required this.id,
     required this.symbol,
     required this.name,
@@ -103,6 +102,7 @@ class Coin {
     required this.atlDate,
     required this.roi,
     required this.lastUpdated,
+    this.sparklineIn7D,
   });
 
   factory Coin.fromJson(Map<String, dynamic> json) => _$CoinFromJson(json);

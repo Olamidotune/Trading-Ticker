@@ -16,7 +16,7 @@ class AppColors {
   static const yellowWarningColor = Color(0xFFfffc47);
   static const yellowWarningIconColor = Color(0xFFd0b700);
   static const goldColor = Color(0xFFBA9400);
-  static const primaryColor = Color(0xFF0A84FF); // Deep blue
+  static const primaryColor = Color(0xFF5149F7); // Deep blue
   static const accentNeon = Color(0xFF00FFC6); // Neon Cyan
   static const textColor = Color(0xFF1F1F1F);
   static const darkBg = Color(0xFF0A0F1A);

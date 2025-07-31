@@ -7,11 +7,11 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.lightBg,
   primaryColor: AppColors.primaryColor,
   colorScheme: const ColorScheme.light(
-    primary: AppColors.primaryColor,
+    primary: AppColors.whiteColor,
     secondary: AppColors.accentNeon,
   ),
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.whiteColor,
+    backgroundColor: AppColors.primaryColor,
     foregroundColor: AppColors.textColor,
     elevation: 0,
     titleTextStyle: TextStyle(
@@ -30,7 +30,7 @@ final ThemeData lightTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: Colors.white,
+    fillColor: AppColors.primaryColor.withValues(alpha: .04),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -77,7 +77,7 @@ final ThemeData darkTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColors.darkSurface,
+    fillColor: AppColors.primaryColor.withValues(alpha: .04),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
