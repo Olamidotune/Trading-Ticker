@@ -10,14 +10,12 @@ import 'package:formz/formz.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PriceScreen extends StatelessWidget {
-  static const String routeName = 'PriceScreen';
+  static const String routeName = 'Price-Screen';
   const PriceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(70),
@@ -34,7 +32,6 @@ class PriceScreen extends StatelessWidget {
                     IconButton(
                       icon: const Icon(
                         Icons.sort,
-                        color: Colors.white,
                       ),
                       onPressed: () {
                         showModalBottomSheet(
@@ -52,10 +49,7 @@ class PriceScreen extends StatelessWidget {
         ),
         title: const Text(
           'Trading Ticker',
-          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
-        backgroundColor: Colors.grey[900],
-        elevation: 0,
       ),
       body: BlocBuilder<CoinBloc, CoinState>(
         builder: (context, state) {
@@ -131,8 +125,8 @@ class CustomShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.white, // Light gray background
-      highlightColor: Colors.red[100]!, // Lighter gray shimmer
+      baseColor: Colors.white,
+      highlightColor: Colors.red[100]!,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Container(

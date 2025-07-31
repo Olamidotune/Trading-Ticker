@@ -1,4 +1,5 @@
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,6 +16,13 @@ class _CoinSearchBarState extends State<CoinSearchBar> {
   @override
   Widget build(BuildContext context) {
     return SearchBar(
+      keyboardType: TextInputType.text,
+      textInputAction: TextInputAction.search,
+      backgroundColor: WidgetStateProperty.all(AppColors.greyColor),
+      leading: const Icon(
+        Icons.search_sharp,
+        size: 25,
+      ),
       hintText: 'Search for a coin',
       controller: _controller,
       onChanged: (value) {

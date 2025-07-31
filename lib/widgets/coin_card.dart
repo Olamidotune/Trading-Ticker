@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
-import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/constants/app_spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -59,7 +59,7 @@ class CoinCard extends StatelessWidget {
         child: Container(
           height: 10.h,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).inputDecorationTheme.fillColor,
             borderRadius: BorderRadius.circular(20),
             boxShadow: const [
               BoxShadow(
@@ -106,9 +106,9 @@ class CoinCard extends StatelessWidget {
                 Text(
                   '\$${formatPrices(coinPrice)}',
                   style: TextStyle(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.blackColor),
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -117,20 +117,22 @@ class CoinCard extends StatelessWidget {
               children: [
                 Column(
                   children: [
+                    AppSpacing.verticalSpaceTiny,
                     Text('Market Cap',
-                        style:
-                            TextStyle(fontSize: 12, color: Colors.grey[600])),
+                        style: Theme.of(context).textTheme.bodySmall),
                     Text(
                       '\$${formatMarketCap(marketCap)}',
-                      style: TextStyle(fontSize: 12.sp, color: Colors.black87),
+                      style: TextStyle(
+                        fontSize: 12.sp,
+                      ),
                     ),
                   ],
                 ),
                 Column(
                   children: [
+                    AppSpacing.verticalSpaceTiny,
                     Text('24hr Change %',
-                        style:
-                            TextStyle(fontSize: 12, color: Colors.grey[600])),
+                        style: Theme.of(context).textTheme.bodySmall),
                     Text(
                       '$icon ${change.toStringAsFixed(2)}%',
                       style: TextStyle(

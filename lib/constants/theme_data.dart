@@ -23,11 +23,14 @@ final ThemeData lightTheme = ThemeData(
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: AppColors.textColor),
     bodyMedium: TextStyle(color: AppColors.textColor),
+    bodySmall: TextStyle(
+      color: AppColors.greyColor,
+    ),
     displaySmall: TextStyle(color: AppColors.textColor),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: Colors.grey[200],
+    fillColor: Colors.white,
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -67,6 +70,9 @@ final ThemeData darkTheme = ThemeData(
   textTheme: const TextTheme(
     bodyLarge: TextStyle(color: Colors.white),
     bodyMedium: TextStyle(color: AppColors.whiteColor),
+    bodySmall: TextStyle(
+      color: AppColors.whiteColor,
+    ),
     displaySmall: TextStyle(color: AppColors.accentNeon, fontSize: 18),
   ),
   inputDecorationTheme: InputDecorationTheme(
