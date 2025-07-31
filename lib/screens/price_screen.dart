@@ -78,7 +78,7 @@ class PriceScreen extends StatelessWidget {
               ),
             );
           }
-          return ListView.separated(
+          return ListView.builder(
             itemCount: state.computedGiftCards.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
@@ -96,11 +96,11 @@ class PriceScreen extends StatelessWidget {
                     .toDouble(),
               );
             },
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(
-                height: 20,
-              );
-            },
+            // separatorBuilder: (BuildContext context, int index) {
+            //   return const SizedBox(
+            //     height: 20,
+            //   );
+            // },
           );
         },
       ),
