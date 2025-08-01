@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cointicker/api/models/coins_model.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
@@ -5,7 +7,7 @@ import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_card.dart';
 import 'package:cointicker/widgets/coin_details_dialog.dart';
 import 'package:cointicker/widgets/coin_search_bar.dart';
-import 'package:cointicker/widgets/sort_filter_sheet.dart';
+import 'package:cointicker/widgets/dialogs/filter_coins_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -38,10 +40,12 @@ class PriceScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) => const SortFilterSheet(),
-                        );
+                        // showModalBottomSheet(
+                        //   context: context,
+                        //   builder: (_) => const SortFilterSheet(),
+                        // );
+
+                        _showFilterDialog(context, true);
                       },
                       child: CircleAvatar(
                         radius: 25,
@@ -124,6 +128,22 @@ class PriceScreen extends StatelessWidget {
         return CoinDetailsDialog(coin: coin);
       },
     );
+  }
+
+  void _showFilterDialog(BuildContext context, bool? value) async {
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return const FilterCoinsDialog();
+        });
+    if (!context.read<CoinBloc>().state.sortBy24ChangeDesc &&
+        !context.read<CoinBloc>().state.sortByPriceDesc) {
+      context
+          .read<CoinBloc>()
+          .add(CoinEvent.sortByMarketCapDesc((value ?? false)));
+    }
+    return;
   }
 }
 
