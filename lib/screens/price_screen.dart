@@ -1,26 +1,33 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cointicker/api/models/coins_model.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_card.dart';
 import 'package:cointicker/widgets/coin_details_dialog.dart';
 import 'package:cointicker/widgets/coin_search_bar.dart';
-import 'package:cointicker/widgets/sort_filter_sheet.dart';
+import 'package:cointicker/widgets/dialogs/filter_coins_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PriceScreen extends StatelessWidget {
-  static const String routeName = 'PriceScreen';
+  static const String routeName = 'Price-Screen';
   const PriceScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(15),
+                bottomRight: Radius.circular(15))),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(90),
           child: Column(
             children: [
               Padding(
@@ -31,17 +38,19 @@ class PriceScreen extends StatelessWidget {
                       child: CoinSearchBar(),
                     ),
                     const SizedBox(width: 8),
-                    IconButton(
-                      icon: const Icon(
-                        Icons.sort,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) => const SortFilterSheet(),
-                        );
+                    GestureDetector(
+                      onTap: () {
+                        // showModalBottomSheet(
+                        //   context: context,
+                        //   builder: (_) => const SortFilterSheet(),
+                        // );
+
+                        _showFilterDialog(context, true);
                       },
+                      child: CircleAvatar(
+                        radius: 25,
+                        child: SvgPicture.asset('assets/svg/filter.svg'),
+                      ),
                     ),
                   ],
                 ),
@@ -52,10 +61,8 @@ class PriceScreen extends StatelessWidget {
         ),
         title: const Text(
           'Trading Ticker',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.whiteColor),
         ),
-        backgroundColor: Colors.grey[900],
-        elevation: 0,
       ),
       body: BlocBuilder<CoinBloc, CoinState>(
         builder: (context, state) {
@@ -84,29 +91,30 @@ class PriceScreen extends StatelessWidget {
               ),
             );
           }
-          return ListView.separated(
-            itemCount: state.computedGiftCards.length,
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final coin = state.computedGiftCards[index];
-              return CoinCard(
-                onPressed: () => _coinDetailsDialog(context, coin),
-                marketCap: coin.marketCap,
-                rank: coin.marketCapRank,
-                coinImage: coin.image,
-                coinName: coin.name,
-                coinSymbol: coin.symbol,
-                coinPrice: coin.currentPrice.toDouble(),
-                priceChangePercentage: state
-                    .computedGiftCards[index].priceChangePercentage24h
-                    .toDouble(),
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(
-                height: 20,
-              );
-            },
+          return Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.horizontalSpacingSmall),
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: state.computedGiftCards.length,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                final coin = state.computedGiftCards[index];
+                return CoinCard(
+                  onPressed: () => _coinDetailsDialog(context, coin),
+                  marketCap: coin.marketCap,
+                  rank: coin.marketCapRank,
+                  coinImage: coin.image,
+                  coinName: coin.name,
+                  coinSymbol: coin.symbol,
+                  coinPrice: coin.currentPrice.toDouble(),
+                  priceChangePercentage: state
+                      .computedGiftCards[index].priceChangePercentage24h
+                      .toDouble(),
+                  sparklinePrices: coin.sparklineIn7D?.price ?? [],
+                );
+              },
+            ),
           );
         },
       ),
@@ -121,6 +129,22 @@ class PriceScreen extends StatelessWidget {
       },
     );
   }
+
+  void _showFilterDialog(BuildContext context, bool? value) async {
+    await showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return const FilterCoinsDialog();
+        });
+    if (!context.read<CoinBloc>().state.sortBy24ChangeDesc &&
+        !context.read<CoinBloc>().state.sortByPriceDesc) {
+      context
+          .read<CoinBloc>()
+          .add(CoinEvent.sortByMarketCapDesc((value ?? false)));
+    }
+    return;
+  }
 }
 
 class CustomShimmer extends StatelessWidget {
@@ -131,8 +155,8 @@ class CustomShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.white, // Light gray background
-      highlightColor: Colors.red[100]!, // Lighter gray shimmer
+      baseColor: Colors.white,
+      highlightColor: Colors.red[100]!,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Container(

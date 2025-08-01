@@ -6,6 +6,7 @@ import 'package:cointicker/firebase_options.dart';
 import 'package:cointicker/screens/about_screen.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
+import 'package:cointicker/screens/onboarding/splash_screen.dart';
 import 'package:cointicker/screens/price_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
 import 'package:cointicker/services/service_locator.dart';
@@ -60,9 +61,9 @@ class MyApp extends StatelessWidget {
                 theme: lightTheme,
                 darkTheme: darkTheme,
                 themeMode: currentMode,
-                // home: const BottomNavBar(),
-                initialRoute: SignUpScreen.routeName,
+                initialRoute: SplashScreen.routeName,
                 routes: {
+                  SplashScreen.routeName: (context) => const SplashScreen(),
                   BottomNavBar.routeName: (context) => const BottomNavBar(),
                   PriceScreen.routeName: (context) => const PriceScreen(),
                   NewsScreen.routeName: (context) => const NewsScreen(),

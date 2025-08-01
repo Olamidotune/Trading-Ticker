@@ -13,8 +13,11 @@ class CoinEvent with _$CoinEvent {
   const factory CoinEvent.cryptoSearchStringChanged(
     String cryptoSearchString,
   ) = _CryptoSearchStringChanged;
-  const factory CoinEvent.sortByMarketCapDesc() = _SortByMarketCapDesc;
-  const factory CoinEvent.sortByPriceDesc() = _SortByPriceDesc;
-  const factory CoinEvent.sortBy24hChangeDesc() = _SortBy24hChangeDesc;
+  const factory CoinEvent.sortByMarketCapDesc(bool sortByMarketCapDesc) =
+      _SortByMarketCapDesc;
+  const factory CoinEvent.sortByPriceDesc(bool? sortByPriceDesc) =
+      _SortByPriceDesc;
+  const factory CoinEvent.sortBy24hChangeDesc(bool? sortBy24hChangeDesc) =
+      _SortBy24hChangeDesc;
   const factory CoinEvent.init() = _Init;
 }

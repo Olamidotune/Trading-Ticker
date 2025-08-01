@@ -62,6 +62,10 @@ dependencies:
   email_validator: ^3.0.0
   cloud_firestore: ^5.6.12
   firebase_analytics: ^11.6.0
+  shared_preferences: ^2.5.3
+  lottie: ^3.3.1
+  fl_chart: ^1.0.0
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +99,7 @@ flutter:
     - .env
     - assets/png/
     - assets/svg/
+    - assets/lottie/
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

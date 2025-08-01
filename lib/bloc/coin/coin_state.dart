@@ -9,7 +9,11 @@ class CoinState with _$CoinState {
     String? errorMessage,
     String? cryptoSearchString,
     CoinSortType? activeSort,
+    @Default(true) sortByPriceDesc,
+    @Default(true) sortBy24ChangeDesc,
   }) = _CoinState;
+
+  bool get isAllFilterSelected => sortByPriceDesc && sortBy24ChangeDesc;
 
   List<Coin> get getSearchedCoins {
     if ((cryptoSearchString?.length ?? 0) == 0) return [];

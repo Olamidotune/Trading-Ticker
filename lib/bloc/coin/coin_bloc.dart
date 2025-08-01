@@ -116,15 +116,37 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
       _SortByMarketCapDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) => (b.marketCap).compareTo(a.marketCap));
-    emit(state.copyWith(
-        coinList: sortedList, activeSort: CoinSortType.marketCapDesc));
+
+    if (event.sortByMarketCapDesc == true ||
+        state.isAllFilterSelected == false) {
+      emit(state.copyWith(
+        coinList: sortedList,
+        activeSort: CoinSortType.marketCapDesc,
+        sortByPriceDesc: true,
+        sortBy24ChangeDesc: true,
+      ));
+    } else {
+      emit(state.copyWith(
+        sortByPriceDesc: false,
+        sortBy24ChangeDesc: false,
+      ));
+    }
   }
 
   void _sortByPriceDesc(_SortByPriceDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) => (b.currentPrice).compareTo(a.currentPrice));
-    emit(state.copyWith(
-        coinList: sortedList, activeSort: CoinSortType.priceDesc));
+
+    if (event.sortByPriceDesc == true) {
+      emit(state.copyWith(
+        coinList: sortedList,
+        activeSort: CoinSortType.priceDesc,
+        sortByPriceDesc: true,
+        sortBy24ChangeDesc: false,
+      ));
+    } else {
+      emit(state.copyWith(sortByPriceDesc: false));
+    }
   }
 
   void _sortBy24hChangeDesc(
@@ -132,7 +154,16 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) =>
         (b.priceChangePercentage24h).compareTo(a.priceChangePercentage24h));
-    emit(state.copyWith(
-        coinList: sortedList, activeSort: CoinSortType.change24hDesc));
+
+    if (event.sortBy24hChangeDesc == true) {
+      emit(state.copyWith(
+        coinList: sortedList,
+        activeSort: CoinSortType.change24hDesc,
+        sortBy24ChangeDesc: true,
+        sortByPriceDesc: false,
+      ));
+    } else {
+      emit(state.copyWith(sortBy24ChangeDesc: false));
+    }
   }
 }

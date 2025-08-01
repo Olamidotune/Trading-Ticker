@@ -1,5 +1,6 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 //LIGHT MODE
 final ThemeData lightTheme = ThemeData(
@@ -7,11 +8,11 @@ final ThemeData lightTheme = ThemeData(
   scaffoldBackgroundColor: AppColors.lightBg,
   primaryColor: AppColors.primaryColor,
   colorScheme: const ColorScheme.light(
-    primary: AppColors.primaryColor,
+    primary: AppColors.whiteColor,
     secondary: AppColors.accentNeon,
   ),
   appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.whiteColor,
+    backgroundColor: AppColors.primaryColor,
     foregroundColor: AppColors.textColor,
     elevation: 0,
     titleTextStyle: TextStyle(
@@ -20,14 +21,19 @@ final ThemeData lightTheme = ThemeData(
       color: AppColors.textColor,
     ),
   ),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: AppColors.textColor),
-    bodyMedium: TextStyle(color: AppColors.textColor),
-    displaySmall: TextStyle(color: AppColors.textColor),
+  textTheme: TextTheme(
+    bodyLarge: GoogleFonts.manrope(
+      color: AppColors.textColor,
+    ),
+    bodyMedium: GoogleFonts.manrope(color: AppColors.textColor),
+    bodySmall: GoogleFonts.manrope(
+      color: AppColors.greyColor,
+    ),
+    displaySmall: GoogleFonts.manrope(color: AppColors.textColor),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: Colors.grey[200],
+    fillColor: AppColors.primaryColor.withValues(alpha: .04),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -64,14 +70,18 @@ final ThemeData darkTheme = ThemeData(
       color: Colors.white,
     ),
   ),
-  textTheme: const TextTheme(
-    bodyLarge: TextStyle(color: Colors.white),
-    bodyMedium: TextStyle(color: AppColors.whiteColor),
-    displaySmall: TextStyle(color: AppColors.accentNeon, fontSize: 18),
+  textTheme: TextTheme(
+    bodyLarge: GoogleFonts.manrope(color: Colors.white),
+    bodyMedium: GoogleFonts.manrope(color: AppColors.whiteColor),
+    bodySmall: GoogleFonts.manrope(
+      color: AppColors.whiteColor,
+    ),
+    displaySmall:
+        GoogleFonts.manrope(color: AppColors.accentNeon, fontSize: 18),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColors.darkSurface,
+    fillColor: AppColors.primaryColor.withValues(alpha: .04),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),

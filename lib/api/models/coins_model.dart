@@ -72,6 +72,9 @@ class Coin {
   @JsonKey(name: 'last_updated')
   final String lastUpdated;
 
+  @JsonKey(name: "sparkline_in_7d")
+  final SparkLine? sparklineIn7D;
+
   Coin({
     required this.id,
     required this.symbol,
@@ -99,6 +102,7 @@ class Coin {
     required this.atlDate,
     required this.roi,
     required this.lastUpdated,
+    this.sparklineIn7D,
   });
 
   factory Coin.fromJson(Map<String, dynamic> json) => _$CoinFromJson(json);
@@ -119,4 +123,19 @@ class Roi {
 
   factory Roi.fromJson(Map<String, dynamic> json) => _$RoiFromJson(json);
   Map<String, dynamic> toJson() => _$RoiToJson(this);
+}
+
+@JsonSerializable()
+class SparkLine {
+  @JsonKey(name: "price")
+  List<double>? price;
+
+  SparkLine({
+    this.price,
+  });
+
+  factory SparkLine.fromJson(Map<String, dynamic> json) =>
+      _$SparkLineFromJson(json);
+
+  Map<String, dynamic> toJson() => _$SparkLineToJson(this);
 }
