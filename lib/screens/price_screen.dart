@@ -48,8 +48,11 @@ class PriceScreen extends StatelessWidget {
                         _showFilterDialog(context, true);
                       },
                       child: CircleAvatar(
+                        backgroundColor: AppColors.whiteColor,
                         radius: 25,
-                        child: SvgPicture.asset('assets/svg/filter.svg'),
+                        child: SvgPicture.asset(
+                          'assets/svg/filter.svg',
+                        ),
                       ),
                     ),
                   ],

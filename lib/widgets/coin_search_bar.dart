@@ -20,17 +20,21 @@ class _CoinSearchBarState extends State<CoinSearchBar> {
       shape: WidgetStateProperty.all(
         RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       ),
+      textStyle:
+          WidgetStateProperty.all(const TextStyle(color: AppColors.blackColor)),
       keyboardType: TextInputType.text,
       textInputAction: TextInputAction.search,
       backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
       leading: SvgPicture.asset('assets/svg/search.svg'),
       hintText: 'Search for a coin',
+      hintStyle:
+          WidgetStateProperty.all(const TextStyle(color: AppColors.blackColor)),
       controller: _controller,
       onChanged: (value) {
         context.read<CoinBloc>().add(
               CoinEvent.cryptoSearchStringChanged(value),
             );
-        setState(() {}); // to toggle clear button visibility
+        setState(() {});
       },
       trailing: [
         if (_controller.text.isNotEmpty)
