@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cointicker/api/models/coins_model.dart';
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_card.dart';
-import 'package:cointicker/widgets/coin_details_dialog.dart';
 import 'package:cointicker/widgets/coin_search_bar.dart';
 import 'package:cointicker/widgets/dialogs/filter_coins_dialog.dart';
+import 'package:cointicker/widgets/coin_details_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -40,11 +39,6 @@ class PriceScreen extends StatelessWidget {
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
-                        // showModalBottomSheet(
-                        //   context: context,
-                        //   builder: (_) => const SortFilterSheet(),
-                        // );
-
                         _showFilterDialog(context, true);
                       },
                       child: CircleAvatar(
@@ -104,7 +98,12 @@ class PriceScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 final coin = state.computedGiftCards[index];
                 return CoinCard(
-                  onPressed: () => _coinDetailsDialog(context, coin),
+                  // onPressed: () => _coinDetailsDialog(context, coin),
+                  onPressed: () => showModalBottomSheet(
+                      context: context,
+                      builder: (_) => CoinDetailsSheet(
+                            coin: coin,
+                          )),
                   marketCap: coin.marketCap,
                   rank: coin.marketCapRank,
                   coinImage: coin.image,
@@ -121,15 +120,6 @@ class PriceScreen extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-
-  void _coinDetailsDialog(BuildContext context, Coin coin) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return CoinDetailsDialog(coin: coin);
-      },
     );
   }
 
@@ -159,7 +149,7 @@ class CustomShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       baseColor: Colors.white,
-      highlightColor: Colors.red[100]!,
+      highlightColor: Theme.of(context).primaryColor,
       child: Padding(
         padding: const EdgeInsets.all(8),
         child: Container(

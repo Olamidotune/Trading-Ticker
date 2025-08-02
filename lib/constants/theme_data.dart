@@ -60,7 +60,7 @@ final ThemeData lightTheme = ThemeData(
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: AppColors.blackColor,
-  primaryColor: AppColors.accentNeon,
+  primaryColor: AppColors.primaryColor.withValues(alpha: .1),
   colorScheme: const ColorScheme.dark(
     primary: AppColors.blackColor,
     secondary: AppColors.redColor,
