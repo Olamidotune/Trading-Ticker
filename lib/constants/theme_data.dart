@@ -48,23 +48,29 @@ final ThemeData lightTheme = ThemeData(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
+    unselectedIconTheme: IconThemeData(
+      color: AppColors.primaryColor.withOpacity(0.5),
+    ),
+  ),
 );
 
 //DARK MODE
 final ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
-  scaffoldBackgroundColor: AppColors.darkBg,
-  primaryColor: AppColors.accentNeon,
+  scaffoldBackgroundColor: AppColors.blackColor,
+  primaryColor: AppColors.primaryColor.withValues(alpha: .1),
   colorScheme: const ColorScheme.dark(
-    primary: AppColors.accentNeon,
-    secondary: AppColors.accentNeon,
+    primary: AppColors.blackColor,
+    secondary: AppColors.redColor,
     surface: AppColors.darkSurface,
   ),
-  appBarTheme: const AppBarTheme(
-    backgroundColor: AppColors.darkSurface,
+  appBarTheme: AppBarTheme(
+    backgroundColor: AppColors.primaryColor.withValues(alpha: .2),
     foregroundColor: Colors.white,
     elevation: 0,
-    titleTextStyle: TextStyle(
+    titleTextStyle: const TextStyle(
       fontSize: 20,
       fontWeight: FontWeight.bold,
       color: Colors.white,
@@ -81,7 +87,7 @@ final ThemeData darkTheme = ThemeData(
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
-    fillColor: AppColors.primaryColor.withValues(alpha: .04),
+    fillColor: AppColors.primaryColor.withValues(alpha: .1),
     contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(12),
@@ -94,6 +100,12 @@ final ThemeData darkTheme = ThemeData(
       foregroundColor: AppColors.darkBg,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
+  ),
+  bottomNavigationBarTheme: BottomNavigationBarThemeData(
+    selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
+    unselectedIconTheme: IconThemeData(
+      color: AppColors.primaryColor.withOpacity(0.5),
     ),
   ),
 );

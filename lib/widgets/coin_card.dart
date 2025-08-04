@@ -60,8 +60,7 @@ class CoinCard extends StatelessWidget {
       padding: const EdgeInsets.all(5.0),
       child: Container(
         decoration: BoxDecoration(
-          border:
-              Border.all(color: AppColors.primaryColor.withValues(alpha: .1)),
+          border: Border.all(color: AppColors.blackColor.withValues(alpha: .1)),
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).inputDecorationTheme.fillColor,
         ),

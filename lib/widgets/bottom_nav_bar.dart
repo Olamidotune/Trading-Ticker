@@ -1,6 +1,7 @@
+import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/screens/about_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../screens/price_screen.dart';
 import '../screens/news_screen.dart';
@@ -30,25 +31,68 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: screens[_currentIndex],
       bottomNavigationBar: Theme(
-        data: Theme.of(context).copyWith(canvasColor: Colors.white),
+        data: Theme.of(context).copyWith(
+          canvasColor: Theme.of(context).colorScheme.primary,
+        ),
         child: BottomNavigationBar(
           type: BottomNavigationBarType.shifting,
-          selectedLabelStyle: const TextStyle(fontSize: 12),
           onTap: (index) => setState(() {
             _currentIndex = index;
           }),
           currentIndex: _currentIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          items: const [
+          selectedItemColor: Theme.of(context).textTheme.bodyMedium?.color,
+          unselectedItemColor: AppColors.goldColor,
+          showSelectedLabels: true,
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.houseChimney),
+              icon: _currentIndex == 0
+                  ? SvgPicture.asset(
+                      'assets/svg/home.svg',
+                      colorFilter: const ColorFilter.mode(
+                        AppColors.primaryColor,
+                        BlendMode.srcIn,
+                      ),
+                    )
+                  : SvgPicture.asset(
+                      'assets/svg/home.svg',
+                      colorFilter: ColorFilter.mode(
+                          AppColors.greyColor.withValues(alpha: .5),
+                          BlendMode.srcIn),
+                    ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.newspaper), label: 'News'),
+                icon: _currentIndex == 1
+                    ? SvgPicture.asset(
+                        'assets/svg/news.svg',
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.primaryColor,
+                          BlendMode.srcIn,
+                        ),
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/news.svg',
+                        colorFilter: ColorFilter.mode(
+                            AppColors.greyColor.withValues(alpha: .5),
+                            BlendMode.srcIn),
+                      ),
+                label: 'News'),
             BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.bars), label: 'About'),
+                icon: _currentIndex == 2
+                    ? SvgPicture.asset(
+                        'assets/svg/menu.svg',
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.primaryColor,
+                          BlendMode.srcIn,
+                        ),
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/menu.svg',
+                        colorFilter: ColorFilter.mode(
+                            AppColors.greyColor.withValues(alpha: .5),
+                            BlendMode.srcIn),
+                      ),
+                label: 'Menu'),
           ],
         ),
       ),
