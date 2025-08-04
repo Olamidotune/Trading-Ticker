@@ -59,10 +59,10 @@ class PriceScreen extends HookWidget {
             ],
           ),
         ),
-        title: const Text(
-          'Trading Ticker',
-          style: TextStyle(color: AppColors.whiteColor),
-        ),
+        title: Text('Trading Ticker',
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: AppColors.whiteColor,
+                )),
       ),
       body: BlocBuilder<CoinBloc, CoinState>(
         builder: (context, state) {
