@@ -1,11 +1,13 @@
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/widgets/coin_search_bar.dart';
 import 'package:cointicker/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsScreen extends StatelessWidget {
   static const String routeName = 'NewsScreen';
@@ -78,9 +80,11 @@ class NewsScreen extends StatelessWidget {
                   final news = state.news?[index];
                   return NewsCard(
                     onTap: () {
-                      context
-                          .read<NewsBloc>()
-                          .add(const NewsEvent.fetchNews('sex'));
+                      // context
+                      //     .read<NewsBloc>()
+                      //     .add(const NewsEvent.fetchNews('sex'));
+
+                      openUrl(news?.url ?? '');
                     },
                     name: news?.source?.name ?? 'No Title',
                     author: news?.author ?? 'No Author',
@@ -95,5 +99,16 @@ class NewsScreen extends StatelessWidget {
             );
           },
         ));
+  }
+}
+
+void openUrl(String? url) async {
+  if (url == null || url.isEmpty) {
+    logError("URL is null or empty", StackTrace.current);
+    return;
+  }
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    launchUrl(uri, mode: LaunchMode.platformDefault);
   }
 }

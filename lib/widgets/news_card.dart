@@ -1,9 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/services/logging_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatelessWidget {
   final String name;
@@ -119,16 +117,5 @@ String timeAgo(DateTime date) {
     return '${difference.inHours}h ago';
   } else {
     return '${difference.inDays}d ago';
-  }
-}
-
-void openUrl(String? url) async {
-  if (url == null || url.isEmpty) {
-    logError("URL is null or empty", StackTrace.current);
-    return;
-  }
-  final uri = Uri.parse(url);
-  if (await canLaunchUrl(uri)) {
-    launchUrl(uri, mode: LaunchMode.platformDefault);
   }
 }
