@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NewsCard extends StatelessWidget {
   final String name;
@@ -40,7 +42,6 @@ class NewsCard extends StatelessWidget {
           onTap: onTap,
           child: Row(
             children: [
-              /// Text section
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,133 +108,6 @@ class NewsCard extends StatelessWidget {
         ),
       ),
     );
-
-    // child: Row(
-    //   children: [
-    //     Expanded(
-    //       flex: 2,
-    // child: Column(
-    //   children: [
-    //     Text(title,
-    //         style: Theme.of(context)
-    //             .textTheme
-    //             .bodyLarge
-    //             ?.copyWith(fontWeight: FontWeight.bold)),
-    //     Text(description),
-    //     Text(author)
-    //   ],
-    // ),
-    //     ),
-    //     Expanded(
-    //       flex: 2,
-    //       child: Container(
-    //         decoration: BoxDecoration(
-    //           border: Border.all(
-    //               color: AppColors.blackColor.withValues(alpha: .1)),
-    //           borderRadius: BorderRadius.circular(10),
-    //         ),
-    //         child: CachedNetworkImage(
-    //           imageUrl: urlToImage,
-    //           height: 120,
-    //           fit: BoxFit.cover,
-    //           placeholder: (context, url) => const Center(
-    //             child: CircularProgressIndicator(color: Colors.black),
-    //           ),
-    //           errorWidget: (context, url, error) => const Icon(
-    //             Icons.image_not_supported_outlined,
-    //             size: 50,
-    //           ),
-    //         ),
-    //       ),
-    //     ),
-    //   ],
-    // ),
-    // child: Padding(
-    //   padding: const EdgeInsets.only(left: 5.0, right: 10),
-    //   child: Row(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     children: [
-    //       Padding(
-    //           padding: const EdgeInsets.all(15.0),
-    //           child: Container(
-    //               decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(20),
-    //                   color: Colors.grey.withAlpha(3),
-    //                   boxShadow: [
-    //                     BoxShadow(
-    //                         color: Colors.grey.shade600,
-    //                         offset: const Offset(7, 10),
-    //                         blurRadius: 16,
-    //                         spreadRadius: 1),
-    //                     const BoxShadow(
-    //                         color: Colors.white70,
-    //                         offset: Offset(-10, -7),
-    //                         blurRadius: 16,
-    //                         spreadRadius: 1),
-    //                   ]),
-    //               height: 15.h,
-    //               width: 15.w,
-    //               child: Padding(
-    //                 padding: const EdgeInsets.all(8.0),
-    //                 child: CachedNetworkImage(
-    //                   imageUrl: urlToImage,
-    //                   height: 200,
-    //                   width: double.infinity,
-    //                   fit: BoxFit.cover,
-    //                   placeholder: (context, url) => const Center(
-    //                     child: CircularProgressIndicator(
-    //                         color: Colors.black),
-    //                   ),
-    //                   errorWidget: (context, url, error) => const Icon(
-    //                     Icons.image_not_supported_outlined,
-    //                     size: 50,
-    //                   ),
-    //                 ),
-    //               ))),
-    //       Expanded(
-    //         child: Column(
-    //           crossAxisAlignment: CrossAxisAlignment.start,
-    //           children: [
-    //             Expanded(
-    //               flex: 2,
-    //               child: Text(
-    //                 title,
-    //                 style: const TextStyle(
-    //                   fontSize: 20,
-    //                   fontWeight: FontWeight.bold,
-    //                 ),
-    //                 maxLines: 2,
-    //                 textAlign: TextAlign.start,
-    //               ),
-    //             ),
-    //             Expanded(
-    //               flex: 1,
-    //               child: Text(
-    //                 author,
-    //                 style: TextStyle(
-    //                     fontSize: 10.sp, fontWeight: FontWeight.bold),
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //       ),
-    //       Column(
-    //         crossAxisAlignment: CrossAxisAlignment.center,
-    //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-    //         children: [
-    //           FittedBox(
-    //             fit: BoxFit.scaleDown,
-    //             child: Text(
-    //               timeAgo(publishedAt ?? DateTime.now()),
-    //               style: TextStyle(
-    //                   fontSize: 15.sp, fontWeight: FontWeight.bold),
-    //             ),
-    //           ),
-    //         ],
-    //       )
-    //     ],
-    //   ),
-    // ),
   }
 }
 
@@ -245,5 +119,16 @@ String timeAgo(DateTime date) {
     return '${difference.inHours}h ago';
   } else {
     return '${difference.inDays}d ago';
+  }
+}
+
+void openUrl(String? url) async {
+  if (url == null || url.isEmpty) {
+    logError("URL is null or empty", StackTrace.current);
+    return;
+  }
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    launchUrl(uri, mode: LaunchMode.platformDefault);
   }
 }
