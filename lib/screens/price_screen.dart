@@ -144,7 +144,6 @@ class PriceScreen extends HookWidget {
               itemBuilder: (context, index) {
                 final coin = state.computedGiftCards[index];
                 return CoinCard(
-                  // onPressed: () => _coinDetailsDialog(context, coin),
                   onPressed: () => showModalBottomSheet(
                       useSafeArea: true,
                       context: context,

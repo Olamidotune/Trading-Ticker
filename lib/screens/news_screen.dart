@@ -1,5 +1,6 @@
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_search_bar.dart';
 import 'package:cointicker/widgets/news_card.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ class NewsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
         appBar: AppBar(
           centerTitle: false,
           shape: const RoundedRectangleBorder(
@@ -34,9 +34,7 @@ class NewsScreen extends StatelessWidget {
                       ),
                       const SizedBox(width: 8),
                       GestureDetector(
-                        onTap: () {
-                          // _showFilterDialog(context, true);
-                        },
+                        onTap: () {},
                         child: CircleAvatar(
                           backgroundColor: AppColors.whiteColor,
                           radius: 25,
@@ -61,34 +59,39 @@ class NewsScreen extends StatelessWidget {
                       )),
               Text('Get the latest crypto news here.',
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: AppColors.whiteColor,
-                      fontWeight: FontWeight.w400)),
+                        color: AppColors.whiteColor,
+                        fontWeight: FontWeight.w400,
+                      )),
             ],
           ),
         ),
         body: BlocBuilder<NewsBloc, NewsState>(
           builder: (context, state) {
-            return ListView.builder(
-              itemCount: state.news?.length ?? 0,
-              shrinkWrap: true,
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                final news = state.news?[index];
-                return NewsCard(
-                  onPressed: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent.fetchNews('sex'));
-                  },
-                  name: news?.title ?? 'No Title',
-                  author: news?.author ?? 'No Author',
-                  title: news?.title ?? 'No Title',
-                  description: news?.description ?? 'No Description',
-                  url: news?.url ?? '',
-                  urlToImage: news?.urlToImage ?? '',
-                  publishedAt: news?.publishedAt,
-                );
-              },
+            return Padding(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppSpacing.horizontalSpacingSmall),
+              child: ListView.builder(
+                itemCount: state.news?.length ?? 0,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  final news = state.news?[index];
+                  return NewsCard(
+                    onTap: () {
+                      context
+                          .read<NewsBloc>()
+                          .add(const NewsEvent.fetchNews('sex'));
+                    },
+                    name: news?.source?.name ?? 'No Title',
+                    author: news?.author ?? 'No Author',
+                    title: news?.title ?? 'No Title',
+                    description: news?.description ?? 'No Description',
+                    url: news?.url ?? '',
+                    urlToImage: news?.urlToImage ?? '',
+                    publishedAt: news?.publishedAt,
+                  );
+                },
+              ),
             );
           },
         ));
