@@ -27,5 +27,25 @@ class PersistenceService {
     _manager._preferences!.setBool(PrefKeys.signInStatusKey, signInStatus);
   }
 
+  Future<void> saveUserEmail(String userEmail) async {
+    await _manager._ensurePreferenceLoaded();
+    _manager._preferences!.setString(PrefKeys.userEmail, userEmail);
+  }
+
+  Future<String?> getUserEmail() async {
+    await _manager._ensurePreferenceLoaded();
+    return _manager._preferences!.getString(PrefKeys.userEmail);
+  }
+
+  Future<void> saveUserName(String userName) async {
+    await _manager._ensurePreferenceLoaded();
+    _manager._preferences!.setString(PrefKeys.userName, userName);
+  }
+
+  Future<String?> getUserName() async {
+    await _manager._ensurePreferenceLoaded();
+    return _manager._preferences!.getString(PrefKeys.userName);
+  }
+
   PersistenceService._internal();
 }
