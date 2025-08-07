@@ -25,7 +25,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     logInfo('NewsBloc initialized');
 
     emit(state.copyWith(getNewsStatus: FormzSubmissionStatus.initial));
-    add(NewsEvent.fetchNews(state.searchKey ?? 'Cryptocurrency'));
+    add(NewsEvent.fetchNews(
+        state.searchKey ?? 'Cryptocurrency', 1, _getDefaultFromDate()));
   }
 
   void _fetchNews(_FetchNews event, Emitter<NewsState> emit) async {
@@ -34,19 +35,31 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     emit(state.copyWith(getNewsStatus: FormzSubmissionStatus.inProgress));
 
     try {
-      final news = await locator<NewsClient>()
-          .getNews(event.searchKey ?? 'Cryptocurrency');
+      final searchKey = event.searchKey ?? 'Cryptocurrency';
+      final page = event.page;
+      final fromDate = event.fromDate ?? _getDefaultFromDate();
+
+      final news = await locator<NewsClient>().getNews(
+        searchKey: searchKey,
+        fromDate: fromDate,
+        page: page,
+      );
 
       add(_FetchNewsSuccess(news));
     } catch (error, trace) {
       logError(error, trace);
       if (error is DioException) {
-        final message = error.response?.data?['message'];
-        add(_FetchNewsFailure(message?.toString() ?? 'Something went wrong'));
+        add(const _FetchNewsFailure('Something went wrong'));
       } else {
         add(const _FetchNewsFailure('Something went wrong'));
       }
     }
+  }
+
+  String _getDefaultFromDate() {
+    final now = DateTime.now();
+    final twoWeeksAgo = now.subtract(const Duration(days: 14));
+    return twoWeeksAgo.toIso8601String().split('T').first;
   }
 
   void _fetchNewsSuccess(_FetchNewsSuccess event, Emitter<NewsState> emit) {

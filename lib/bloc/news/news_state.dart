@@ -7,6 +7,7 @@ class NewsState with _$NewsState {
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus getNewsStatus,
     List<Article>? news,
     String? searchKey,
+    @Default(1) int page,
     String? errorMessage,
   }) = _NewsState;
 }
