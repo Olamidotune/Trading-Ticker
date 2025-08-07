@@ -30,6 +30,8 @@ final ThemeData lightTheme = ThemeData(
       color: AppColors.greyColor,
     ),
     displaySmall: GoogleFonts.manrope(color: AppColors.textColor),
+    headlineSmall: GoogleFonts.manrope(
+        color: AppColors.textColor, fontWeight: FontWeight.bold),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,
@@ -84,6 +86,8 @@ final ThemeData darkTheme = ThemeData(
     ),
     displaySmall:
         GoogleFonts.manrope(color: AppColors.accentNeon, fontSize: 18),
+    headlineSmall: GoogleFonts.manrope(
+        color: AppColors.whiteColor, fontWeight: FontWeight.bold),
   ),
   inputDecorationTheme: InputDecorationTheme(
     filled: true,

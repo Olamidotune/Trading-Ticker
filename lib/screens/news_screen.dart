@@ -1,47 +1,120 @@
 import 'package:cointicker/bloc/news/news_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:formz/formz.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-String newsAPIurl =
-    'https://newsapi.org/v2/everything?q=cryptocurrency&apiKey=9c337956eae7413bbc102eb80bc23327';
-
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends HookWidget {
   static const String routeName = 'NewsScreen';
 
   const NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = useScrollController();
+    final isAtBottomNotifier = useState(false);
+
+    useEffect(() {
+      void onScroll() {
+        final isAtBottom = scrollController.position.pixels >=
+            scrollController.position.maxScrollExtent - 200;
+
+        isAtBottomNotifier.value = isAtBottom;
+
+        if (isAtBottom) {
+          final bloc = context.read<NewsBloc>();
+          if (bloc.state.getNewsStatus.isSuccess) {
+            bloc.add(
+              NewsEvent.fetchNews(
+                bloc.state.searchKey ?? 'Cryptocurrency',
+                bloc.state.page + 1,
+                _getDefaultFromDate(),
+              ),
+            );
+          }
+        }
+      }
+
+      scrollController.addListener(onScroll);
+      return () => scrollController.removeListener(onScroll);
+    }, [scrollController]);
+
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              FontAwesomeIcons.arrowLeft,
-              color: Colors.black,
-            ),
+      floatingActionButton: HookBuilder(
+        builder: (context) {
+          final isAtBottom = isAtBottomNotifier.value;
+
+          return FloatingActionButton.extended(
+            onPressed: () {
+              // Your logic here
+              print(context.read<NewsBloc>().state.page);
+              context.read<NewsBloc>().add(
+                    NewsEvent.fetchNews(
+                      context.read<NewsBloc>().state.searchKey ??
+                          'Cryptocurrency',
+                      context.read<NewsBloc>().state.page + 1,
+                      _getDefaultFromDate(),
+                    ),
+                  );
+            },
+            label: Text(isAtBottom ? 'Next Page' : 'Prev Page'),
+            backgroundColor: isAtBottom ? Colors.red : Colors.green,
+          );
+        },
+      ),
+      appBar: AppBar(
+        centerTitle: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
           ),
         ),
-        body: BlocBuilder<NewsBloc, NewsState>(
-          builder: (context, state) {
-            return ListView.builder(
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 50),
+            Text(
+              'News',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: AppColors.whiteColor,
+                  ),
+            ),
+            Text(
+              'Get the latest crypto news here.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.whiteColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+            ),
+          ],
+        ),
+        toolbarHeight: 140,
+      ),
+      body: BlocBuilder<NewsBloc, NewsState>(
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppSpacing.horizontalSpacingSmall,
+            ),
+            child: ListView.builder(
+              controller: scrollController, // ✅ Attach scroll controller
               itemCount: state.news?.length ?? 0,
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               itemBuilder: (BuildContext context, int index) {
                 final news = state.news?[index];
                 return NewsCard(
-                  onPressed: () {
-                    context
-                        .read<NewsBloc>()
-                        .add(const NewsEvent.fetchNews('sex'));
+                  onTap: () {
+                    openUrl(news?.url ?? '');
                   },
-                  name: news?.title ?? 'No Title',
+                  name: news?.source?.name ?? 'No Title',
                   author: news?.author ?? 'No Author',
                   title: news?.title ?? 'No Title',
                   description: news?.description ?? 'No Description',
@@ -50,8 +123,27 @@ class NewsScreen extends StatelessWidget {
                   publishedAt: news?.publishedAt,
                 );
               },
-            );
-          },
-        ));
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+String _getDefaultFromDate() {
+  final now = DateTime.now();
+  final twoWeeksAgo = now.subtract(const Duration(days: 14));
+  return twoWeeksAgo.toIso8601String().split('T').first;
+}
+
+void openUrl(String? url) async {
+  if (url == null || url.isEmpty) {
+    logError("URL is null or empty", StackTrace.current);
+    return;
+  }
+  final uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    launchUrl(uri, mode: LaunchMode.inAppBrowserView);
   }
 }
