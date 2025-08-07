@@ -32,7 +32,9 @@ class NewsCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(AppSpacing.horizontalSpacingSmall),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.blackColor.withOpacity(0.1)),
+          border: Border.all(
+            color: AppColors.blackColor.withValues(alpha: .1),
+          ),
           borderRadius: BorderRadius.circular(10),
           color: Theme.of(context).inputDecorationTheme.fillColor,
         ),

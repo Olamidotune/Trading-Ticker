@@ -52,7 +52,6 @@ class NewsScreen extends HookWidget {
           return FloatingActionButton.extended(
             onPressed: () {
               // Your logic here
-              print(context.read<NewsBloc>().state.page);
               context.read<NewsBloc>().add(
                     NewsEvent.fetchNews(
                       context.read<NewsBloc>().state.searchKey ??

@@ -53,7 +53,7 @@ final ThemeData lightTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
     unselectedIconTheme: IconThemeData(
-      color: AppColors.primaryColor.withOpacity(0.5),
+      color: AppColors.primaryColor.withValues(alpha: .5),
     ),
   ),
 );
@@ -109,7 +109,7 @@ final ThemeData darkTheme = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     selectedIconTheme: const IconThemeData(color: AppColors.primaryColor),
     unselectedIconTheme: IconThemeData(
-      color: AppColors.primaryColor.withOpacity(0.5),
+      color: AppColors.primaryColor.withValues(alpha: .5),
     ),
   ),
 );
