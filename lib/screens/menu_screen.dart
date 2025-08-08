@@ -86,11 +86,6 @@ class MenuScreen extends HookWidget {
                 name: 'Suggest a feature',
               ),
               AppSpacing.verticalSpaceMedium,
-              MenuCard(
-                onTap: () {},
-                icon: 'info',
-                name: 'Contact email or link to your GitHub/issues',
-              )
             ],
           ),
         ),
