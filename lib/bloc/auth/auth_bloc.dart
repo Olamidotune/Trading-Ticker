@@ -33,6 +33,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     add(const AuthEvent.init());
   }
 
+  void _init(_Init event, Emitter<AuthState> emit) {
+    logInfo('AuthBloc initialized');
+  }
+
   Future<void> _signUp(_SignUp event, Emitter<AuthState> emit) async {
     if (state.signUpStatus == FormzSubmissionStatus.inProgress) return;
 
@@ -94,13 +98,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       signUpStatus: FormzSubmissionStatus.failure,
       errorMessage: event.errorMessage,
     ));
-    // Optionally, you can reset the form fields here
-    // emit(state.copyWith(
-    //   email: const EmailFormz.pure(),
-    //   password: const PasswordFormz.pure(),
-    //   confirmPassword: const ConfirmPasswordFormz.pure(),
-    //   fullName: const FullNameFormz.pure(),
-    // ));
   }
 
   void _emailChanged(_EmailChanged event, Emitter<AuthState> emit) {
@@ -147,10 +144,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
   }
 
-  void _init(_Init event, Emitter<AuthState> emit) {
-    logInfo('AuthBloc initialized');
-  }
-
   void _errorMessage(_ErrorMessage event, Emitter<AuthState> emit) {
     emit(state.copyWith(errorMessage: event.errorMessage));
   }
@@ -177,8 +170,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: state.password.value,
       );
 
-      logInfo('User signed in successfully: ${userCredential.user!.uid}');
+      final uid = userCredential.user?.uid;
+      final docSnapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
       add(const AuthEvent.signInSuccess());
+
+      final fullName = docSnapshot.data()?['fullName'];
+      await PersistenceService().saveUserName(fullName);
+
+      final userEmail = docSnapshot.data()?['email'];
+      await PersistenceService().saveUserEmail(userEmail);
     } on FirebaseAuthException catch (error, trace) {
       logError(error, trace);
       add(AuthEvent.signInFailure(error.message ?? 'Sign in failed'));
