@@ -1,12 +1,17 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/screens/news_screen.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/persistence_service.dart';
 import 'package:cointicker/services/theme_service.dart';
+import 'package:cointicker/services/toast_service.dart';
 import 'package:cointicker/widgets/profile_card.dart';
 import 'package:cointicker/widgets/theme_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MenuScreen extends HookWidget {
   static const String routeName = 'menu_screen';
@@ -62,8 +67,8 @@ class MenuScreen extends HookWidget {
             children: [
               ProfileCard(
                 controller: controller,
-                email: email,
-                username: username,
+                email: email.value,
+                username: username.value,
               ),
               AppSpacing.verticalSpaceMedium,
               const ThemeModeCard(),
@@ -81,11 +86,32 @@ class MenuScreen extends HookWidget {
               ),
               AppSpacing.verticalSpaceMedium,
               MenuCard(
-                onTap: () {},
+                onTap: () => openSuggestFeatureMail(context),
                 icon: 'info',
                 name: 'Suggest a feature',
               ),
-              AppSpacing.verticalSpaceMedium,
+              AppSpacing.verticalSpaceMassive,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  SocialButton(
+                      icon: 'gmail',
+                      onTap: () => openEmailApp(context, username.value ?? '')),
+                  SocialButton(
+                    icon: 'github',
+                    onTap: () {
+                      openUrl('https://github.com/Olamidotune');
+                    },
+                  ),
+                  SocialButton(
+                    icon: 'linked_in',
+                    onTap: () {
+                      openUrl(
+                          'https://www.linkedin.com/in/egundeyi-oladotun?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app');
+                    },
+                  ),
+                ],
+              )
             ],
           ),
         ),
@@ -95,6 +121,63 @@ class MenuScreen extends HookWidget {
 
   void _showEnhancedAboutDialog(BuildContext context) {
     aboutAppDialog(context);
+  }
+}
+
+void openSuggestFeatureMail(BuildContext context) async {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'Davidegundeyi@gmail.com', // Your email address
+    queryParameters: {
+      'subject': 'Feature Suggestion for Your App',
+      'body': 'Hi, I would like to suggest a new feature for your app.',
+    },
+  );
+
+  try {
+    // Try to launch with mode specification
+    bool launched = await launchUrl(
+      emailLaunchUri,
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (!launched) {
+      // If launching fails, try alternative methods
+      await _showEmailFallback(context);
+    }
+  } catch (e) {
+    logInfo('Error launching email: $e');
+    await _showEmailFallback(context);
+  }
+}
+
+class SocialButton extends StatelessWidget {
+  final String icon;
+  final Function()? onTap;
+
+  const SocialButton({
+    super.key,
+    required this.icon,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(AppSpacing.horizontalSpacingSmall),
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.blackColor.withValues(alpha: .1)),
+          borderRadius: BorderRadius.circular(10),
+          color: Theme.of(context).inputDecorationTheme.fillColor,
+        ),
+        child: SvgPicture.asset(
+          'assets/svg/$icon.svg',
+          height: icon.contains('github') ? 28 : 25,
+        ),
+      ),
+    );
   }
 }
 
@@ -369,5 +452,239 @@ Widget _buildStatCard(BuildContext context, String value, String label) {
         ),
       ],
     ),
+  );
+}
+
+// Solution 1: Improved email launcher with better error handling
+void openEmailApp(BuildContext context, String userName) async {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'Davidegundeyi@gmail.com',
+    queryParameters: {
+      'subject': 'Hello from CoinStalk',
+      'body': 'Hi,I am $userName I would like to know more about your app.',
+    },
+  );
+
+  try {
+    // Try to launch with mode specification
+    bool launched = await launchUrl(
+      emailLaunchUri,
+      mode: LaunchMode.externalApplication,
+    );
+
+    if (!launched) {
+      // If launching fails, try alternative methods
+      await _showEmailFallback(context);
+    }
+  } catch (e) {
+    logInfo('Error launching email: $e');
+    await _showEmailFallback(context);
+  }
+}
+
+// Fallback method when email client launch fails
+Future<void> _showEmailFallback(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Contact Us'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text('Email client could not be opened automatically.'),
+            const SizedBox(height: 16),
+            const Text('You can reach us at:'),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Theme.of(context).dividerColor,
+                      ),
+                    ),
+                    child: const Text(
+                      'Davidegundeyi@gmail.com',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.copy),
+                  onPressed: () {
+                    Clipboard.setData(
+                      const ClipboardData(text: 'Davidegundeyi@gmail.com'),
+                    );
+                    // ScaffoldMessenger.of(context).showSnackBar(
+                    //   const SnackBar(
+                    //     content: Text('Email copied to clipboard!'),
+                    //     duration: Duration(seconds: 2),
+                    //   ),
+                    // );
+                    ToastService.toast('Email copied to clipboard!');
+                    Navigator.of(context).pop();
+                  },
+                  tooltip: 'Copy email',
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () => Navigator.of(context).pop(),
+            child: const Text(
+              'Close',
+            ),
+          ),
+          AppSpacing.horizontalSpaceMedium,
+          GestureDetector(
+            onTap: () async {
+              Navigator.of(context).pop();
+              await _tryAlternativeEmailMethods(context);
+            },
+            child: const Text('Try Again'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+// Alternative email launching methods
+Future<void> _tryAlternativeEmailMethods(BuildContext context) async {
+  final List<String> emailApps = [
+    'mailto:Davidegundeyi@gmail.com?subject=Hello from CoinStalk&body=Hi, I would like to know more about your app.',
+    'googlegmail://co?to=Davidegundeyi@gmail.com&subject=Hello from CoinStalk&body=Hi, I would like to know more about your app.',
+    'ms-outlook://compose?to=Davidegundeyi@gmail.com&subject=Hello from CoinStalk&body=Hi, I would like to know more about your app.',
+  ];
+
+  for (String urlString in emailApps) {
+    try {
+      final Uri uri = Uri.parse(urlString);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+        return; // Success, exit the loop
+      }
+    } catch (e) {
+      logInfo('Failed to launch $urlString: $e');
+      continue; // Try next option
+    }
+  }
+
+  // If all methods fail, show the fallback dialog again
+  await _showEmailFallback(context);
+}
+
+// Solution 2: Simple version with just copy-to-clipboard fallback
+void openEmailAppSimple(BuildContext context) async {
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'Davidegundeyi@gmail.com',
+    queryParameters: {
+      'subject': 'Hello from CoinStalk',
+      'body': 'Hi, I would like to know more about your app.',
+    },
+  );
+
+  try {
+    bool launched = await launchUrl(emailLaunchUri);
+    if (!launched) {
+      _copyEmailToClipboard(context);
+    }
+  } catch (e) {
+    _copyEmailToClipboard(context);
+  }
+}
+
+void _copyEmailToClipboard(BuildContext context) {
+  Clipboard.setData(const ClipboardData(text: 'Davidegundeyi@gmail.com'));
+
+  ToastService.toast('Email copied! Open your email app and paste it.');
+}
+
+// Solution 3: Check for specific email apps first
+Future<bool> hasEmailApp() async {
+  final List<String> emailSchemes = [
+    'mailto:',
+    'googlegmail://',
+    'ms-outlook://',
+  ];
+
+  for (String scheme in emailSchemes) {
+    try {
+      if (await canLaunchUrl(Uri.parse(scheme))) {
+        return true;
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+  return false;
+}
+
+void openEmailAppWithCheck(BuildContext context) async {
+  // First check if any email app is available
+  if (!(await hasEmailApp())) {
+    _showNoEmailAppDialog(context);
+    return;
+  }
+
+  // Try to launch email
+  final Uri emailLaunchUri = Uri(
+    scheme: 'mailto',
+    path: 'Davidegundeyi@gmail.com',
+    queryParameters: {
+      'subject': 'Hello from CoinStalk',
+      'body': 'Hi, I would like to know more about your app.',
+    },
+  );
+
+  try {
+    await launchUrl(emailLaunchUri, mode: LaunchMode.externalApplication);
+  } catch (e) {
+    _copyEmailToClipboard(context);
+  }
+}
+
+void _showNoEmailAppDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('No Email App Found'),
+        content: const Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.email_outlined, size: 48, color: Colors.grey),
+            SizedBox(height: 16),
+            Text(
+              'No email app is installed on your device. You can copy our email address and use it in your preferred method.',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _copyEmailToClipboard(context);
+            },
+            child: const Text('Copy Email'),
+          ),
+        ],
+      );
+    },
   );
 }

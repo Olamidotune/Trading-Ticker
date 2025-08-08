@@ -179,7 +179,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final fullName = docSnapshot.data()?['fullName'];
       await PersistenceService().saveUserName(fullName);
 
-      final userEmail = state.email.value;
+      final userEmail = docSnapshot.data()?['email'];
       await PersistenceService().saveUserEmail(userEmail);
     } on FirebaseAuthException catch (error, trace) {
       logError(error, trace);
