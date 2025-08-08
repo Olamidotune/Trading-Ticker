@@ -1,6 +1,7 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/helpers/email_helper/email_fall_back.dart';
+import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/persistence_service.dart';
@@ -91,6 +92,13 @@ class MenuScreen extends HookWidget {
                 name: 'Suggest a feature',
               ),
               AppSpacing.verticalSpaceMassive,
+              MenuCard(
+                onTap: () => _signOut(context),
+                icon: 'sign_out',
+                name: 'Sign Out',
+              ),
+              AppSpacing.verticalSpaceMassive,
+              AppSpacing.verticalSpaceMassive,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -123,6 +131,15 @@ class MenuScreen extends HookWidget {
   void _showEnhancedAboutDialog(BuildContext context) {
     aboutAppDialog(context);
   }
+}
+
+void _signOut(BuildContext context) async {
+  await PersistenceService().signOut();
+
+  Navigator.of(context).pushNamedAndRemoveUntil(
+    SignInScreen.routeName,
+    (_) => false,
+  );
 }
 
 void _openSuggestFeatureMail(BuildContext context) async {

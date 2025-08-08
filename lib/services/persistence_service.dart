@@ -57,5 +57,13 @@ class PersistenceService {
     return _manager._preferences!.getString(PrefKeys.themeMode);
   }
 
+  Future<void> signOut() async {
+    await _manager._ensurePreferenceLoaded();
+    await _manager._preferences!.remove(PrefKeys.userEmail);
+    await _manager._preferences!.remove(PrefKeys.userUuid);
+    await _manager._preferences!.remove(PrefKeys.userName);
+    await _manager._preferences!.remove(PrefKeys.signInStatusKey);
+  }
+
   PersistenceService._internal();
 }

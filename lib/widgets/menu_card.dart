@@ -7,6 +7,7 @@ class MenuCard extends StatelessWidget {
   final Function() onTap;
   final String icon;
   final String name;
+
   const MenuCard({
     super.key,
     required this.onTap,
@@ -26,10 +27,12 @@ class MenuCard extends StatelessWidget {
         onTap: onTap,
         leading: SvgPicture.asset('assets/svg/$icon.svg',
             colorFilter: ColorFilter.mode(
-                Theme.of(context).iconTheme.color ??
-                    (ThemeService.isDarkMode(context)
-                        ? AppColors.whiteColor
-                        : AppColors.textColor),
+                icon.contains('sign')
+                    ? AppColors.errorColor
+                    : Theme.of(context).iconTheme.color ??
+                        (ThemeService.isDarkMode(context)
+                            ? AppColors.whiteColor
+                            : AppColors.textColor),
                 BlendMode.srcIn)),
         title: Text(name),
       ),

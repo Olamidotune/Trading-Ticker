@@ -26,7 +26,7 @@ class SocialButton extends StatelessWidget {
         ),
         child: SvgPicture.asset(
           'assets/svg/$icon.svg',
-          height: icon.contains('github') ? 28 : 25,
+          height: 30,
         ),
       ),
     );
