@@ -3,7 +3,7 @@ import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/theme_data.dart';
 import 'package:cointicker/firebase_options.dart';
-import 'package:cointicker/screens/about_screen.dart';
+import 'package:cointicker/screens/menu_screen.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/screens/onboarding/splash_screen.dart';
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
                   BottomNavBar.routeName: (context) => const BottomNavBar(),
                   PriceScreen.routeName: (context) => const PriceScreen(),
                   NewsScreen.routeName: (context) => const NewsScreen(),
-                  AboutScreen.routeName: (context) => const AboutScreen(),
+                  MenuScreen.routeName: (context) => const MenuScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),
                   SignInScreen.routeName: (context) => const SignInScreen(),
                 },

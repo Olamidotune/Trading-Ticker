@@ -1,5 +1,5 @@
 import 'package:cointicker/constants/app_colors.dart';
-import 'package:cointicker/screens/about_screen.dart';
+import 'package:cointicker/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -20,11 +20,7 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
-  final screens = [
-    const PriceScreen(),
-    const NewsScreen(),
-    const AboutScreen()
-  ];
+  final screens = [const PriceScreen(), const NewsScreen(), const MenuScreen()];
 
   @override
   Widget build(BuildContext context) {
