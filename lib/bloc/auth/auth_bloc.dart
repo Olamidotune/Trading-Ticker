@@ -174,15 +174,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final docSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
-      final fullName = docSnapshot.data()?['fullName'];
-
-      await PersistenceService().saveUserName(fullName);
-      logInfo('Welcome $fullName');
-
       add(const AuthEvent.signInSuccess());
 
+      final fullName = docSnapshot.data()?['fullName'];
+      await PersistenceService().saveUserName(fullName);
+
       final userEmail = state.email.value;
-      await PersistenceService().saveUserName(userEmail);
+      await PersistenceService().saveUserEmail(userEmail);
     } on FirebaseAuthException catch (error, trace) {
       logError(error, trace);
       add(AuthEvent.signInFailure(error.message ?? 'Sign in failed'));
