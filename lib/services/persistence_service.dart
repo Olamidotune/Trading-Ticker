@@ -47,5 +47,15 @@ class PersistenceService {
     return _manager._preferences!.getString(PrefKeys.userName);
   }
 
+  Future<void> saveThemeMode(String themeMode) async {
+    await _manager._ensurePreferenceLoaded();
+    _manager._preferences!.setString(PrefKeys.themeMode, themeMode);
+  }
+
+  Future<String?> getThemeMode() async {
+    await _manager._ensurePreferenceLoaded();
+    return _manager._preferences!.getString(PrefKeys.themeMode);
+  }
+
   PersistenceService._internal();
 }
