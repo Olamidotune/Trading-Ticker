@@ -55,7 +55,6 @@ class SignUpScreen extends HookWidget {
                               .textTheme
                               .headlineMedium!
                               .copyWith(
-                                fontFamily: 'HelveticaNeueRounded',
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.yellowWarningIconColor,
@@ -228,7 +227,6 @@ class SignUpScreen extends HookWidget {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                    fontFamily: 'HelveticaNeueRounded',
                                     fontSize: 13,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.primaryColor,

@@ -1,35 +1,32 @@
 import 'package:cointicker/bloc/auth/auth_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/auth/forgot_password_screen.dart';
-import 'package:cointicker/screens/auth/sign_up_screen.dart';
+import 'package:cointicker/screens/auth/sign_in_screen.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/toast_service.dart';
-import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
 import 'package:cointicker/widgets/custom_text_field.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:formz/formz.dart';
 
-class SignInScreen extends HookWidget {
-  const SignInScreen({super.key});
+class ForgotPasswordScreen extends HookWidget {
+  const ForgotPasswordScreen({super.key});
 
-  static const routeName = '/sign-in';
+  static const routeName = '/forgot_password';
 
   @override
   Widget build(BuildContext context) {
     final emailNode = useFocusNode();
-    final passwordNode = useFocusNode();
-    final obscurePassword = useState(true);
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
         buildWhen: (previous, current) =>
-            _signInBuildWhen(context, current, previous),
+            _forgotPasswordBuildWhen(context, current, previous),
         builder: (context, state) {
           return SafeArea(
             child: Padding(
@@ -61,11 +58,11 @@ class SignInScreen extends HookWidget {
                       ],
                     ),
                     AppSpacing.verticalSpaceMassive,
-                    Text('Sign In',
+                    Text('Reset Your Password',
                         style: Theme.of(context).textTheme.displayLarge),
                     const SizedBox(height: 10),
                     Text(
-                      'Welcome back',
+                      "Enter the email address linked to your CoinStalk account and we'll send you a password reset link.",
                       style: Theme.of(context).textTheme.bodyLarge,
                       textAlign: TextAlign.justify,
                     ),
@@ -78,11 +75,21 @@ class SignInScreen extends HookWidget {
                             textInputAction: TextInputAction.next,
                             focusNode: emailNode,
                             title: 'Email Address',
-                            hintText: 'Enter your preferred email address',
+                            hintText: 'Enter your registered email address',
                             keyboardType: TextInputType.emailAddress,
                             onChanged: (value) => context.read<AuthBloc>().add(
-                                  AuthEvent.emailChanged(value),
+                                  AuthEvent.forgotPasswordEmailChanged(value),
                                 ),
+                            onFieldSubmitted: () {
+                              if (formKey.currentState?.validate() ?? false) {
+                                context.read<AuthBloc>().add(
+                                      const AuthEvent.forgotPassword(),
+                                    );
+
+                                logInfo(
+                                    "Here: ${state.forgotPasswordEmail.value}");
+                              }
+                            },
                             prefixIcon: 'email',
                             validator: (value) {
                               if (EmailValidator.validate(
@@ -93,69 +100,26 @@ class SignInScreen extends HookWidget {
                             },
                           ),
                           AppSpacing.verticalSpaceLarge,
-                          CustomTextFormField(
-                            textInputAction: TextInputAction.next,
-                            focusNode: passwordNode,
-                            title: 'Password',
-                            hintText: 'Input your preferred password',
-                            keyboardType: TextInputType.text,
-                            prefixIcon: 'password',
-                            obscureText: obscurePassword.value,
-                            isPassword: true,
-                            onChanged: (value) {
-                              context.read<AuthBloc>().add(
-                                    AuthEvent.passwordChanged(value),
-                                  );
-                            },
-                            onFieldSubmitted: () {
-                              context
-                                  .read<AuthBloc>()
-                                  .add(const AuthEvent.signIn());
-                            },
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Field cannot be empty';
-                              }
-                              if (value.length < 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
-                            onSuffixIconPressed: () =>
-                                obscurePassword.value = !obscurePassword.value,
-                          ),
-                          AppSpacing.verticalSpaceLarge,
-                          Align(
-                            alignment: Alignment.bottomRight,
-                            child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      ForgotPasswordScreen.routeName);
-                                },
-                                child: Text(
-                                  'Forgot Password?',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.primaryColor,
-                                      ),
-                                )),
-                          ),
-                          AppSpacing.verticalSpaceLarge,
                           Button(
-                            'Sign In',
-                            busy: state.signInStatus ==
+                            'Send Link',
+                            busy: state.forgotPasswordStatus ==
                                 FormzSubmissionStatus.inProgress,
                             onPressed: () {
                               if (formKey.currentState?.validate() ?? false) {
                                 context.read<AuthBloc>().add(
-                                      const AuthEvent.signIn(),
+                                      const AuthEvent.forgotPassword(),
                                     );
                               }
                             },
+                          ),
+                          AppSpacing.verticalSpaceMedium,
+                          Text(
+                            "Didn’t get the email? Check your spam/junk folder or try again.",
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),
@@ -164,18 +128,18 @@ class SignInScreen extends HookWidget {
                     Center(
                       child: RichText(
                         text: TextSpan(
-                          text: 'Already have an account?',
+                          text: 'Remember Password? ',
                           style: Theme.of(context).textTheme.bodyMedium,
                           children: [
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
                                   Navigator.of(context).pushNamedAndRemoveUntil(
-                                    SignUpScreen.routeName,
+                                    SignInScreen.routeName,
                                     (_) => false,
                                   );
                                 },
-                              text: 'Sign up',
+                              text: 'Sign in',
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyLarge!
@@ -199,14 +163,15 @@ class SignInScreen extends HookWidget {
     );
   }
 
-  bool _signInBuildWhen(
+  bool _forgotPasswordBuildWhen(
       BuildContext context, AuthState current, AuthState previous) {
-    if (previous.signInStatus.isInProgress && current.signInStatus.isSuccess) {
+    if (previous.forgotPasswordStatus.isInProgress &&
+        current.forgotPasswordStatus.isSuccess) {
       Navigator.of(context).pushNamedAndRemoveUntil(
-        BottomNavBar.routeName,
+        SignInScreen.routeName,
         (_) => false,
       );
-      ToastService.toast('Welcome');
+      ToastService.toast('A password reset link has been sent to your email');
     } else if (previous.errorMessage != current.errorMessage &&
         current.errorMessage != null) {
       ToastService.toast('${current.errorMessage}', ToastType.error);

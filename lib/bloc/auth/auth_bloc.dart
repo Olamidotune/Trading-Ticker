@@ -23,7 +23,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_SignIn>(_signIn);
     on<_SignInSuccess>(_signInSuccess);
     on<_SignInFailure>(_signInFailure);
+    on<_ForgotPassword>(_forgotPassword);
+    on<_ForgotPasswordSuccessful>(_forgotPasswordSuccessful);
+    on<_ForgotPasswordFailed>(_forgotPasswordFailed);
     on<_EmailChanged>(_emailChanged);
+    on<_ForgotPasswordEmailChanged>(_forgotPasswordEmailChanged);
     on<_PasswordChanged>(_passwordChanged);
     on<_ConfirmPasswordChanged>(_confirmPasswordChanged);
     on<_FullNameChanged>(_fullNameChanged);
@@ -37,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     logInfo('AuthBloc initialized');
   }
 
-  Future<void> _signUp(_SignUp event, Emitter<AuthState> emit) async {
+  void _signUp(_SignUp event, Emitter<AuthState> emit) async {
     if (state.signUpStatus == FormzSubmissionStatus.inProgress) return;
 
     if (!state.isSignUpFormValid) {
@@ -206,6 +210,64 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _signInFailure(_SignInFailure event, Emitter<AuthState> emit) {
     emit(state.copyWith(
       signInStatus: FormzSubmissionStatus.failure,
+      errorMessage: event.errorMessage,
+    ));
+  }
+
+  void _forgotPasswordEmailChanged(
+      _ForgotPasswordEmailChanged event, Emitter<AuthState> emit) {
+    final forgotPassword =
+        ForgotPasswordEmailFormz.dirty(event.forgotPasswordEmail);
+
+    emit(
+      state.copyWith(
+          forgotPasswordEmail: forgotPassword.isValid
+              ? forgotPassword
+              : ForgotPasswordEmailFormz.pure(event.forgotPasswordEmail)),
+    );
+  }
+
+  void _forgotPassword(_ForgotPassword event, Emitter<AuthState> emit) async {
+    if (state.forgotPasswordStatus == FormzSubmissionStatus.inProgress) return;
+
+    if (!state.isForgotPasswordFormValid) {
+      emit(
+        state.copyWith(
+          forgotPasswordEmail:
+              ForgotPasswordEmailFormz.dirty(state.forgotPasswordEmail.value),
+          errorMessage: 'Invalid Email',
+        ),
+      );
+      return;
+    }
+
+    emit(
+        state.copyWith(forgotPasswordStatus: FormzSubmissionStatus.inProgress));
+
+    try {
+      await _auth.sendPasswordResetEmail(
+        email: state.forgotPasswordEmail.value,
+      );
+      add(const _ForgotPasswordSuccessful());
+    } on FirebaseAuthException catch (error, trace) {
+      logError(error, trace);
+      add(AuthEvent.forgotPasswordFailed(
+          error.message ?? 'Send forgot password link failed.'));
+    }
+  }
+
+  void _forgotPasswordSuccessful(
+      _ForgotPasswordSuccessful event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      forgotPasswordStatus: FormzSubmissionStatus.success,
+      errorMessage: null,
+    ));
+  }
+
+  void _forgotPasswordFailed(
+      _ForgotPasswordFailed event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      forgotPasswordStatus: FormzSubmissionStatus.failure,
       errorMessage: event.errorMessage,
     ));
   }
