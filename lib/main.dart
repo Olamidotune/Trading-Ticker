@@ -3,6 +3,7 @@ import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/theme_data.dart';
 import 'package:cointicker/firebase_options.dart';
+import 'package:cointicker/screens/auth/forgot_password_screen.dart';
 import 'package:cointicker/screens/menu_screen.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
@@ -69,6 +70,8 @@ class MyApp extends StatelessWidget {
                   MenuScreen.routeName: (context) => const MenuScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),
                   SignInScreen.routeName: (context) => const SignInScreen(),
+                  ForgotPasswordScreen.routeName: (context) =>
+                      const ForgotPasswordScreen()
                 },
               ),
             );

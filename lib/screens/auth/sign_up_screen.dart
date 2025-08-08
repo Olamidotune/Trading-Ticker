@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:formz/formz.dart';
+import 'package:lottie/lottie.dart';
 
 class SignUpScreen extends HookWidget {
   const SignUpScreen({super.key});
@@ -27,6 +28,7 @@ class SignUpScreen extends HookWidget {
     final obscurePassword = useState(true);
     final obscureConfirmPassword = useState(true);
     final formKey = useMemoized(GlobalKey<FormState>.new);
+    final controller = useAnimationController();
 
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
@@ -42,28 +44,16 @@ class SignUpScreen extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSpacing.verticalSpaceMassive,
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/png/logo.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        Text(
-                          'CoinStalk',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                fontFamily: 'HelveticaNeueRounded',
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.yellowWarningIconColor,
-                              ),
-                        ),
-                      ],
-                    ),
-                    AppSpacing.verticalSpaceMassive,
+                    Lottie.asset(
+                        height: 200,
+                        width: double.infinity,
+                        'assets/lottie/welcome.json',
+                        controller: controller,
+                        repeat: false, onLoaded: (composition) {
+                      controller
+                        ..duration = composition.duration
+                        ..repeat();
+                    }),
                     Text('Sign Up',
                         style: Theme.of(context).textTheme.displayLarge),
                     const SizedBox(height: 10),
@@ -228,7 +218,6 @@ class SignUpScreen extends HookWidget {
                                   .textTheme
                                   .bodyLarge!
                                   .copyWith(
-                                    fontFamily: 'HelveticaNeueRounded',
                                     fontSize: 13,
                                     fontWeight: FontWeight.bold,
                                     color: AppColors.primaryColor,

@@ -6,7 +6,11 @@ class AuthState with _$AuthState {
   factory AuthState({
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus signUpStatus,
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus signInStatus,
+    @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus forgotPasswordStatus,
     @Default(EmailFormz.pure()) EmailFormz email,
+    @Default(ForgotPasswordEmailFormz.pure())
+    ForgotPasswordEmailFormz forgotPasswordEmail,
     @Default(PasswordFormz.pure()) PasswordFormz password,
     @Default(ConfirmPasswordFormz.pure()) ConfirmPasswordFormz confirmPassword,
     @Default(FullNameFormz.pure()) FullNameFormz fullName,
@@ -18,6 +22,8 @@ class AuthState with _$AuthState {
   bool get isSignUpFormValid => Formz.validate([fullName, email, password]);
 
   bool get isSignInFormValid => Formz.validate([email, password]);
+
+  bool get isForgotPasswordFormValid => Formz.validate([forgotPasswordEmail]);
 }
 
 //==============================================================================
@@ -31,6 +37,26 @@ class FullNameFormz extends FormzInput<String, ValidationError> {
   @override
   ValidationError? validator(String? value) {
     if (value == null || value.isEmpty) return ValidationError.empty;
+
+    return null;
+  }
+}
+
+//==============================================================================
+// FORMZ - FORGOT EMAIL
+//==============================================================================
+
+class ForgotPasswordEmailFormz extends FormzInput<String, ValidationError> {
+  const ForgotPasswordEmailFormz.pure([super.value = '']) : super.pure();
+  const ForgotPasswordEmailFormz.dirty([super.value = '']) : super.dirty();
+
+  @override
+  ValidationError? validator(String? value) {
+    if (value == null || value.isEmpty) return ValidationError.empty;
+
+    if (!EmailValidator.validate(value.trim())) {
+      return ValidationError.invalid;
+    }
 
     return null;
   }
