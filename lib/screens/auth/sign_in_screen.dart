@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:formz/formz.dart';
+import 'package:lottie/lottie.dart';
 
 class SignInScreen extends HookWidget {
   const SignInScreen({super.key});
@@ -25,6 +26,7 @@ class SignInScreen extends HookWidget {
     final passwordNode = useFocusNode();
     final obscurePassword = useState(true);
     final formKey = useMemoized(GlobalKey<FormState>.new);
+    final controller = useAnimationController();
 
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(
@@ -40,27 +42,38 @@ class SignInScreen extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSpacing.verticalSpaceMassive,
-                    Row(
-                      children: [
-                        Image.asset(
-                          'assets/png/logo.png',
-                          width: 40,
-                          height: 40,
-                        ),
-                        Text(
-                          'CoinStalk',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineMedium!
-                              .copyWith(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.yellowWarningIconColor,
-                              ),
-                        ),
-                      ],
-                    ),
-                    AppSpacing.verticalSpaceMassive,
+                    // Row(
+                    //   children: [
+                    //     Image.asset(
+                    //       'assets/png/logo.png',
+                    //       width: 40,
+                    //       height: 40,
+                    //     ),
+                    //     Text(
+                    //       'CoinStalk',
+                    //       style: Theme.of(context)
+                    //           .textTheme
+                    //           .headlineMedium!
+                    //           .copyWith(
+                    //             fontSize: 24,
+                    //             fontWeight: FontWeight.bold,
+                    //             color: AppColors.yellowWarningIconColor,
+                    //           ),
+                    //     ),
+                    //   ],
+                    // ),
+
+                    Lottie.asset(
+                        height: 200,
+                        width: double.infinity,
+                        'assets/lottie/welcome.json',
+                        controller: controller,
+                        repeat: false, onLoaded: (composition) {
+                      controller
+                        ..duration = composition.duration
+                        ..repeat();
+                    }),
+
                     Text('Sign In',
                         style: Theme.of(context).textTheme.displayLarge),
                     const SizedBox(height: 10),
@@ -164,7 +177,7 @@ class SignInScreen extends HookWidget {
                     Center(
                       child: RichText(
                         text: TextSpan(
-                          text: 'Already have an account?',
+                          text: 'Already have an account? ',
                           style: Theme.of(context).textTheme.bodyMedium,
                           children: [
                             TextSpan(
