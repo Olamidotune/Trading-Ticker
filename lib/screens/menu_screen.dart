@@ -5,6 +5,7 @@ import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/persistence_service.dart';
+import 'package:cointicker/services/toast_service.dart';
 import 'package:cointicker/widgets/dialogs/about_app_dialog.dart';
 import 'package:cointicker/widgets/menu_card.dart';
 import 'package:cointicker/widgets/profile_card.dart';
@@ -98,7 +99,6 @@ class MenuScreen extends HookWidget {
                 name: 'Sign Out',
               ),
               AppSpacing.verticalSpaceMassive,
-              AppSpacing.verticalSpaceMassive,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -135,6 +135,8 @@ class MenuScreen extends HookWidget {
 
 void _signOut(BuildContext context) async {
   await PersistenceService().signOut();
+
+  ToastService.toast('Signed Out Successful', ToastType.success);
 
   Navigator.of(context).pushNamedAndRemoveUntil(
     SignInScreen.routeName,
