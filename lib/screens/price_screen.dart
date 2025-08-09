@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_card.dart';
@@ -59,10 +60,14 @@ class PriceScreen extends HookWidget {
             ],
           ),
         ),
-        title: Text('Trading Ticker',
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  color: AppColors.whiteColor,
-                )),
+        title: BlocBuilder<NewsBloc, NewsState>(
+          builder: (context, state) {
+            return Text('Trading Ticker',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.whiteColor,
+                    ));
+          },
+        ),
       ),
       body: BlocBuilder<CoinBloc, CoinState>(
         builder: (context, state) {

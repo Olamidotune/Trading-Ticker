@@ -57,6 +57,13 @@ class MenuScreen extends HookWidget {
                     color: AppColors.whiteColor,
                   ),
             ),
+            Text(
+              'Manage your profile, preferences, and app info',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.whiteColor,
+                    fontWeight: FontWeight.w400,
+                  ),
+            ),
           ],
         ),
         toolbarHeight: 140,
