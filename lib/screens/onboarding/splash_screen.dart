@@ -22,7 +22,7 @@ class SplashScreen extends HookWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: Lottie.asset(
-                  height: 800,
+                  height: 400,
                   width: double.infinity,
                   'assets/lottie/finance.json',
                   controller: controller,
