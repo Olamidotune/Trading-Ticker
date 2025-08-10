@@ -1,0 +1,8 @@
+* Improved UI
+* Added a new app icon
+* Added an onboarding screen
+* Added a menu screen
+* Added email sending support
+* Added links to my socials
+* Added in-app link opening
+* Updated dependencies
