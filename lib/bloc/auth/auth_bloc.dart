@@ -80,7 +80,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
 
       logInfo('User signed up successfully: ${userCredential.user!.uid}');
-      logInfo(state.password.value);
+
+      final uid = userCredential.user?.uid;
+      final docSnapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+      final fullName = docSnapshot.data()?['fullName'];
+      await PersistenceService().saveUserName(fullName);
+
+      final userEmail = docSnapshot.data()?['email'];
+      await PersistenceService().saveUserEmail(userEmail);
 
       add(const AuthEvent.signUpSuccess());
     } on FirebaseAuthException catch (error, trace) {
