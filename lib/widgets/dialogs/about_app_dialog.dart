@@ -28,7 +28,7 @@ aboutAppDialog(BuildContext context) {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Image.asset(
-                  'assets/png/logo.png',
+                  'assets/png/logo.jpeg',
                   height: 20,
                 ),
               ),

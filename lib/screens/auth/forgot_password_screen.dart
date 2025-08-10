@@ -40,9 +40,9 @@ class ForgotPasswordScreen extends HookWidget {
                     Row(
                       children: [
                         Image.asset(
-                          'assets/png/logo.png',
-                          width: 40,
-                          height: 40,
+                          'assets/png/logo.jpeg',
+                          width: 80,
+                          height: 80,
                         ),
                         Text(
                           'CoinStalk',

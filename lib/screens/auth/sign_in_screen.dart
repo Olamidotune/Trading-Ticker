@@ -63,16 +63,19 @@ class SignInScreen extends HookWidget {
                     //   ],
                     // ),
 
-                    Lottie.asset(
-                        height: 200,
-                        width: double.infinity,
-                        'assets/lottie/welcome.json',
-                        controller: controller,
-                        repeat: false, onLoaded: (composition) {
-                      controller
-                        ..duration = composition.duration
-                        ..repeat();
-                    }),
+                    Hero(
+                      tag: 'welcome',
+                      child: Lottie.asset(
+                          height: 200,
+                          width: double.infinity,
+                          'assets/lottie/welcome.json',
+                          controller: controller,
+                          repeat: false, onLoaded: (composition) {
+                        controller
+                          ..duration = composition.duration
+                          ..repeat();
+                      }),
+                    ),
 
                     Text('Sign In',
                         style: Theme.of(context).textTheme.displayLarge),
