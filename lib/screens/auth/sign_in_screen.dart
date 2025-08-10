@@ -42,27 +42,6 @@ class SignInScreen extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSpacing.verticalSpaceMassive,
-                    // Row(
-                    //   children: [
-                    //     Image.asset(
-                    //       'assets/png/logo.png',
-                    //       width: 40,
-                    //       height: 40,
-                    //     ),
-                    //     Text(
-                    //       'CoinStalk',
-                    //       style: Theme.of(context)
-                    //           .textTheme
-                    //           .headlineMedium!
-                    //           .copyWith(
-                    //             fontSize: 24,
-                    //             fontWeight: FontWeight.bold,
-                    //             color: AppColors.yellowWarningIconColor,
-                    //           ),
-                    //     ),
-                    //   ],
-                    // ),
-
                     Hero(
                       tag: 'welcome',
                       child: Lottie.asset(
@@ -76,7 +55,6 @@ class SignInScreen extends HookWidget {
                           ..repeat();
                       }),
                     ),
-
                     Text('Sign In',
                         style: Theme.of(context).textTheme.displayLarge),
                     const SizedBox(height: 10),
