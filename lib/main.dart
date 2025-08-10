@@ -7,6 +7,7 @@ import 'package:cointicker/screens/auth/forgot_password_screen.dart';
 import 'package:cointicker/screens/menu_screen.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
+import 'package:cointicker/screens/onboarding/onboarding.dart';
 import 'package:cointicker/screens/onboarding/splash_screen.dart';
 import 'package:cointicker/screens/price_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
@@ -71,7 +72,9 @@ class MyApp extends StatelessWidget {
                   SignUpScreen.routeName: (context) => const SignUpScreen(),
                   SignInScreen.routeName: (context) => const SignInScreen(),
                   ForgotPasswordScreen.routeName: (context) =>
-                      const ForgotPasswordScreen()
+                      const ForgotPasswordScreen(),
+                  OnboardingScreen.routeName: (context) =>
+                      const OnboardingScreen()
                 },
               ),
             );

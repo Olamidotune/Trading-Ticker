@@ -44,16 +44,19 @@ class SignUpScreen extends HookWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppSpacing.verticalSpaceMassive,
-                    Lottie.asset(
-                        height: 200,
-                        width: double.infinity,
-                        'assets/lottie/welcome.json',
-                        controller: controller,
-                        repeat: false, onLoaded: (composition) {
-                      controller
-                        ..duration = composition.duration
-                        ..repeat();
-                    }),
+                    Hero(
+                      tag: 'welcome',
+                      child: Lottie.asset(
+                          height: 200,
+                          width: double.infinity,
+                          'assets/lottie/welcome.json',
+                          controller: controller,
+                          repeat: false, onLoaded: (composition) {
+                        controller
+                          ..duration = composition.duration
+                          ..repeat();
+                      }),
+                    ),
                     Text('Sign Up',
                         style: Theme.of(context).textTheme.displayLarge),
                     const SizedBox(height: 10),

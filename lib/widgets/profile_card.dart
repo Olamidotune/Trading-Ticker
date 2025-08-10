@@ -30,7 +30,7 @@ class ProfileCard extends StatelessWidget {
           child: ListTile(
             title: Lottie.asset(
                 height: 180,
-                'assets/lottie/profile.json',
+                'assets/lottie/profile2.json',
                 controller: controller,
                 repeat: false, onLoaded: (composition) {
               controller
