@@ -24,6 +24,12 @@ jobs:
       - name: Flutter version
         run: flutter --version
 
+      - name: Create .env file
+        run: |
+          echo "BASE_URL=${{ secrets.BASE_URL }}" > .env
+          echo "NEWS_API_BASE_URL=${{ secrets.NEWS_API_BASE_URL }}" >> .env
+          echo "NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}" >> .env
+
       # 4. Install packages
       - name: Install dependencies
         run: flutter pub get
