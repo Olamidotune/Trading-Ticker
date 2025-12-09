@@ -1,0 +1,48 @@
+name: Build & Deploy APK to Firebase App Distribution
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1 - Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2 - Setup Flutter
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      # 3 - Create .env for CI (your secrets)
+      - name: Create .env file
+        run: |
+          echo "BASE_URL=${{ secrets.BASE_URL }}" > .env
+          echo "NEWS_API_BASE_URL=${{ secrets.NEWS_API_BASE_URL }}" >> .env
+          echo "NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}" >> .env
+
+      # 4 - Install Flutter dependencies
+      - name: Flutter pub get
+        run: flutter pub get
+
+      # 5 - Build release APK
+      - name: Build APK
+        run: flutter build apk --release
+
+      - name: Run build_runner
+        run: flutter pub run build_runner build --delete-conflicting-outputs
+
+
+      # 6 - Upload to Firebase App Distribution
+      - name: Upload to Firebase
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: build/app/outputs/flutter-apk/app-release.apk
