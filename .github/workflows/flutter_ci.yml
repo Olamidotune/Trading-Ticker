@@ -38,4 +38,3 @@ jobs:
       - name: Run Flutter tests
         run: flutter test
 
-      # 6. Build the app (optional)
