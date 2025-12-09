@@ -19,31 +19,26 @@ jobs:
         with:
           channel: stable
 
-      # 3 - Create .env for CI (your secrets)
+      # 3 - Create .env for CI
       - name: Create .env file
         run: |
           echo "BASE_URL=${{ secrets.BASE_URL }}" > .env
           echo "NEWS_API_BASE_URL=${{ secrets.NEWS_API_BASE_URL }}" >> .env
           echo "NEWS_API_KEY=${{ secrets.NEWS_API_KEY }}" >> .env
 
-      # 4 - Install Flutter dependencies
+      # 4 - Install dependencies
       - name: Flutter pub get
         run: flutter pub get
 
-      # 5 - Build release APK
-      - name: Build APK
-        run: flutter build apk --release
-
+      # 5 - Run build_runner (if needed)
       - name: Run build_runner
         run: flutter pub run build_runner build --delete-conflicting-outputs
 
-      - name: Generate firebase_options.dart
-        run: flutterfire configure --project ${{ secrets.FIREBASE_PROJECT_ID }} --out=lib/firebase_options.dart
+      # 6 - Build release APK
+      - name: Build APK
+        run: flutter build apk --release
 
-      - name: Install FlutterFire CLI
-        run: dart pub global activate flutterfire_cli
-
-      # 6 - Upload to Firebase App Distribution
+      # 7 - Upload to Firebase App Distribution
       - name: Upload to Firebase
         uses: wzieba/Firebase-Distribution-Github-Action@v1
         with:
@@ -51,5 +46,3 @@ jobs:
           token: ${{ secrets.FIREBASE_TOKEN }}
           groups: testers
           file: build/app/outputs/flutter-apk/app-release.apk
-
-      
