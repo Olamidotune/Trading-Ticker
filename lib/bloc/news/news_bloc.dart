@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:cointicker/api/clients/news/news_client.dart';
 import 'package:cointicker/api/models/news_model.dart';
+import 'package:cointicker/services/keys.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/service_locator.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -43,6 +45,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         searchKey: searchKey,
         fromDate: fromDate,
         page: page,
+        apiKey: dotenv.env[EnvKeys.newsApiKey]!,
       );
 
       add(_FetchNewsSuccess(news));

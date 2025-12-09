@@ -11,20 +11,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:cointicker/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('App loads main screen', (WidgetTester tester) async {
+    // Build the app
     await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Wait for any async operations to complete
+    await tester.pumpAndSettle();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Add expectations based on what's actually in your app
+    // For example, if your app has a title or specific text:
+    // expect(find.text('Trading Ticker'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Or if you have specific widgets:
+    // expect(find.byType(AppBar), findsOneWidget);
+
+    // Basic check that app initialized
+    expect(find.byType(MaterialApp), findsOneWidget);
   });
 }
