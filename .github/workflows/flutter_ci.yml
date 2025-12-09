@@ -1,0 +1,33 @@
+name: Flutter CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout your source code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Install Flutter (stable channel)
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      # 3. Check Flutter version
+      - name: Flutter version
+        run: flutter --version
+
+      # 4. Install packages
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 5. Run tests
+      - name: Run Flutter tests
+        run: flutter test
