@@ -62,4 +62,4 @@ android/app/.cxx/
 *.freezed.dart
 
 #Firebase
-lib/firebase_options.dart
+# lib/firebase_options.dart
