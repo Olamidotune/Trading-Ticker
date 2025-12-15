@@ -39,6 +39,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _init(_Init event, Emitter<AuthState> emit) {
     logInfo('AuthBloc initialized');
+    logInfo('this is the uid: ${_auth.currentUser?.uid}');
   }
 
   void _signUp(_SignUp event, Emitter<AuthState> emit) async {

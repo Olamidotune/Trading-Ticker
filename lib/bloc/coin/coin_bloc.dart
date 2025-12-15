@@ -3,12 +3,14 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cointicker/api/clients/coin/coin_client.dart';
 import 'package:cointicker/api/models/coins_model.dart';
 import 'package:cointicker/enums/coin_sory_type.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/service_locator.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -27,6 +29,9 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_SortBy24hChangeDesc>(_sortBy24hChangeDesc);
     on<_SortByMarketCapDesc>(_sortByMarketCapDesc);
     on<_SortByPriceDesc>(_sortByPriceDesc);
+    on<_AddFavCoin>(_addFavCoin);
+    on<_AddFavCoinSuccessful>(_addFavCoinSuccessful);
+    on<_AddFavCoinFailed>(_addFavCoinFailed);
     on<_Init>(_init);
 
     add(const CoinEvent.init());
@@ -37,6 +42,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.initial));
     add(const CoinEvent.fetchCoins());
     logInfo('CoinBloc initialized');
+    logInfo('this is the uid: ${FirebaseAuth.instance.currentUser!.uid}');
   }
 
   void _startPolling() {
@@ -109,6 +115,31 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
       cryptoSearchString: event.cryptoSearchString,
       coinList: state.coinList,
     ));
+  }
+
+  void _addFavCoin(_AddFavCoin event, Emitter<CoinState> emit) {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('watchList')
+        .doc(event.coin.id) // CoinGecko ID
+        .set({
+      'coinId': event.coin.id,
+      'name': event.coin.name,
+      'symbol': event.coin.symbol,
+      'addedAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  void _addFavCoinSuccessful(
+      _AddFavCoinSuccessful event, Emitter<CoinState> emit) {
+    emit(state.copyWith());
+  }
+
+  void _addFavCoinFailed(_AddFavCoinFailed event, Emitter<CoinState> emit) {
+    emit(state.copyWith());
   }
 
   void _cryptoSearchStringChanged(

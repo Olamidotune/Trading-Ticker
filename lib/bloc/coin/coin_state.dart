@@ -11,6 +11,8 @@ class CoinState with _$CoinState {
     CoinSortType? activeSort,
     @Default(true) sortByPriceDesc,
     @Default(true) sortBy24ChangeDesc,
+    @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus addFavCoinStatus,
   }) = _CoinState;
 
   bool get isAllFilterSelected => sortByPriceDesc && sortBy24ChangeDesc;
