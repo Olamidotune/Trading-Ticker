@@ -29,9 +29,9 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_SortBy24hChangeDesc>(_sortBy24hChangeDesc);
     on<_SortByMarketCapDesc>(_sortByMarketCapDesc);
     on<_SortByPriceDesc>(_sortByPriceDesc);
-    on<_AddFavCoin>(_addFavCoin);
-    on<_AddFavCoinSuccessful>(_addFavCoinSuccessful);
-    on<_AddFavCoinFailed>(_addFavCoinFailed);
+    on<_AddToWatchList>(_addToWatchList);
+    on<_AddToWatchListSuccessful>(_addToWatchListSuccessful);
+    on<_AddToWatchListFailed>(_addToWatchListFailed);
     on<_Init>(_init);
 
     add(const CoinEvent.init());
@@ -117,7 +117,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     ));
   }
 
-  void _addFavCoin(_AddFavCoin event, Emitter<CoinState> emit) {
+  void _addToWatchList(_AddToWatchList event, Emitter<CoinState> emit) {
     final uid = FirebaseAuth.instance.currentUser!.uid;
 
     FirebaseFirestore.instance
@@ -133,12 +133,13 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     });
   }
 
-  void _addFavCoinSuccessful(
-      _AddFavCoinSuccessful event, Emitter<CoinState> emit) {
+  void _addToWatchListSuccessful(
+      _AddToWatchListSuccessful event, Emitter<CoinState> emit) {
     emit(state.copyWith());
   }
 
-  void _addFavCoinFailed(_AddFavCoinFailed event, Emitter<CoinState> emit) {
+  void _addToWatchListFailed(
+      _AddToWatchListFailed event, Emitter<CoinState> emit) {
     emit(state.copyWith());
   }
 

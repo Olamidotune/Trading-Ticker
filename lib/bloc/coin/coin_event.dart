@@ -19,8 +19,10 @@ class CoinEvent with _$CoinEvent {
       _SortByPriceDesc;
   const factory CoinEvent.sortBy24hChangeDesc(bool? sortBy24hChangeDesc) =
       _SortBy24hChangeDesc;
-  const factory CoinEvent.addFavCoin(Coin coin) = _AddFavCoin;
-  const factory CoinEvent.addFavCoinSuccessful() = _AddFavCoinSuccessful;
-  const factory CoinEvent.addFavCoinFailed(String message) = _AddFavCoinFailed;
+  const factory CoinEvent.addToWatchList(Coin coin) = _AddToWatchList;
+  const factory CoinEvent.addToWatchListSuccessful() =
+      _AddToWatchListSuccessful;
+  const factory CoinEvent.addToWatchListFailed(String message) =
+      _AddToWatchListFailed;
   const factory CoinEvent.init() = _Init;
 }

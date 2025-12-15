@@ -12,7 +12,7 @@ class CoinState with _$CoinState {
     @Default(true) sortByPriceDesc,
     @Default(true) sortBy24ChangeDesc,
     @Default(FormzSubmissionStatus.initial)
-    FormzSubmissionStatus addFavCoinStatus,
+    FormzSubmissionStatus addToWatchListStatus,
   }) = _CoinState;
 
   bool get isAllFilterSelected => sortByPriceDesc && sortBy24ChangeDesc;
