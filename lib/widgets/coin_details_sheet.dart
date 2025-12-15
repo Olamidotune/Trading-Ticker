@@ -49,39 +49,40 @@ class CoinDetailsSheet extends StatelessWidget {
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                     title: "🏦 Market Cap",
-                    value: '\$${formatMarketCap(coin.marketCap)}'),
+                    value: '\$${formatMarketCap(coin.marketCap ?? 0.00)}'),
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                   title: "🔄 24h Change",
-                  value: "${coin.priceChangePercentage24h.toStringAsFixed(2)}%",
-                  textColor: coin.priceChangePercentage24h >= 0
+                  value:
+                      "${coin.priceChangePercentage24h?.toStringAsFixed(2)}%",
+                  textColor: (coin.priceChangePercentage24h ?? 0) >= 0
                       ? Colors.green
                       : Colors.red,
                 ),
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                   title: "📈 Current Price",
-                  value: "\$${formatPrices(coin.currentPrice)}",
-                  textColor: coin.priceChangePercentage24h >= 0
+                  value: "\$${formatPrices(coin.currentPrice ?? 0)}",
+                  textColor: (coin.priceChangePercentage24h ?? 0) >= 0
                       ? Colors.green
                       : Colors.red,
                 ),
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                     title: "↗️ 24h High",
-                    value: "\$${formatPrices(coin.high24h)}"),
+                    value: "\$${formatPrices(coin.high24h ?? 0.00)}"),
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                     title: "↘️ 24h Low",
-                    value: "\$${formatPrices(coin.low24h)}"),
+                    value: "\$${formatPrices(coin.low24h ?? 0)}"),
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                     title: "📉 All-Time Low",
-                    value: "\$${formatPrices(coin.atl)}"),
+                    value: "\$${formatPrices(coin.atl ?? 0)}"),
                 AppSpacing.verticalSpaceLarge,
                 InfoRow(
                     title: "🚀 All-Time High",
-                    value: "\$${formatPrices(coin.ath)}"),
+                    value: "\$${formatPrices(coin.ath ?? 0)}"),
                 AppSpacing.verticalSpaceLarge,
               ],
             ),

@@ -39,9 +39,8 @@ class CoinCard extends StatelessWidget {
             .state
             .coinList
             ?.firstWhere((coin) => coin.name == coinName)
-            .priceChangePercentage24h
-            .toDouble() ??
-        0.0;
+            .priceChangePercentage24h ??
+        0.toDouble();
     Color textColor;
     String icon;
 

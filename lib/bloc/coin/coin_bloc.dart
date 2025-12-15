@@ -58,8 +58,10 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
     try {
       final List<Coin> coins = await locator<CoinClient>().getCoins();
-      add(CoinEvent.fetchCoinSuccess(coins));
-    } catch (error) {
+      // add(CoinEvent.fetchCoinSuccess(coins));
+      add(_FetchCoinSuccess(coins));
+    } catch (error, trace) {
+      logError(error, trace);
       if (error is DioException && error.response?.data['message'] != null) {
         add(CoinEvent.fetchCoinFailure(
             error.response?.data['message'] as String));
@@ -70,18 +72,20 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _fetchCoinSuccess(_FetchCoinSuccess event, Emitter<CoinState> emit) {
-    List<Coin> updatedCoins = List<Coin>.from(event.coins); // ✅ clone it
+    List<Coin> updatedCoins = List<Coin>.from(event.coins);
 
     switch (state.activeSort) {
       case CoinSortType.priceDesc:
-        updatedCoins.sort((a, b) => b.currentPrice.compareTo(a.currentPrice));
+        updatedCoins.sort(
+            (a, b) => (b.currentPrice ?? 0).compareTo(a.currentPrice ?? 0));
         break;
       case CoinSortType.marketCapDesc:
-        updatedCoins.sort((a, b) => b.marketCap.compareTo(a.marketCap));
+        updatedCoins
+            .sort((a, b) => (b.marketCap ?? 0).compareTo(a.marketCap ?? 0));
         break;
       case CoinSortType.change24hDesc:
-        updatedCoins.sort((a, b) =>
-            b.priceChangePercentage24h.compareTo(a.priceChangePercentage24h));
+        updatedCoins.sort((a, b) => (b.priceChangePercentage24h ?? 0)
+            .compareTo(a.priceChangePercentage24h ?? 0));
         break;
       default:
         break;
@@ -115,7 +119,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   void _sortByMarketCapDesc(
       _SortByMarketCapDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
-    sortedList.sort((a, b) => (b.marketCap).compareTo(a.marketCap));
+    sortedList.sort((a, b) => (b.marketCap ?? 0).compareTo(a.marketCap ?? 0));
 
     if (event.sortByMarketCapDesc == true ||
         state.isAllFilterSelected == false) {
@@ -135,7 +139,8 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
   void _sortByPriceDesc(_SortByPriceDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
-    sortedList.sort((a, b) => (b.currentPrice).compareTo(a.currentPrice));
+    sortedList
+        .sort((a, b) => (b.currentPrice ?? 0).compareTo(a.currentPrice ?? 0));
 
     if (event.sortByPriceDesc == true) {
       emit(state.copyWith(
@@ -152,8 +157,8 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   void _sortBy24hChangeDesc(
       _SortBy24hChangeDesc event, Emitter<CoinState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
-    sortedList.sort((a, b) =>
-        (b.priceChangePercentage24h).compareTo(a.priceChangePercentage24h));
+    sortedList.sort((a, b) => (b.priceChangePercentage24h ?? 0)
+        .compareTo(a.priceChangePercentage24h ?? 0));
 
     if (event.sortBy24hChangeDesc == true) {
       emit(state.copyWith(

@@ -80,8 +80,7 @@ class PriceScreen extends HookWidget {
               },
             );
           }
-          if ((state.coinList?.isEmpty ?? true) ||
-              state.getCoinStatus == FormzSubmissionStatus.failure) {
+          if (state.getCoinStatus == FormzSubmissionStatus.failure) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -155,15 +154,15 @@ class PriceScreen extends HookWidget {
                       builder: (_) => CoinDetailsSheet(
                             coin: coin,
                           )),
-                  marketCap: coin.marketCap,
-                  rank: coin.marketCapRank,
+                  marketCap: coin.marketCap ?? 0,
+                  rank: coin.marketCapRank ?? 0,
                   coinImage: coin.image,
                   coinName: coin.name,
                   coinSymbol: coin.symbol,
-                  coinPrice: coin.currentPrice.toDouble(),
-                  priceChangePercentage: state
-                      .computedGiftCards[index].priceChangePercentage24h
-                      .toDouble(),
+                  coinPrice: coin.currentPrice ?? 0.toDouble(),
+                  priceChangePercentage:
+                      state.computedGiftCards[index].priceChangePercentage24h ??
+                          0.toDouble(),
                   sparklinePrices: coin.sparklineIn7D?.price ?? [],
                 );
               },
