@@ -1,8 +1,10 @@
 import 'package:cointicker/api/models/coins_model.dart';
+import 'package:cointicker/bloc/coin/coin_bloc.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_card.dart';
 import 'package:cointicker/widgets/inflow_row.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CoinDetailsSheet extends StatelessWidget {
   final Coin coin;
@@ -22,7 +24,16 @@ class CoinDetailsSheet extends StatelessWidget {
                   backgroundImage: NetworkImage(coin.image),
                   radius: 20,
                 ),
-                const SizedBox(width: 10),
+                AppSpacing.horizontalSpaceMedium,
+                IconButton(
+                  onPressed: () {
+                    context
+                        .read<CoinBloc>()
+                        .add(CoinEvent.addToWatchList(coin));
+                  },
+                  icon: const Icon(Icons.star_border_rounded),
+                ),
+                AppSpacing.horizontalSpaceMedium,
                 Expanded(
                   child: Text(
                     coin.name,

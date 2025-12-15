@@ -22,7 +22,9 @@ class CoinEvent with _$CoinEvent {
   const factory CoinEvent.addToWatchList(Coin coin) = _AddToWatchList;
   const factory CoinEvent.addToWatchListSuccessful() =
       _AddToWatchListSuccessful;
-  const factory CoinEvent.addToWatchListFailed(String message) =
+  const factory CoinEvent.addToWatchListFailed(String? message) =
       _AddToWatchListFailed;
   const factory CoinEvent.init() = _Init;
+
+  const factory CoinEvent.errorMessage(String message) = _ErrorMessage;
 }

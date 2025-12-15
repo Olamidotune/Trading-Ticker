@@ -3,6 +3,7 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/screens/auth/forgot_password_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/toast_service.dart';
 import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
@@ -139,18 +140,16 @@ class SignInScreen extends HookWidget {
                                 )),
                           ),
                           AppSpacing.verticalSpaceLarge,
-                          Button(
-                            'Sign In',
-                            busy: state.signInStatus ==
-                                FormzSubmissionStatus.inProgress,
-                            onPressed: () {
-                              if (formKey.currentState?.validate() ?? false) {
-                                context.read<AuthBloc>().add(
-                                      const AuthEvent.signIn(),
-                                    );
-                              }
-                            },
-                          ),
+                          Button('Sign In',
+                              busy: state.signInStatus ==
+                                  FormzSubmissionStatus.inProgress,
+                              onPressed: () {
+                            context.read<AuthBloc>().add(
+                                  const AuthEvent.signIn(),
+                                );
+
+                            logInfo(state.email.value);
+                          }),
                         ],
                       ),
                     ),

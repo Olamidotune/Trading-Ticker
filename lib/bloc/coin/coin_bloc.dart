@@ -32,6 +32,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_AddToWatchList>(_addToWatchList);
     on<_AddToWatchListSuccessful>(_addToWatchListSuccessful);
     on<_AddToWatchListFailed>(_addToWatchListFailed);
+    on<_ErrorMessage>(_errorMessage);
     on<_Init>(_init);
 
     add(const CoinEvent.init());
@@ -40,7 +41,17 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
   void _init(_Init event, Emitter<CoinState> emit) {
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.initial));
+
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+
     add(const CoinEvent.fetchCoins());
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('watchlist')
+        .snapshots();
+
     logInfo('CoinBloc initialized');
     logInfo('this is the uid: ${FirebaseAuth.instance.currentUser!.uid}');
   }
@@ -117,30 +128,59 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     ));
   }
 
-  void _addToWatchList(_AddToWatchList event, Emitter<CoinState> emit) {
-    final uid = FirebaseAuth.instance.currentUser!.uid;
+  Future<void> _addToWatchList(
+      _AddToWatchList event, Emitter<CoinState> emit) async {
+    if (state.addToWatchListStatus.isInProgress) return;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('watchList')
-        .doc(event.coin.id) // CoinGecko ID
-        .set({
-      'coinId': event.coin.id,
-      'name': event.coin.name,
-      'symbol': event.coin.symbol,
-      'addedAt': FieldValue.serverTimestamp(),
-    });
+    try {
+      emit(state.copyWith(
+          addToWatchListStatus:
+              FormzSubmissionStatus.inProgress)); // 👈 Add this
+
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+
+      if (uid == null) {
+        emit(
+          state.copyWith(
+            errorMessage: 'User not authenticated',
+            addToWatchListStatus: FormzSubmissionStatus.failure,
+          ),
+        );
+        return;
+      }
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('watchlist')
+          .doc(event.coin.id)
+          .set({
+        'coinId': event.coin.id,
+        'name': event.coin.name,
+        'symbol': event.coin.symbol,
+        'addedAt': FieldValue.serverTimestamp(),
+      });
+
+      logInfo('Added ${event.coin.name} to watchlist for $uid');
+      add(const _AddToWatchListSuccessful());
+    } catch (error, trace) {
+      logError(error, trace);
+      add(const _AddToWatchListFailed('Something went wrong.'));
+    }
   }
 
   void _addToWatchListSuccessful(
       _AddToWatchListSuccessful event, Emitter<CoinState> emit) {
-    emit(state.copyWith());
+    emit(state.copyWith(
+        addToWatchListStatus: FormzSubmissionStatus.success,
+        errorMessage: null));
   }
 
   void _addToWatchListFailed(
       _AddToWatchListFailed event, Emitter<CoinState> emit) {
-    emit(state.copyWith());
+    emit(state.copyWith(addToWatchListStatus: FormzSubmissionStatus.failure));
+
+    add(_ErrorMessage(event.message ?? 'Something went wrong.'));
   }
 
   void _cryptoSearchStringChanged(
@@ -202,5 +242,9 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     } else {
       emit(state.copyWith(sortBy24ChangeDesc: false));
     }
+  }
+
+  void _errorMessage(_ErrorMessage event, Emitter<CoinState> emit) {
+    emit(state.copyWith(errorMessage: event.message));
   }
 }
