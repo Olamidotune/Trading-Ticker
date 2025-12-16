@@ -26,9 +26,9 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void _init(_Init event, Emitter<NewsState> emit) {
     logInfo('NewsBloc initialized');
 
-    // emit(state.copyWith(getNewsStatus: FormzSubmissionStatus.initial));
-    // add(NewsEvent.fetchNews(
-    //     state.searchKey ?? 'Cryptocurrency', 1, _getDefaultFromDate()));
+    emit(state.copyWith(getNewsStatus: FormzSubmissionStatus.initial));
+    add(NewsEvent.fetchNews(
+        state.searchKey ?? 'Cryptocurrency', 1, _getDefaultFromDate()));
   }
 
   void _fetchNews(_FetchNews event, Emitter<NewsState> emit) async {

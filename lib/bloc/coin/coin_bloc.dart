@@ -1,12 +1,10 @@
-// ignore_for_file: unused_field
-
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cointicker/api/clients/coin/coin_client.dart';
 import 'package:cointicker/api/models/coins_model.dart';
-import 'package:cointicker/enums/coin_sory_type.dart';
+import 'package:cointicker/enums/coin_sort_type.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/service_locator.dart';
 import 'package:dio/dio.dart';
@@ -20,7 +18,6 @@ part 'coin_bloc.freezed.dart';
 
 class CoinBloc extends Bloc<CoinEvent, CoinState> {
   StreamSubscription<QuerySnapshot>? _watchlistSubscription;
-  Timer? _timer;
 
   CoinBloc() : super(CoinState()) {
     on<_FetchCoins>(_fetchCoins);
@@ -60,7 +57,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _startPolling() {
-    _timer = Timer.periodic(const Duration(minutes: 1), (_) {
+    Timer.periodic(const Duration(minutes: 1), (_) {
       add(const CoinEvent.fetchCoins());
     });
   }
@@ -78,7 +75,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
     try {
       final List<Coin> coins = await locator<CoinClient>().getCoins();
-      // add(CoinEvent.fetchCoinSuccess(coins));
+      add(CoinEvent.fetchCoinSuccess(coins));
       add(_FetchCoinSuccess(coins));
     } catch (error, trace) {
       logError(error, trace);
@@ -258,17 +255,14 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
     if (uid == null) return;
     try {
-      // Cancel previous subscription if exists
       _watchlistSubscription?.cancel();
 
-      // Listen to watchlist changes
       _watchlistSubscription = FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
           .collection('watchlist')
           .snapshots()
           .listen((snapshot) {
-        // Extract coin IDs from the snapshot
         final coinIds = snapshot.docs.map((doc) => doc.id).toSet();
         add(_WatchlistUpdated(coinIds));
       });
@@ -292,8 +286,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   void _watchlistUpdated(_WatchlistUpdated event, Emitter<CoinState> emit) {
     emit(state.copyWith(
       watchlistCoinIds: event.coinIds,
-      fetchWatchListStatus:
-          FormzSubmissionStatus.success, // 👈 Also update status
+      fetchWatchListStatus: FormzSubmissionStatus.success,
     ));
   }
 
