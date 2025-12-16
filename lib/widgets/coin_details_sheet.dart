@@ -27,11 +27,6 @@ class CoinDetailsSheet extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(coin.image),
-                      radius: 20,
-                    ),
-                    AppSpacing.horizontalSpaceMedium,
                     IconButton(
                       onPressed: () {
                         state.isInWatchlist(coin.id)
@@ -44,13 +39,18 @@ class CoinDetailsSheet extends StatelessWidget {
                       },
                       icon: state.isInWatchlist(coin.id)
                           ? const Icon(
-                              Icons.star, // 👈 Filled star when in watchlist
+                              Icons.star,
                               color: AppColors.goldColor,
+                              size: 25,
                             )
                           : const Icon(
-                              Icons
-                                  .star_border_rounded, // 👈 Outlined star when NOT in watchlist
+                              Icons.star_border_rounded,
+                              size: 25,
                             ),
+                    ),
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(coin.image),
+                      radius: 20,
                     ),
                     AppSpacing.horizontalSpaceMedium,
                     Expanded(

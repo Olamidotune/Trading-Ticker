@@ -135,8 +135,8 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
       _AddToWatchList event, Emitter<CoinState> emit) async {
     if (state.addToWatchListStatus.isInProgress) return;
 
-    emit(state.copyWith(
-        addToWatchListStatus: FormzSubmissionStatus.inProgress)); // 👈 Add this
+    emit(
+        state.copyWith(addToWatchListStatus: FormzSubmissionStatus.inProgress));
 
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;

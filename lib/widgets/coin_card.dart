@@ -92,19 +92,22 @@ class CoinCard extends StatelessWidget {
                       size: 50,
                     ),
                   ),
-                  const SizedBox(width: 10),
+                  AppSpacing.horizontalSpaceSmall,
                   Text(
                     coinSymbol.toUpperCase(),
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
                   ),
+                  AppSpacing.horizontalSpaceTiny,
                   state.isInWatchlist(coinId)
                       ? const Icon(
                           Icons.star,
                           color: AppColors.goldColor,
+                          size: 15,
                         )
                       : const Icon(
                           Icons.star_border_rounded,
+                          size: 15,
                         ),
                   const Spacer(),
                   Text(
