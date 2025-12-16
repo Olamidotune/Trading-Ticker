@@ -12,6 +12,7 @@ class CoinCard extends StatelessWidget {
   final String coinImage;
   final String coinName;
   final String coinSymbol;
+  final String coinId;
   final double coinPrice;
   final num marketCap;
   final num rank;
@@ -30,6 +31,7 @@ class CoinCard extends StatelessWidget {
     required this.marketCap,
     this.onPressed,
     required this.sparklinePrices,
+    required this.coinId,
   });
 
   @override
@@ -57,84 +59,101 @@ class CoinCard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: AppColors.blackColor.withValues(alpha: .1)),
-          borderRadius: BorderRadius.circular(10),
-          color: Theme.of(context).inputDecorationTheme.fillColor,
-        ),
-        child: ListTile(
-          onTap: onPressed,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                rank.toString(),
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(width: 10),
-              CachedNetworkImage(
-                imageUrl: coinImage,
-                height: 40,
-                width: 40,
-                fit: BoxFit.cover,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(color: Colors.black),
-                ),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.image_not_supported_outlined,
-                  size: 50,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Text(
-                coinSymbol.toUpperCase(),
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const Spacer(),
-              Text(
-                '\$${formatPrices(coinPrice)}',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-          subtitle: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
+      child: BlocBuilder<CoinBloc, CoinState>(
+        builder: (context, state) {
+          return Container(
+            decoration: BoxDecoration(
+              border:
+                  Border.all(color: AppColors.blackColor.withValues(alpha: .1)),
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).inputDecorationTheme.fillColor,
+            ),
+            child: ListTile(
+              onTap: onPressed,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  AppSpacing.verticalSpaceTiny,
-                  Text('Market Cap',
-                      style: Theme.of(context).textTheme.bodySmall),
                   Text(
-                    '\$${formatMarketCap(marketCap)}',
-                    style: TextStyle(fontSize: 12.sp),
+                    rank.toString(),
+                    style:
+                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                   ),
-                ],
-              ),
-              LineGraph(sparklinePrices: sparklinePrices, color: textColor),
-              Column(
-                children: [
-                  AppSpacing.verticalSpaceTiny,
-                  Text('24hr Change %',
-                      style: Theme.of(context).textTheme.bodySmall),
+                  AppSpacing.horizontalSpaceSmall,
+                  CachedNetworkImage(
+                    imageUrl: coinImage,
+                    height: 40,
+                    width: 40,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(color: Colors.black),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 50,
+                    ),
+                  ),
+                  AppSpacing.horizontalSpaceSmall,
                   Text(
-                    '$icon ${change.toStringAsFixed(2)}%',
+                    coinSymbol.toUpperCase(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  AppSpacing.horizontalSpaceTiny,
+                  state.isInWatchlist(coinId)
+                      ? const Icon(
+                          Icons.star,
+                          color: AppColors.goldColor,
+                          size: 15,
+                        )
+                      : const Icon(
+                          Icons.star_border_rounded,
+                          size: 15,
+                        ),
+                  const Spacer(),
+                  Text(
+                    '\$${formatPrices(coinPrice)}',
                     style: TextStyle(
-                      fontSize: 12.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
-                      color: textColor,
                     ),
                   ),
                 ],
               ),
-            ],
-          ),
-        ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      AppSpacing.verticalSpaceTiny,
+                      Text('Market Cap',
+                          style: Theme.of(context).textTheme.bodySmall),
+                      Text(
+                        '\$${formatMarketCap(marketCap)}',
+                        style: TextStyle(fontSize: 12.sp),
+                      ),
+                    ],
+                  ),
+                  LineGraph(sparklinePrices: sparklinePrices, color: textColor),
+                  Column(
+                    children: [
+                      AppSpacing.verticalSpaceTiny,
+                      Text('24hr Change %',
+                          style: Theme.of(context).textTheme.bodySmall),
+                      Text(
+                        '$icon ${change.toStringAsFixed(2)}%',
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -197,7 +216,19 @@ String formatMarketCap(num number) {
   }
 }
 
-String formatPrices(num number, [int decimal = 2]) {
-  final formatter = NumberFormat('#,##0.${'0' * decimal}');
+String formatPrices(num number) {
+  int decimals;
+
+  if (number >= 1) {
+    decimals = 2;
+  } else if (number >= 0.01) {
+    decimals = 4;
+  } else if (number >= 0.0001) {
+    decimals = 6;
+  } else {
+    decimals = 8;
+  }
+
+  final formatter = NumberFormat('#,##0.${'0' * decimals}');
   return formatter.format(number);
 }

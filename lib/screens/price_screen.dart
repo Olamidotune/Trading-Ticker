@@ -164,6 +164,7 @@ class PriceScreen extends HookWidget {
                       state.computedGiftCards[index].priceChangePercentage24h ??
                           0.toDouble(),
                   sparklinePrices: coin.sparklineIn7D?.price ?? [],
+                  coinId: coin.id,
                 );
               },
             ),
