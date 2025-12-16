@@ -19,7 +19,9 @@ part 'coin_state.dart';
 part 'coin_bloc.freezed.dart';
 
 class CoinBloc extends Bloc<CoinEvent, CoinState> {
+  StreamSubscription<QuerySnapshot>? _watchlistSubscription;
   Timer? _timer;
+
   CoinBloc() : super(CoinState()) {
     on<_FetchCoins>(_fetchCoins);
     on<_FetchCoinSuccess>(_fetchCoinSuccess);
@@ -29,9 +31,20 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_SortBy24hChangeDesc>(_sortBy24hChangeDesc);
     on<_SortByMarketCapDesc>(_sortByMarketCapDesc);
     on<_SortByPriceDesc>(_sortByPriceDesc);
+
     on<_AddToWatchList>(_addToWatchList);
     on<_AddToWatchListSuccessful>(_addToWatchListSuccessful);
     on<_AddToWatchListFailed>(_addToWatchListFailed);
+
+    on<_FetchWatchList>(_fetchWatchList);
+    on<_FetchWatchListSuccessful>(_fetchWatchListSuccessful);
+    on<_FetchWatchListFailed>(_fetchWatchListFailed);
+    on<_WatchlistUpdated>(_watchlistUpdated);
+
+    on<_RemoveFromWatchList>(_removeFromWatchList);
+    on<_RemoveFromWatchListSuccessful>(_removeFromWatchListSuccessful);
+    on<_RemoveFromWatchListFailed>(_removeFromWatchListFailed);
+
     on<_ErrorMessage>(_errorMessage);
     on<_Init>(_init);
 
@@ -42,18 +55,8 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   void _init(_Init event, Emitter<CoinState> emit) {
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.initial));
 
-    final uid = FirebaseAuth.instance.currentUser!.uid;
-
     add(const CoinEvent.fetchCoins());
-
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('watchlist')
-        .snapshots();
-
-    logInfo('CoinBloc initialized');
-    logInfo('this is the uid: ${FirebaseAuth.instance.currentUser!.uid}');
+    add(const _FetchWatchList());
   }
 
   void _startPolling() {
@@ -132,11 +135,10 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
       _AddToWatchList event, Emitter<CoinState> emit) async {
     if (state.addToWatchListStatus.isInProgress) return;
 
-    try {
-      emit(state.copyWith(
-          addToWatchListStatus:
-              FormzSubmissionStatus.inProgress)); // 👈 Add this
+    emit(state.copyWith(
+        addToWatchListStatus: FormzSubmissionStatus.inProgress)); // 👈 Add this
 
+    try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
 
       if (uid == null) {
@@ -246,5 +248,106 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
   void _errorMessage(_ErrorMessage event, Emitter<CoinState> emit) {
     emit(state.copyWith(errorMessage: event.message));
+  }
+
+  void _fetchWatchList(_FetchWatchList event, Emitter<CoinState> emit) {
+    emit(
+        state.copyWith(fetchWatchListStatus: FormzSubmissionStatus.inProgress));
+
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+
+    if (uid == null) return;
+    try {
+      // Cancel previous subscription if exists
+      _watchlistSubscription?.cancel();
+
+      // Listen to watchlist changes
+      _watchlistSubscription = FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('watchlist')
+          .snapshots()
+          .listen((snapshot) {
+        // Extract coin IDs from the snapshot
+        final coinIds = snapshot.docs.map((doc) => doc.id).toSet();
+        add(_WatchlistUpdated(coinIds));
+      });
+    } catch (error, trace) {
+      logError(error, trace);
+    }
+  }
+
+  void _fetchWatchListSuccessful(
+      _FetchWatchListSuccessful event, Emitter<CoinState> emit) {
+    emit(state.copyWith(fetchWatchListStatus: FormzSubmissionStatus.success));
+  }
+
+  void _fetchWatchListFailed(
+      _FetchWatchListFailed event, Emitter<CoinState> emit) {
+    emit(state.copyWith(
+        errorMessage: event.message,
+        fetchWatchListStatus: FormzSubmissionStatus.failure));
+  }
+
+  void _watchlistUpdated(_WatchlistUpdated event, Emitter<CoinState> emit) {
+    emit(state.copyWith(
+      watchlistCoinIds: event.coinIds,
+      fetchWatchListStatus:
+          FormzSubmissionStatus.success, // 👈 Also update status
+    ));
+  }
+
+  Future<void> _removeFromWatchList(
+      _RemoveFromWatchList event, Emitter<CoinState> emit) async {
+    if (state.removeFromWatchListStatus.isInProgress) return;
+
+    emit(state.copyWith(
+      removeFromWatchListStatus: FormzSubmissionStatus.inProgress,
+    ));
+
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+
+      if (uid == null) {
+        emit(state.copyWith(
+            removeFromWatchListStatus: FormzSubmissionStatus.failure,
+            errorMessage: 'User not authenticated'));
+        return;
+      }
+
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .collection('watchlist')
+          .doc(event.coin.id)
+          .delete();
+
+      logInfo('Removed ${event.coin.name} from watchlist for $uid');
+      add(const _RemoveFromWatchListSuccessful());
+    } catch (error, trace) {
+      logError(error, trace);
+      add(const _RemoveFromWatchListSuccessful());
+    }
+  }
+
+  void _removeFromWatchListSuccessful(
+      _RemoveFromWatchListSuccessful event, Emitter<CoinState> emit) {
+    emit(state.copyWith(
+        removeFromWatchListStatus: FormzSubmissionStatus.success,
+        errorMessage: null));
+  }
+
+  void _removeFromWatchListFailed(
+      _RemoveFromWatchListFailed event, Emitter<CoinState> emit) {
+    emit(state.copyWith(
+        removeFromWatchListStatus: FormzSubmissionStatus.failure,
+        errorMessage: 'Failed to remove from watchlist.'));
+    add(_ErrorMessage(event.message ?? 'Failed to remove from watchlist.'));
+  }
+
+  @override
+  Future<void> close() {
+    _watchlistSubscription?.cancel();
+    return super.close();
   }
 }

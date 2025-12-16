@@ -13,9 +13,16 @@ class CoinState with _$CoinState {
     @Default(true) sortBy24ChangeDesc,
     @Default(FormzSubmissionStatus.initial)
     FormzSubmissionStatus addToWatchListStatus,
+    @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus fetchWatchListStatus,
+    @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus removeFromWatchListStatus,
+    @Default({}) Set<String> watchlistCoinIds,
   }) = _CoinState;
 
   bool get isAllFilterSelected => sortByPriceDesc && sortBy24ChangeDesc;
+
+  bool isInWatchlist(String coinId) => watchlistCoinIds.contains(coinId);
 
   List<Coin> get getSearchedCoins {
     if ((cryptoSearchString?.length ?? 0) == 0) return [];
