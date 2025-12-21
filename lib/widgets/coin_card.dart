@@ -37,7 +37,7 @@ class CoinCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double change = context
-            .read<CoinBloc>()
+            .read<CryptoBloc>()
             .state
             .coinList
             ?.firstWhere((coin) => coin.name == coinName)
@@ -59,7 +59,7 @@ class CoinCard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(5.0),
-      child: BlocBuilder<CoinBloc, CoinState>(
+      child: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
           return Container(
             decoration: BoxDecoration(

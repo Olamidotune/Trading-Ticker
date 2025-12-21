@@ -1,9 +1,9 @@
 part of 'coin_bloc.dart';
 
 @freezed
-class CoinState with _$CoinState {
-  const CoinState._();
-  factory CoinState({
+class CryptoState with _$CryptoState {
+  const CryptoState._();
+  factory CryptoState({
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus getCoinStatus,
     List<Coin>? coinList,
     String? errorMessage,

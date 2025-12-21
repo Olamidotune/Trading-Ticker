@@ -1,9 +1,10 @@
 import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/screens/markets.dart';
 import 'package:cointicker/screens/menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../screens/price_screen.dart';
+import '../screens/home_screen.dart';
 import '../screens/news_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -20,7 +21,12 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
 
-  final screens = [const PriceScreen(), const NewsScreen(), const MenuScreen()];
+  final screens = [
+    const HomeScreen(),
+    const MarketsScreen(),
+    const NewsScreen(),
+    const MenuScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +66,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
             BottomNavigationBarItem(
                 icon: _currentIndex == 1
                     ? SvgPicture.asset(
+                        'assets/svg/trending_up.svg',
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.primaryColor,
+                          BlendMode.srcIn,
+                        ),
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/trending_up.svg',
+                        colorFilter: ColorFilter.mode(
+                            AppColors.greyColor.withValues(alpha: .5),
+                            BlendMode.srcIn),
+                      ),
+                label: 'Markets'),
+            BottomNavigationBarItem(
+                icon: _currentIndex == 2
+                    ? SvgPicture.asset(
                         'assets/svg/news.svg',
                         colorFilter: const ColorFilter.mode(
                           AppColors.primaryColor,
@@ -74,7 +96,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                       ),
                 label: 'News'),
             BottomNavigationBarItem(
-                icon: _currentIndex == 2
+                icon: _currentIndex == 3
                     ? SvgPicture.asset(
                         'assets/svg/menu.svg',
                         colorFilter: const ColorFilter.mode(

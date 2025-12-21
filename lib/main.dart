@@ -9,7 +9,7 @@ import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/screens/onboarding/onboarding.dart';
 import 'package:cointicker/screens/onboarding/splash_screen.dart';
-import 'package:cointicker/screens/price_screen.dart';
+import 'package:cointicker/screens/home_screen.dart';
 import 'package:cointicker/screens/news_screen.dart';
 import 'package:cointicker/services/service_locator.dart';
 import 'package:cointicker/services/theme_service.dart';
@@ -42,8 +42,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CoinBloc>(
-          create: (context) => CoinBloc(),
+        BlocProvider<CryptoBloc>(
+          create: (context) => CryptoBloc(),
         ),
         BlocProvider<NewsBloc>(
           create: (context) => NewsBloc(),
@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   SplashScreen.routeName: (context) => const SplashScreen(),
                   BottomNavBar.routeName: (context) => const BottomNavBar(),
-                  PriceScreen.routeName: (context) => const PriceScreen(),
+                  HomeScreen.routeName: (context) => const HomeScreen(),
                   NewsScreen.routeName: (context) => const NewsScreen(),
                   MenuScreen.routeName: (context) => const MenuScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),

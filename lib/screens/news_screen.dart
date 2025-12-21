@@ -1,7 +1,7 @@
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/price_screen.dart';
+import 'package:cointicker/screens/home_screen.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/widgets/news_card.dart';
 import 'package:flutter/material.dart';

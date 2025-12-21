@@ -16,10 +16,10 @@ part 'coin_event.dart';
 part 'coin_state.dart';
 part 'coin_bloc.freezed.dart';
 
-class CoinBloc extends Bloc<CoinEvent, CoinState> {
+class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
   StreamSubscription<QuerySnapshot>? _watchlistSubscription;
 
-  CoinBloc() : super(CoinState()) {
+  CryptoBloc() : super(CryptoState()) {
     on<_FetchCoins>(_fetchCoins);
     on<_FetchCoinSuccess>(_fetchCoinSuccess);
     on<_FetchCoinFailure>(_fetchCoinFailure);
@@ -45,24 +45,24 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     on<_ErrorMessage>(_errorMessage);
     on<_Init>(_init);
 
-    add(const CoinEvent.init());
+    add(const CryptoEvent.init());
     _startPolling();
   }
 
-  void _init(_Init event, Emitter<CoinState> emit) {
+  void _init(_Init event, Emitter<CryptoState> emit) {
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.initial));
 
-    add(const CoinEvent.fetchCoins());
+    add(const CryptoEvent.fetchCoins());
     add(const _FetchWatchList());
   }
 
   void _startPolling() {
     Timer.periodic(const Duration(minutes: 1), (_) {
-      add(const CoinEvent.fetchCoins());
+      add(const CryptoEvent.fetchCoins());
     });
   }
 
-  void _fetchCoins(_FetchCoins event, Emitter<CoinState> emit) async {
+  void _fetchCoins(_FetchCoins event, Emitter<CryptoState> emit) async {
     if (state.getCoinStatus.isInProgress) return;
 
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.inProgress));
@@ -75,20 +75,20 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
 
     try {
       final List<Coin> coins = await locator<CoinClient>().getCoins();
-      add(CoinEvent.fetchCoinSuccess(coins));
+      add(CryptoEvent.fetchCoinSuccess(coins));
       add(_FetchCoinSuccess(coins));
     } catch (error, trace) {
       logError(error, trace);
       if (error is DioException && error.response?.data['message'] != null) {
-        add(CoinEvent.fetchCoinFailure(
+        add(CryptoEvent.fetchCoinFailure(
             error.response?.data['message'] as String));
       } else {
-        add(const CoinEvent.fetchCoinFailure('Something went wrong'));
+        add(const CryptoEvent.fetchCoinFailure('Something went wrong'));
       }
     }
   }
 
-  void _fetchCoinSuccess(_FetchCoinSuccess event, Emitter<CoinState> emit) {
+  void _fetchCoinSuccess(_FetchCoinSuccess event, Emitter<CryptoState> emit) {
     List<Coin> updatedCoins = List<Coin>.from(event.coins);
 
     switch (state.activeSort) {
@@ -114,14 +114,14 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     ));
   }
 
-  void _fetchCoinFailure(_FetchCoinFailure event, Emitter<CoinState> emit) {
+  void _fetchCoinFailure(_FetchCoinFailure event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
       getCoinStatus: FormzSubmissionStatus.failure,
       errorMessage: event.errorMessage,
     ));
   }
 
-  void _searchCrypto(_SearchCrypto event, Emitter<CoinState> emit) {
+  void _searchCrypto(_SearchCrypto event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
       cryptoSearchString: event.cryptoSearchString,
       coinList: state.coinList,
@@ -129,7 +129,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   Future<void> _addToWatchList(
-      _AddToWatchList event, Emitter<CoinState> emit) async {
+      _AddToWatchList event, Emitter<CryptoState> emit) async {
     if (state.addToWatchListStatus.isInProgress) return;
 
     emit(
@@ -169,26 +169,26 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _addToWatchListSuccessful(
-      _AddToWatchListSuccessful event, Emitter<CoinState> emit) {
+      _AddToWatchListSuccessful event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
         addToWatchListStatus: FormzSubmissionStatus.success,
         errorMessage: null));
   }
 
   void _addToWatchListFailed(
-      _AddToWatchListFailed event, Emitter<CoinState> emit) {
+      _AddToWatchListFailed event, Emitter<CryptoState> emit) {
     emit(state.copyWith(addToWatchListStatus: FormzSubmissionStatus.failure));
 
     add(_ErrorMessage(event.message ?? 'Something went wrong.'));
   }
 
   void _cryptoSearchStringChanged(
-      _CryptoSearchStringChanged event, Emitter<CoinState> emit) {
+      _CryptoSearchStringChanged event, Emitter<CryptoState> emit) {
     emit(state.copyWith(cryptoSearchString: event.cryptoSearchString));
   }
 
   void _sortByMarketCapDesc(
-      _SortByMarketCapDesc event, Emitter<CoinState> emit) {
+      _SortByMarketCapDesc event, Emitter<CryptoState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) => (b.marketCap ?? 0).compareTo(a.marketCap ?? 0));
 
@@ -208,7 +208,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     }
   }
 
-  void _sortByPriceDesc(_SortByPriceDesc event, Emitter<CoinState> emit) {
+  void _sortByPriceDesc(_SortByPriceDesc event, Emitter<CryptoState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList
         .sort((a, b) => (b.currentPrice ?? 0).compareTo(a.currentPrice ?? 0));
@@ -226,7 +226,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _sortBy24hChangeDesc(
-      _SortBy24hChangeDesc event, Emitter<CoinState> emit) {
+      _SortBy24hChangeDesc event, Emitter<CryptoState> emit) {
     final sortedList = List<Coin>.from(state.coinList ?? []);
     sortedList.sort((a, b) => (b.priceChangePercentage24h ?? 0)
         .compareTo(a.priceChangePercentage24h ?? 0));
@@ -243,11 +243,11 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
     }
   }
 
-  void _errorMessage(_ErrorMessage event, Emitter<CoinState> emit) {
+  void _errorMessage(_ErrorMessage event, Emitter<CryptoState> emit) {
     emit(state.copyWith(errorMessage: event.message));
   }
 
-  void _fetchWatchList(_FetchWatchList event, Emitter<CoinState> emit) {
+  void _fetchWatchList(_FetchWatchList event, Emitter<CryptoState> emit) {
     emit(
         state.copyWith(fetchWatchListStatus: FormzSubmissionStatus.inProgress));
 
@@ -272,18 +272,18 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _fetchWatchListSuccessful(
-      _FetchWatchListSuccessful event, Emitter<CoinState> emit) {
+      _FetchWatchListSuccessful event, Emitter<CryptoState> emit) {
     emit(state.copyWith(fetchWatchListStatus: FormzSubmissionStatus.success));
   }
 
   void _fetchWatchListFailed(
-      _FetchWatchListFailed event, Emitter<CoinState> emit) {
+      _FetchWatchListFailed event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
         errorMessage: event.message,
         fetchWatchListStatus: FormzSubmissionStatus.failure));
   }
 
-  void _watchlistUpdated(_WatchlistUpdated event, Emitter<CoinState> emit) {
+  void _watchlistUpdated(_WatchlistUpdated event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
       watchlistCoinIds: event.coinIds,
       fetchWatchListStatus: FormzSubmissionStatus.success,
@@ -291,7 +291,7 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   Future<void> _removeFromWatchList(
-      _RemoveFromWatchList event, Emitter<CoinState> emit) async {
+      _RemoveFromWatchList event, Emitter<CryptoState> emit) async {
     if (state.removeFromWatchListStatus.isInProgress) return;
 
     emit(state.copyWith(
@@ -324,14 +324,14 @@ class CoinBloc extends Bloc<CoinEvent, CoinState> {
   }
 
   void _removeFromWatchListSuccessful(
-      _RemoveFromWatchListSuccessful event, Emitter<CoinState> emit) {
+      _RemoveFromWatchListSuccessful event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
         removeFromWatchListStatus: FormzSubmissionStatus.success,
         errorMessage: null));
   }
 
   void _removeFromWatchListFailed(
-      _RemoveFromWatchListFailed event, Emitter<CoinState> emit) {
+      _RemoveFromWatchListFailed event, Emitter<CryptoState> emit) {
     emit(state.copyWith(
         removeFromWatchListStatus: FormzSubmissionStatus.failure,
         errorMessage: 'Failed to remove from watchlist.'));

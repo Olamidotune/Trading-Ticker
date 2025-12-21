@@ -16,9 +16,9 @@ import 'package:formz/formz.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
-class PriceScreen extends HookWidget {
+class HomeScreen extends HookWidget {
   static const String routeName = 'Price-Screen';
-  const PriceScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +69,7 @@ class PriceScreen extends HookWidget {
           },
         ),
       ),
-      body: BlocBuilder<CoinBloc, CoinState>(
+      body: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
           if (state.getCoinStatus == FormzSubmissionStatus.inProgress &&
               (state.computedGiftCards.isEmpty)) {
@@ -181,11 +181,11 @@ class PriceScreen extends HookWidget {
         builder: (context) {
           return const FilterCoinsDialog();
         });
-    if (!context.read<CoinBloc>().state.sortBy24ChangeDesc &&
-        !context.read<CoinBloc>().state.sortByPriceDesc) {
+    if (!context.read<CryptoBloc>().state.sortBy24ChangeDesc &&
+        !context.read<CryptoBloc>().state.sortByPriceDesc) {
       context
-          .read<CoinBloc>()
-          .add(CoinEvent.sortByMarketCapDesc((value ?? false)));
+          .read<CryptoBloc>()
+          .add(CryptoEvent.sortByMarketCapDesc((value ?? false)));
     }
     return;
   }

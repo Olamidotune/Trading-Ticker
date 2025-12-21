@@ -1,47 +1,48 @@
 part of 'coin_bloc.dart';
 
 @freezed
-class CoinEvent with _$CoinEvent {
-  const factory CoinEvent() = _CoinEvent;
+class CryptoEvent with _$CryptoEvent {
+  const factory CryptoEvent() = _CoinEvent;
 
-  const factory CoinEvent.init() = _Init;
-  const factory CoinEvent.fetchCoins() = _FetchCoins;
-  const factory CoinEvent.fetchCoinSuccess(List<Coin> coins) =
+  const factory CryptoEvent.init() = _Init;
+  const factory CryptoEvent.fetchCoins() = _FetchCoins;
+  const factory CryptoEvent.fetchCoinSuccess(List<Coin> coins) =
       _FetchCoinSuccess;
-  const factory CoinEvent.fetchCoinFailure([String? errorMessage]) =
+  const factory CryptoEvent.fetchCoinFailure([String? errorMessage]) =
       _FetchCoinFailure;
-  const factory CoinEvent.searchCrypto(String cryptoSearchString) =
+  const factory CryptoEvent.searchCrypto(String cryptoSearchString) =
       _SearchCrypto;
-  const factory CoinEvent.cryptoSearchStringChanged(
+  const factory CryptoEvent.cryptoSearchStringChanged(
     String cryptoSearchString,
   ) = _CryptoSearchStringChanged;
-  const factory CoinEvent.sortByMarketCapDesc(bool sortByMarketCapDesc) =
+  const factory CryptoEvent.sortByMarketCapDesc(bool sortByMarketCapDesc) =
       _SortByMarketCapDesc;
-  const factory CoinEvent.sortByPriceDesc(bool? sortByPriceDesc) =
+  const factory CryptoEvent.sortByPriceDesc(bool? sortByPriceDesc) =
       _SortByPriceDesc;
-  const factory CoinEvent.sortBy24hChangeDesc(bool? sortBy24hChangeDesc) =
+  const factory CryptoEvent.sortBy24hChangeDesc(bool? sortBy24hChangeDesc) =
       _SortBy24hChangeDesc;
 
-  const factory CoinEvent.addToWatchList(Coin coin) = _AddToWatchList;
-  const factory CoinEvent.addToWatchListSuccessful() =
+  const factory CryptoEvent.addToWatchList(Coin coin) = _AddToWatchList;
+  const factory CryptoEvent.addToWatchListSuccessful() =
       _AddToWatchListSuccessful;
-  const factory CoinEvent.addToWatchListFailed(String? message) =
+  const factory CryptoEvent.addToWatchListFailed(String? message) =
       _AddToWatchListFailed;
 
-  const factory CoinEvent.fetchWatchList() = _FetchWatchList;
-  const factory CoinEvent.fetchWatchListSuccessful() =
+  const factory CryptoEvent.fetchWatchList() = _FetchWatchList;
+  const factory CryptoEvent.fetchWatchListSuccessful() =
       _FetchWatchListSuccessful;
-  const factory CoinEvent.fetchWatchListFailed(String? message) =
+  const factory CryptoEvent.fetchWatchListFailed(String? message) =
       _FetchWatchListFailed;
 
-  const factory CoinEvent.removeFromWatchList(Coin coin) = _RemoveFromWatchList;
-  const factory CoinEvent.removeFromWatchListSuccessful() =
+  const factory CryptoEvent.removeFromWatchList(Coin coin) =
+      _RemoveFromWatchList;
+  const factory CryptoEvent.removeFromWatchListSuccessful() =
       _RemoveFromWatchListSuccessful;
-  const factory CoinEvent.removeFromWatchListFailed(String? message) =
+  const factory CryptoEvent.removeFromWatchListFailed(String? message) =
       _RemoveFromWatchListFailed;
 
-  const factory CoinEvent.watchlistUpdated(Set<String> coinIds) =
+  const factory CryptoEvent.watchlistUpdated(Set<String> coinIds) =
       _WatchlistUpdated;
 
-  const factory CoinEvent.errorMessage(String message) = _ErrorMessage;
+  const factory CryptoEvent.errorMessage(String message) = _ErrorMessage;
 }

@@ -31,8 +31,8 @@ class _CoinSearchBarState extends State<CoinSearchBar> {
           WidgetStateProperty.all(const TextStyle(color: AppColors.blackColor)),
       controller: _controller,
       onChanged: (value) {
-        context.read<CoinBloc>().add(
-              CoinEvent.cryptoSearchStringChanged(value),
+        context.read<CryptoBloc>().add(
+              CryptoEvent.cryptoSearchStringChanged(value),
             );
         setState(() {});
       },
@@ -42,8 +42,8 @@ class _CoinSearchBarState extends State<CoinSearchBar> {
             icon: const Icon(Icons.clear),
             onPressed: () {
               _controller.clear();
-              context.read<CoinBloc>().add(
-                    const CoinEvent.cryptoSearchStringChanged(''),
+              context.read<CryptoBloc>().add(
+                    const CryptoEvent.cryptoSearchStringChanged(''),
                   );
               setState(() {});
             },
