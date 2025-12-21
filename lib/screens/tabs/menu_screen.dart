@@ -2,7 +2,7 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/helpers/email_helper/email_fall_back.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
-import 'package:cointicker/screens/news_screen.dart';
+import 'package:cointicker/screens/tabs/news_screen.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/persistence_service.dart';
 import 'package:cointicker/services/toast_service.dart';

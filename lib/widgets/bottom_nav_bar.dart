@@ -1,11 +1,11 @@
 import 'package:cointicker/constants/app_colors.dart';
-import 'package:cointicker/screens/markets.dart';
-import 'package:cointicker/screens/menu_screen.dart';
+import 'package:cointicker/screens/tabs/markets_screen.dart';
+import 'package:cointicker/screens/tabs/menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../screens/home_screen.dart';
-import '../screens/news_screen.dart';
+import '../screens/tabs/home_screen.dart';
+import '../screens/tabs/news_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   static const String routeName = 'BottomNavigationWidget';
