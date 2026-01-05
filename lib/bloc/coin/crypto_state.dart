@@ -35,6 +35,6 @@ class CryptoState with _$CryptoState {
     return coinList!.where((e) => exp.firstMatch(e.name) != null).toList();
   }
 
-  List<Coin> get computedGiftCards =>
+  List<Coin> get computedCrypto =>
       (cryptoSearchString?.isEmpty ?? true) ? coinList ?? [] : getSearchedCoins;
 }

@@ -72,7 +72,7 @@ class HomeScreen extends HookWidget {
       body: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
           if (state.getCoinStatus == FormzSubmissionStatus.inProgress &&
-              (state.computedGiftCards.isEmpty)) {
+              (state.computedCrypto.isEmpty)) {
             return ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
@@ -109,7 +109,7 @@ class HomeScreen extends HookWidget {
               ],
             );
           }
-          if (state.computedGiftCards.isEmpty) {
+          if (state.computedCrypto.isEmpty) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -143,10 +143,10 @@ class HomeScreen extends HookWidget {
                 horizontal: AppSpacing.horizontalSpacingSmall),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: state.computedGiftCards.length,
+              itemCount: state.computedCrypto.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final coin = state.computedGiftCards[index];
+                final coin = state.computedCrypto[index];
                 return CoinCard(
                   onPressed: () => showModalBottomSheet(
                       useSafeArea: true,
@@ -161,7 +161,7 @@ class HomeScreen extends HookWidget {
                   coinSymbol: coin.symbol,
                   coinPrice: coin.currentPrice ?? 0.toDouble(),
                   priceChangePercentage:
-                      state.computedGiftCards[index].priceChangePercentage24h ??
+                      state.computedCrypto[index].priceChangePercentage24h ??
                           0.toDouble(),
                   sparklinePrices: coin.sparklineIn7D?.price ?? [],
                   coinId: coin.id,

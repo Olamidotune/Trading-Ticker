@@ -93,8 +93,8 @@ class MarketsScreen extends HookWidget {
         controller: tabController,
         children: const [
           FavoritesTab(),
-          Center(child: Text('Gainers')),
-          Center(child: Text('Losers')),
+          GainersTab(),
+          LosersTab(),
           Center(child: Text('Volume')),
           Center(child: Text('MCap')),
         ],
@@ -110,6 +110,16 @@ class FavoritesTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CryptoBloc, CryptoState>(
       builder: (context, state) {
+        if (state.coinList == null || state.coinList!.isEmpty) {
+          return Center(
+            child: Text(
+              'No coins available to display.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.greyColor,
+                  ),
+            ),
+          );
+        }
         if (state.watchlistCoinIds.isEmpty) {
           return Center(
             child: Text(
@@ -141,7 +151,7 @@ class FavoritesTab extends StatelessWidget {
               coinSymbol: coin?.symbol ?? '',
               coinPrice: coin?.currentPrice ?? 0.toDouble(),
               priceChangePercentage:
-                  state.computedGiftCards[index].priceChangePercentage24h ??
+                  state.computedCrypto[index].priceChangePercentage24h ??
                       0.toDouble(),
               sparklinePrices: coin?.sparklineIn7D?.price ?? [],
               coinId: coin?.id ?? '',
@@ -160,30 +170,95 @@ class GainersTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CryptoBloc, CryptoState>(
       builder: (context, state) {
+        final coins = (state.coinList ?? []).toList();
+        coins.sort((a, b) => (a.priceChangePercentage24h ?? 0)
+            .compareTo(b.priceChangePercentage24h ?? 0));
+        final gainers = coins.reversed.toList();
+        final itemCount = gainers.length < 10 ? gainers.length : 10;
+        if (state.coinList == null || state.coinList!.isEmpty) {
+          return Center(
+            child: Text(
+              'No coins available to display.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.greyColor,
+                  ),
+            ),
+          );
+        }
         return ListView.builder(
-          itemCount: state.watchlistCoinIds.length,
+          itemCount: itemCount,
           itemBuilder: (context, index) {
-            final coin = state.coinList?.firstWhere(
-              (coin) => coin.id == state.watchlistCoinIds.elementAt(index),
-            );
+            final coin = gainers[index];
             return CoinCard(
               onPressed: () => showModalBottomSheet(
                   useSafeArea: true,
                   context: context,
                   builder: (_) => CoinDetailsSheet(
-                        coin: coin!,
+                        coin: coin,
                       )),
-              marketCap: coin?.marketCap ?? 0,
-              rank: coin?.marketCapRank ?? 0,
-              coinImage: coin?.image ?? '',
-              coinName: coin?.name ?? '',
-              coinSymbol: coin?.symbol ?? '',
-              coinPrice: coin?.currentPrice ?? 0.toDouble(),
+              marketCap: coin.marketCap ?? 0,
+              rank: coin.marketCapRank ?? 0,
+              coinImage: coin.image,
+              coinName: coin.name,
+              coinSymbol: coin.symbol,
+              coinPrice: coin.currentPrice ?? 0.toDouble(),
               priceChangePercentage:
-                  state.computedGiftCards[index].priceChangePercentage24h ??
+                  state.computedCrypto[index].priceChangePercentage24h ??
                       0.toDouble(),
-              sparklinePrices: coin?.sparklineIn7D?.price ?? [],
-              coinId: coin?.id ?? '',
+              volume: coin.totalVolume?.toDouble() ?? 0.0,
+              coinId: coin.id,
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class LosersTab extends StatelessWidget {
+  const LosersTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CryptoBloc, CryptoState>(
+      builder: (context, state) {
+        final coins = (state.coinList ?? []).toList();
+        coins.sort((a, b) => (a.priceChangePercentage24h ?? 0)
+            .compareTo(b.priceChangePercentage24h ?? 0));
+        final losers = coins.toList();
+        final itemCount = losers.length < 10 ? losers.length : 10;
+        if (state.coinList == null || state.coinList!.isEmpty) {
+          return Center(
+            child: Text(
+              'No coins available to display.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.greyColor,
+                  ),
+            ),
+          );
+        }
+        return ListView.builder(
+          itemCount: itemCount,
+          itemBuilder: (context, index) {
+            final coin = losers[index];
+            return CoinCard(
+              onPressed: () => showModalBottomSheet(
+                  useSafeArea: true,
+                  context: context,
+                  builder: (_) => CoinDetailsSheet(
+                        coin: coin,
+                      )),
+              marketCap: coin.marketCap ?? 0,
+              rank: coin.marketCapRank ?? 0,
+              coinImage: coin.image,
+              coinName: coin.name,
+              coinSymbol: coin.symbol,
+              coinPrice: coin.currentPrice ?? 0.toDouble(),
+              priceChangePercentage:
+                  state.computedCrypto[index].priceChangePercentage24h ??
+                      0.toDouble(),
+              volume: coin.totalVolume?.toDouble() ?? 0.0,
+              coinId: coin.id,
             );
           },
         );

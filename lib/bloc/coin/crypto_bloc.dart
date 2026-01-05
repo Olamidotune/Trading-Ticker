@@ -23,7 +23,9 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
     on<_FetchCoins>(_fetchCoins);
     on<_FetchCoinSuccess>(_fetchCoinSuccess);
     on<_FetchCoinFailure>(_fetchCoinFailure);
+
     on<_SearchCrypto>(_searchCrypto);
+
     on<_CryptoSearchStringChanged>(_cryptoSearchStringChanged);
     on<_SortBy24hChangeDesc>(_sortBy24hChangeDesc);
     on<_SortByMarketCapDesc>(_sortByMarketCapDesc);
@@ -36,8 +38,8 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
     on<_FetchWatchList>(_fetchWatchList);
     on<_FetchWatchListSuccessful>(_fetchWatchListSuccessful);
     on<_FetchWatchListFailed>(_fetchWatchListFailed);
-    on<_WatchlistUpdated>(_watchlistUpdated);
 
+    on<_WatchlistUpdated>(_watchlistUpdated);
     on<_RemoveFromWatchList>(_removeFromWatchList);
     on<_RemoveFromWatchListSuccessful>(_removeFromWatchListSuccessful);
     on<_RemoveFromWatchListFailed>(_removeFromWatchListFailed);

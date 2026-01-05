@@ -18,21 +18,22 @@ class CoinCard extends StatelessWidget {
   final num rank;
   final double priceChangePercentage;
   final VoidCallback? onPressed;
-  final List<double> sparklinePrices;
+  final List<double>? sparklinePrices;
+  final double? volume;
 
-  const CoinCard({
-    super.key,
-    required this.coinImage,
-    required this.coinName,
-    required this.coinSymbol,
-    required this.coinPrice,
-    required this.priceChangePercentage,
-    required this.rank,
-    required this.marketCap,
-    this.onPressed,
-    required this.sparklinePrices,
-    required this.coinId,
-  });
+  const CoinCard(
+      {super.key,
+      required this.coinImage,
+      required this.coinName,
+      required this.coinSymbol,
+      required this.coinPrice,
+      required this.priceChangePercentage,
+      required this.rank,
+      required this.marketCap,
+      this.onPressed,
+      this.sparklinePrices,
+      required this.coinId,
+      this.volume});
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +134,23 @@ class CoinCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  LineGraph(sparklinePrices: sparklinePrices, color: textColor),
+                  sparklinePrices == null
+                      ? Column(
+                          children: [
+                            AppSpacing.verticalSpaceTiny,
+                            Text('Volume',
+                                style: Theme.of(context).textTheme.bodySmall),
+                            Text(
+                              volume != null
+                                  ? '\$${formatMarketCap(volume!)}'
+                                  : 'N/A',
+                              style: TextStyle(fontSize: 12.sp),
+                            ),
+                          ],
+                        )
+                      : LineGraph(
+                          sparklinePrices: sparklinePrices ?? [],
+                          color: textColor),
                   Column(
                     children: [
                       AppSpacing.verticalSpaceTiny,
