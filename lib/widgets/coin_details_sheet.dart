@@ -1,5 +1,5 @@
 import 'package:cointicker/api/models/coins_model.dart';
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/services/toast_service.dart';

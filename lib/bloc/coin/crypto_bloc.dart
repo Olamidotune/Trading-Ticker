@@ -12,8 +12,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'coin_event.dart';
-part 'coin_state.dart';
+part 'crypto_event.dart';
+part 'crypto_state.dart';
 part 'coin_bloc.freezed.dart';
 
 class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {

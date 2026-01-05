@@ -1,4 +1,4 @@
-part of 'coin_bloc.dart';
+part of 'crypto_bloc.dart';
 
 @freezed
 class CryptoState with _$CryptoState {

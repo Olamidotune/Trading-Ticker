@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';

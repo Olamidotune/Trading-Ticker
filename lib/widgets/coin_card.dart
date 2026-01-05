@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:fl_chart/fl_chart.dart';
