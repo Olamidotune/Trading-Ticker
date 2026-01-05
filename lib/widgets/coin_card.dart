@@ -74,10 +74,18 @@ class CoinCard extends StatelessWidget {
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    rank.toString(),
-                    style:
-                        TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
+                  Column(
+                    children: [
+                      Text(
+                        'Rank',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        rank.toString(),
+                        style: TextStyle(
+                            fontSize: 14.sp, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                   AppSpacing.horizontalSpaceSmall,
                   CachedNetworkImage(
@@ -248,4 +256,122 @@ String formatPrices(num number) {
 
   final formatter = NumberFormat('#,##0.${'0' * decimals}');
   return formatter.format(number);
+}
+
+class VolumeCard extends StatelessWidget {
+  final String coinImage;
+  final String coinName;
+  final String coinSymbol;
+  final String coinId;
+  final num marketCap;
+  final double coinPrice;
+  final num rank;
+  final VoidCallback? onPressed;
+  final double? volume;
+
+  const VolumeCard(
+      {super.key,
+      required this.coinImage,
+      required this.coinName,
+      required this.coinSymbol,
+      required this.coinPrice,
+      required this.rank,
+      required this.marketCap,
+      required this.coinId,
+      this.onPressed,
+      this.volume});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: BlocBuilder<CryptoBloc, CryptoState>(
+        builder: (context, state) {
+          return Container(
+            decoration: BoxDecoration(
+              border:
+                  Border.all(color: AppColors.blackColor.withValues(alpha: .1)),
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(context).inputDecorationTheme.fillColor,
+            ),
+            child: ListTile(
+              onTap: onPressed,
+              title: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      Text(
+                        'Rank',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      Text(
+                        rank.toString(),
+                        style: TextStyle(
+                            fontSize: 14.sp, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  AppSpacing.horizontalSpaceSmall,
+                  CachedNetworkImage(
+                    imageUrl: coinImage,
+                    height: 40,
+                    width: 40,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(color: Colors.black),
+                    ),
+                    errorWidget: (context, url, error) => const Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 50,
+                    ),
+                  ),
+                  AppSpacing.horizontalSpaceSmall,
+                  Text(
+                    coinSymbol.toUpperCase(),
+                    style: const TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  AppSpacing.horizontalSpaceTiny,
+                  state.isInWatchlist(coinId)
+                      ? const Icon(
+                          Icons.star,
+                          color: AppColors.goldColor,
+                          size: 15,
+                        )
+                      : const Icon(
+                          Icons.star_border_rounded,
+                          size: 15,
+                        ),
+                ],
+              ),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppSpacing.verticalSpaceTiny,
+                  Text('Market Price',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    '\$${formatPrices(coinPrice)}',
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                ],
+              ),
+              trailing: Column(
+                children: [
+                  AppSpacing.verticalSpaceTiny,
+                  Text('24hr Volume',
+                      style: Theme.of(context).textTheme.bodySmall),
+                  Text(
+                    volume != null ? '\$${formatMarketCap(volume!)}' : 'N/A',
+                    style: TextStyle(fontSize: 12.sp),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
 }
