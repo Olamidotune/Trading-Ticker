@@ -97,7 +97,7 @@ class MarketsScreen extends HookWidget {
           GainersTab(),
           LosersTab(),
           VolumeTab(),
-          Center(child: Text('MCap')),
+          MarketCapTab(),
         ],
       ),
     );
@@ -308,6 +308,54 @@ class VolumeTab extends StatelessWidget {
               coinPrice: coin.currentPrice ?? 0.toDouble(),
               coinSymbol: coin.symbol,
               volume: coin.totalVolume?.toDouble() ?? 0.0,
+              coinId: coin.id,
+            );
+          },
+        );
+      },
+    );
+  }
+}
+
+class MarketCapTab extends StatelessWidget {
+  const MarketCapTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CryptoBloc, CryptoState>(
+      builder: (context, state) {
+        final coins = (state.coinList ?? []).toList();
+        coins.sort((a, b) =>
+            (a.marketCapChange24h ?? 0).compareTo(b.marketCapChange24h ?? 0));
+        final losers = coins.reversed.toList();
+        final itemCount = losers.length < 10 ? losers.length : 10;
+        if (state.coinList == null || state.coinList!.isEmpty) {
+          return Center(
+            child: Text(
+              'No coins available to display.',
+              style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: AppColors.greyColor,
+                  ),
+            ),
+          );
+        }
+        return ListView.builder(
+          itemCount: itemCount,
+          itemBuilder: (context, index) {
+            final coin = losers[index];
+            return VolumeCard(
+              onPressed: () => showModalBottomSheet(
+                  useSafeArea: true,
+                  context: context,
+                  builder: (_) => CoinDetailsSheet(
+                        coin: coin,
+                      )),
+              marketCap: coin.marketCapChange24h?.toDouble() ?? 0.0,
+              rank: coin.marketCapRank ?? 0,
+              coinImage: coin.image,
+              coinName: coin.name,
+              coinPrice: coin.currentPrice ?? 0.toDouble(),
+              coinSymbol: coin.symbol,
               coinId: coin.id,
             );
           },

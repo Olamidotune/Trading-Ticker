@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
@@ -14,7 +12,7 @@ class VolumeCard extends StatelessWidget {
   final String coinName;
   final String coinSymbol;
   final String coinId;
-  final num marketCap;
+  final num? marketCap;
   final double coinPrice;
   final num rank;
   final VoidCallback? onPressed;
@@ -27,7 +25,7 @@ class VolumeCard extends StatelessWidget {
       required this.coinSymbol,
       required this.coinPrice,
       required this.rank,
-      required this.marketCap,
+      this.marketCap,
       required this.coinId,
       this.onPressed,
       this.volume});
@@ -48,7 +46,6 @@ class VolumeCard extends StatelessWidget {
             child: ListTile(
               onTap: onPressed,
               title: Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     children: [
@@ -111,10 +108,12 @@ class VolumeCard extends StatelessWidget {
               trailing: Column(
                 children: [
                   AppSpacing.verticalSpaceTiny,
-                  Text('24hr Volume',
+                  Text((volume != null) ? '24hr Volume' : '24hr Market Cap',
                       style: Theme.of(context).textTheme.bodySmall),
                   Text(
-                    volume != null ? '\$${formatMarketCap(volume!)}' : 'N/A',
+                    (volume != null)
+                        ? '\$${formatMarketCap(volume!)}'
+                        : '\$${formatMarketCap(marketCap ?? 0)}',
                     style: TextStyle(fontSize: 12.sp),
                   ),
                 ],
