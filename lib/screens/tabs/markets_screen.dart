@@ -152,7 +152,7 @@ class FavoritesTab extends StatelessWidget {
               coinSymbol: coin?.symbol ?? '',
               coinPrice: coin?.currentPrice ?? 0.toDouble(),
               priceChangePercentage:
-                  state.computedCrypto[index].priceChangePercentage24h ??
+                  state.coinList?[index].priceChangePercentage24h ??
                       0.toDouble(),
               sparklinePrices: coin?.sparklineIn7D?.price ?? [],
               coinId: coin?.id ?? '',
@@ -204,7 +204,7 @@ class GainersTab extends StatelessWidget {
               coinSymbol: coin.symbol,
               coinPrice: coin.currentPrice ?? 0.toDouble(),
               priceChangePercentage:
-                  state.computedCrypto[index].priceChangePercentage24h ??
+                  state.coinList?[index].priceChangePercentage24h ??
                       0.toDouble(),
               volume: coin.totalVolume?.toDouble() ?? 0.0,
               coinId: coin.id,
@@ -256,7 +256,7 @@ class LosersTab extends StatelessWidget {
               coinSymbol: coin.symbol,
               coinPrice: coin.currentPrice ?? 0.toDouble(),
               priceChangePercentage:
-                  state.computedCrypto[index].priceChangePercentage24h ??
+                  state.coinList?[index].priceChangePercentage24h ??
                       0.toDouble(),
               volume: coin.totalVolume?.toDouble() ?? 0.0,
               coinId: coin.id,
