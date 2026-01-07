@@ -1,4 +1,4 @@
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,7 +50,7 @@ class FilterCoinsDialog extends StatelessWidget {
           const Divider(thickness: 1, height: 20),
         ],
       ),
-      content: BlocBuilder<CoinBloc, CoinState>(
+      content: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) => SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
@@ -64,8 +64,8 @@ class FilterCoinsDialog extends StatelessWidget {
                 value: state.isAllFilterSelected,
                 onChanged: (bool? value) {
                   context
-                      .read<CoinBloc>()
-                      .add(CoinEvent.sortByMarketCapDesc(value ?? false));
+                      .read<CryptoBloc>()
+                      .add(CryptoEvent.sortByMarketCapDesc(value ?? false));
                 },
               ),
               CheckboxListTile(
@@ -77,8 +77,8 @@ class FilterCoinsDialog extends StatelessWidget {
                 value: state.sortByPriceDesc,
                 onChanged: (bool? value) {
                   context
-                      .read<CoinBloc>()
-                      .add(CoinEvent.sortByPriceDesc(value ?? false));
+                      .read<CryptoBloc>()
+                      .add(CryptoEvent.sortByPriceDesc(value ?? false));
                 },
               ),
               CheckboxListTile(
@@ -90,8 +90,8 @@ class FilterCoinsDialog extends StatelessWidget {
                 value: state.sortBy24ChangeDesc,
                 onChanged: (bool? value) {
                   context
-                      .read<CoinBloc>()
-                      .add(CoinEvent.sortBy24hChangeDesc(value ?? false));
+                      .read<CryptoBloc>()
+                      .add(CryptoEvent.sortBy24hChangeDesc(value ?? false));
                 },
               ),
               const SizedBox(height: 20),

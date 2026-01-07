@@ -17,6 +17,7 @@ class AuthState with _$AuthState {
     FocusNode? confirmPasswordFocusNode,
     String? name,
     String? errorMessage,
+    @Default(false) bool isAuthenticated,
   }) = _AuthState;
 
   bool get isSignUpFormValid => Formz.validate([fullName, email, password]);

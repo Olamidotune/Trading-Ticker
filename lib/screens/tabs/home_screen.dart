@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
@@ -16,9 +16,9 @@ import 'package:formz/formz.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
-class PriceScreen extends HookWidget {
+class HomeScreen extends HookWidget {
   static const String routeName = 'Price-Screen';
-  const PriceScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -69,10 +69,10 @@ class PriceScreen extends HookWidget {
           },
         ),
       ),
-      body: BlocBuilder<CoinBloc, CoinState>(
+      body: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
           if (state.getCoinStatus == FormzSubmissionStatus.inProgress &&
-              (state.computedGiftCards.isEmpty)) {
+              (state.computedCrypto.isEmpty)) {
             return ListView.builder(
               itemCount: 10,
               itemBuilder: (context, index) {
@@ -109,7 +109,7 @@ class PriceScreen extends HookWidget {
               ],
             );
           }
-          if (state.computedGiftCards.isEmpty) {
+          if (state.computedCrypto.isEmpty) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -143,10 +143,10 @@ class PriceScreen extends HookWidget {
                 horizontal: AppSpacing.horizontalSpacingSmall),
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              itemCount: state.computedGiftCards.length,
+              itemCount: state.computedCrypto.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                final coin = state.computedGiftCards[index];
+                final coin = state.computedCrypto[index];
                 return CoinCard(
                   onPressed: () => showModalBottomSheet(
                       useSafeArea: true,
@@ -161,7 +161,7 @@ class PriceScreen extends HookWidget {
                   coinSymbol: coin.symbol,
                   coinPrice: coin.currentPrice ?? 0.toDouble(),
                   priceChangePercentage:
-                      state.computedGiftCards[index].priceChangePercentage24h ??
+                      state.computedCrypto[index].priceChangePercentage24h ??
                           0.toDouble(),
                   sparklinePrices: coin.sparklineIn7D?.price ?? [],
                   coinId: coin.id,
@@ -181,11 +181,11 @@ class PriceScreen extends HookWidget {
         builder: (context) {
           return const FilterCoinsDialog();
         });
-    if (!context.read<CoinBloc>().state.sortBy24ChangeDesc &&
-        !context.read<CoinBloc>().state.sortByPriceDesc) {
+    if (!context.read<CryptoBloc>().state.sortBy24ChangeDesc &&
+        !context.read<CryptoBloc>().state.sortByPriceDesc) {
       context
-          .read<CoinBloc>()
-          .add(CoinEvent.sortByMarketCapDesc((value ?? false)));
+          .read<CryptoBloc>()
+          .add(CryptoEvent.sortByMarketCapDesc((value ?? false)));
     }
     return;
   }

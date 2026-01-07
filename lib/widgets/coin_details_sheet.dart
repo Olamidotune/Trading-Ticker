@@ -1,5 +1,5 @@
 import 'package:cointicker/api/models/coins_model.dart';
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/services/toast_service.dart';
@@ -15,7 +15,7 @@ class CoinDetailsSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CoinBloc, CoinState>(
+    return BlocBuilder<CryptoBloc, CryptoState>(
       buildWhen: (previous, current) =>
           _coinDetailsBuildWhen(context, previous, current),
       builder: (context, state) {
@@ -31,11 +31,11 @@ class CoinDetailsSheet extends StatelessWidget {
                       onPressed: () {
                         state.isInWatchlist(coin.id)
                             ? context
-                                .read<CoinBloc>()
-                                .add(CoinEvent.removeFromWatchList(coin))
+                                .read<CryptoBloc>()
+                                .add(CryptoEvent.removeFromWatchList(coin))
                             : context
-                                .read<CoinBloc>()
-                                .add(CoinEvent.addToWatchList(coin));
+                                .read<CryptoBloc>()
+                                .add(CryptoEvent.addToWatchList(coin));
                       },
                       icon: state.isInWatchlist(coin.id)
                           ? const Icon(
@@ -126,7 +126,7 @@ class CoinDetailsSheet extends StatelessWidget {
   }
 
   _coinDetailsBuildWhen(
-      BuildContext context, CoinState previous, CoinState current) {
+      BuildContext context, CryptoState previous, CryptoState current) {
     if (previous.addToWatchListStatus != previous.addToWatchListStatus ||
         previous.addToWatchListStatus.isInProgress &&
             current.addToWatchListStatus.isSuccess) {

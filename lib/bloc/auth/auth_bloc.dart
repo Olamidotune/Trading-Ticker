@@ -23,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_SignIn>(_signIn);
     on<_SignInSuccess>(_signInSuccess);
     on<_SignInFailure>(_signInFailure);
+    on<_SignOut>(_signOut);
     on<_ForgotPassword>(_forgotPassword);
     on<_ForgotPasswordSuccessful>(_forgotPasswordSuccessful);
     on<_ForgotPasswordFailed>(_forgotPasswordFailed);
@@ -39,7 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _init(_Init event, Emitter<AuthState> emit) {
     logInfo('AuthBloc initialized');
-    logInfo('this is the uid: ${_auth.currentUser?.uid}');
+    logInfo('User ID:${_auth.currentUser?.uid}');
   }
 
   void _signUp(_SignUp event, Emitter<AuthState> emit) async {
@@ -103,6 +104,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(
       signUpStatus: FormzSubmissionStatus.success,
       errorMessage: null,
+      isAuthenticated: true,
     ));
     PersistenceService().saveSignInStatus(true);
   }
@@ -205,6 +207,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(
       signInStatus: FormzSubmissionStatus.success,
       errorMessage: null,
+      isAuthenticated: true,
     ));
 
     emit(state.copyWith(
@@ -235,6 +238,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               ? forgotPassword
               : ForgotPasswordEmailFormz.pure(event.forgotPasswordEmail)),
     );
+  }
+
+  void _signOut(_SignOut event, Emitter<AuthState> emit) async {
+    await _auth.signOut();
+    logInfo('User signed out successfully.');
+    await PersistenceService().saveSignInStatus(false);
+    await PersistenceService().signOut();
+    emit(state.copyWith(isAuthenticated: false));
   }
 
   void _forgotPassword(_ForgotPassword event, Emitter<AuthState> emit) async {
