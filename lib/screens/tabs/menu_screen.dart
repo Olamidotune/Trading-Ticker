@@ -1,3 +1,5 @@
+import 'package:cointicker/bloc/auth/auth_bloc.dart';
+import 'package:cointicker/bloc/coin/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/helpers/email_helper/email_fall_back.dart';
@@ -12,6 +14,7 @@ import 'package:cointicker/widgets/profile_card.dart';
 import 'package:cointicker/widgets/socials_button.dart';
 import 'package:cointicker/widgets/theme_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -141,7 +144,10 @@ class MenuScreen extends HookWidget {
 }
 
 void _signOut(BuildContext context) async {
-  await PersistenceService().signOut();
+  context
+      .read<CryptoBloc>()
+      .add(const CryptoEvent.cancelFirestoreSubscription());
+  context.read<AuthBloc>().add(const AuthEvent.signOut());
 
   ToastService.toast('Signed Out Successful', ToastType.success);
 

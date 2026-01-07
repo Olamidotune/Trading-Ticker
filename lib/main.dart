@@ -42,14 +42,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(FirebaseAuth.instance),
+        ),
         BlocProvider<CryptoBloc>(
-          create: (context) => CryptoBloc(),
+          create: (context) => CryptoBloc(context.read<AuthBloc>()),
         ),
         BlocProvider<NewsBloc>(
           create: (context) => NewsBloc(),
-        ),
-        BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(FirebaseAuth.instance),
         ),
       ],
       child: ToastificationWrapper(

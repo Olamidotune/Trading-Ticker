@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cointicker/api/clients/coin/coin_client.dart';
 import 'package:cointicker/api/models/coins_model.dart';
+import 'package:cointicker/bloc/auth/auth_bloc.dart';
 import 'package:cointicker/enums/coin_sort_type.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/service_locator.dart';
@@ -14,12 +15,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'crypto_event.dart';
 part 'crypto_state.dart';
-part 'coin_bloc.freezed.dart';
+part 'crypto_bloc.freezed.dart';
 
 class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
-  StreamSubscription<QuerySnapshot>? _watchlistSubscription;
+  final AuthBloc _authBloc;
 
-  CryptoBloc() : super(CryptoState()) {
+  StreamSubscription? _watchlistSubscription;
+  StreamSubscription? authSubscription;
+
+  CryptoBloc(this._authBloc) : super(CryptoState()) {
     on<_FetchCoins>(_fetchCoins);
     on<_FetchCoinSuccess>(_fetchCoinSuccess);
     on<_FetchCoinFailure>(_fetchCoinFailure);
@@ -39,16 +43,35 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
     on<_FetchWatchListSuccessful>(_fetchWatchListSuccessful);
     on<_FetchWatchListFailed>(_fetchWatchListFailed);
 
+    on<_ClearWatchlist>(_clearWatchlist);
     on<_WatchlistUpdated>(_watchlistUpdated);
     on<_RemoveFromWatchList>(_removeFromWatchList);
     on<_RemoveFromWatchListSuccessful>(_removeFromWatchListSuccessful);
     on<_RemoveFromWatchListFailed>(_removeFromWatchListFailed);
 
     on<_ErrorMessage>(_errorMessage);
+
+    on<_CancelFirestoreSubscription>(_cancelFirebaseSubscription);
     on<_Init>(_init);
 
     add(const CryptoEvent.init());
     _startPolling();
+
+    authSubscription = _authBloc.stream.listen((authState) {
+      if (authState.isAuthenticated) {
+        add(const CryptoEvent.fetchWatchList());
+      } else if (!authState.isAuthenticated) {
+        add(const CryptoEvent.clearWatchlist());
+      }
+    });
+  }
+
+  void _clearWatchlist(_ClearWatchlist event, Emitter<CryptoState> emit) {
+    _watchlistSubscription?.cancel();
+    emit(state.copyWith(
+      watchlistCoinIds: {},
+      fetchWatchListStatus: FormzSubmissionStatus.initial,
+    ));
   }
 
   void _init(_Init event, Emitter<CryptoState> emit) {
@@ -270,6 +293,7 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
       });
     } catch (error, trace) {
       logError(error, trace);
+      add(const _FetchWatchListFailed('Something went wrong.'));
     }
   }
 
@@ -338,6 +362,12 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
         removeFromWatchListStatus: FormzSubmissionStatus.failure,
         errorMessage: 'Failed to remove from watchlist.'));
     add(_ErrorMessage(event.message ?? 'Failed to remove from watchlist.'));
+  }
+
+  void _cancelFirebaseSubscription(
+      _CancelFirestoreSubscription event, Emitter<CryptoState> emit) {
+    _watchlistSubscription?.cancel();
+    logInfo('Firestore watchlist subscription cancelled.');
   }
 
   @override

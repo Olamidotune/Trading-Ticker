@@ -29,10 +29,11 @@ class CryptoEvent with _$CryptoEvent {
       _AddToWatchListFailed;
 
   const factory CryptoEvent.fetchWatchList() = _FetchWatchList;
-  const factory CryptoEvent.fetchWatchListSuccessful() =
+  const factory CryptoEvent.fetchWatchListSuccessful(Set<String> coinIds) =
       _FetchWatchListSuccessful;
   const factory CryptoEvent.fetchWatchListFailed(String? message) =
       _FetchWatchListFailed;
+  const factory CryptoEvent.clearWatchlist() = _ClearWatchlist;
 
   const factory CryptoEvent.removeFromWatchList(Coin coin) =
       _RemoveFromWatchList;
@@ -43,6 +44,9 @@ class CryptoEvent with _$CryptoEvent {
 
   const factory CryptoEvent.watchlistUpdated(Set<String> coinIds) =
       _WatchlistUpdated;
+
+  const factory CryptoEvent.cancelFirestoreSubscription() =
+      _CancelFirestoreSubscription;
 
   const factory CryptoEvent.errorMessage(String message) = _ErrorMessage;
 }
