@@ -46,7 +46,8 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthBloc(FirebaseAuth.instance),
         ),
         BlocProvider<CryptoBloc>(
-          create: (context) => CryptoBloc(context.read<AuthBloc>()),
+          create: (context) =>
+              CryptoBloc(context.read<AuthBloc>(), FirebaseAuth.instance),
         ),
         BlocProvider<NewsBloc>(
           create: (context) => NewsBloc(),
