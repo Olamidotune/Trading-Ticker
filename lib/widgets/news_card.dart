@@ -63,32 +63,38 @@ class NewsCard extends StatelessWidget {
                     const SizedBox(height: 7),
                     Row(
                       children: [
-                        Text(
-                          name,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyMedium
-                              ?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.primaryColor),
+                        Expanded(
+                          flex: 4,
+                          child: Text(
+                            name,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.primaryColor,
+                                    overflow: TextOverflow.ellipsis),
+                          ),
                         ),
                         const Text(' • '),
-                        Text(
-                          timeAgo(publishedAt ?? DateTime.now()),
-                          style:
-                              Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                        Expanded(
+                          child: Text(
+                            timeAgo(publishedAt ?? DateTime.now()),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                       ],
                     ),
                   ],
                 ),
               ),
-
-              /// Bigger image section
               Container(
-                width: 150, // Adjust as needed
+                width: 150,
                 height: 100,
                 margin: const EdgeInsets.all(8.0),
                 child: CachedNetworkImage(
