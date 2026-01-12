@@ -23,5 +23,9 @@ class AuthEvent with _$AuthEvent {
       _ForgotPasswordSuccessful;
   const factory AuthEvent.forgotPasswordFailed(String errorMessage) =
       _ForgotPasswordFailed;
+  const factory AuthEvent.googleSignIn() = _GoogleSignIn;
+  const factory AuthEvent.googleSignInSuccess() = _GoogleSignInSuccess;
+  const factory AuthEvent.googleSignInFailure(String errorMessage) =
+      _GoogleSignInFailure;
   const factory AuthEvent.errorMessage([String? errorMessage]) = _ErrorMessage;
 }

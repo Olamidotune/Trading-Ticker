@@ -201,7 +201,27 @@ class SignUpScreen extends HookWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    AppSpacing.verticalSpaceMedium,
+                    Center(
+                      child: Text(
+                        'Or',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor,
+                            ),
+                      ),
+                    ),
+                    AppSpacing.verticalSpaceMedium,
+                    Button('Sign up with Google',
+                        icon: 'assets/png/google.png',
+                        busy: state.googleSignInStatus ==
+                            FormzSubmissionStatus.inProgress, onPressed: () {
+                      context.read<AuthBloc>().add(
+                            const AuthEvent.googleSignIn(),
+                          );
+                    }),
+                    AppSpacing.verticalSpaceLarge,
                     Center(
                       child: RichText(
                         text: TextSpan(
@@ -242,7 +262,9 @@ class SignUpScreen extends HookWidget {
 
   bool _signUpBuildWhen(
       BuildContext context, AuthState current, AuthState previous) {
-    if (previous.signUpStatus.isInProgress && current.signUpStatus.isSuccess) {
+    if (previous.signUpStatus.isInProgress && current.signUpStatus.isSuccess ||
+        previous.googleSignInStatus.isInProgress &&
+            current.googleSignInStatus.isSuccess) {
       Navigator.of(context).pushNamedAndRemoveUntil(
         BottomNavBar.routeName,
         (_) => false,
