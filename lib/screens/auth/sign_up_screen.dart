@@ -213,7 +213,7 @@ class SignUpScreen extends HookWidget {
                       ),
                     ),
                     AppSpacing.verticalSpaceMedium,
-                    Button('Sign in with Google',
+                    Button('Sign up with Google',
                         icon: 'assets/png/google.png',
                         busy: state.googleSignInStatus ==
                             FormzSubmissionStatus.inProgress, onPressed: () {
@@ -262,7 +262,9 @@ class SignUpScreen extends HookWidget {
 
   bool _signUpBuildWhen(
       BuildContext context, AuthState current, AuthState previous) {
-    if (previous.signUpStatus.isInProgress && current.signUpStatus.isSuccess) {
+    if (previous.signUpStatus.isInProgress && current.signUpStatus.isSuccess ||
+        previous.googleSignInStatus.isInProgress &&
+            current.googleSignInStatus.isSuccess) {
       Navigator.of(context).pushNamedAndRemoveUntil(
         BottomNavBar.routeName,
         (_) => false,
