@@ -48,6 +48,12 @@ class GoogleSignInService {
         await PersistenceService().saveUserEmail(email);
       } else {
         logInfo('Existing user logged in with Google');
+
+        final fullName = userCredential.user?.displayName;
+        final email = userCredential.user?.email ?? '';
+
+        await PersistenceService().saveUserName(fullName ?? '');
+        await PersistenceService().saveUserEmail(email);
       }
 
       return userCredential.user;

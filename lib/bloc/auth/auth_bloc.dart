@@ -298,41 +298,67 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
   }
 
-  void _googleSignIn(_GoogleSignIn event, Emitter<AuthState> emit) async {
+  // void _googleSignIn(_GoogleSignIn event, Emitter<AuthState> emit) async {
+  //   if (state.googleSignInStatus.isInProgress) return;
+
+  //   emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
+
+  //   try {
+  //     final userCredential = await googleSignInService.signInWithGoogle();
+  //     if (userCredential?.displayName != null) {
+  //       final uid = userCredential?.uid;
+  //       final docSnapshot =
+  //           await FirebaseFirestore.instance.collection('users').doc(uid).get();
+
+  //       final fullName = docSnapshot.data()?['fullName'];
+  //       await PersistenceService().saveUserName(fullName);
+
+  //       final userEmail = docSnapshot.data()?['email'];
+  //       await PersistenceService().saveUserEmail(userEmail);
+
+  //       add(const AuthEvent.googleSignInSuccess());
+  //     } else {
+  //       add(const AuthEvent.googleSignInFailure('Google sign-in failed.'));
+  //     }
+  //   } catch (error, trace) {
+  //     logError(error, trace);
+  //     add(AuthEvent.googleSignInFailure(error.toString()));
+  //   }
+  // }
+
+  Future<void> _googleSignIn(
+      _GoogleSignIn event, Emitter<AuthState> emit) async {
     if (state.googleSignInStatus.isInProgress) return;
 
     emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
 
     try {
-      final userCredential = await googleSignInService.signInWithGoogle();
-      if (userCredential?.displayName != null) {
-        final uid = userCredential?.uid;
-        final docSnapshot =
-            await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final User? user = await googleSignInService.signInWithGoogle();
 
-        final fullName = docSnapshot.data()?['fullName'];
-        await PersistenceService().saveUserName(fullName);
-
-        final userEmail = docSnapshot.data()?['email'];
-        await PersistenceService().saveUserEmail(userEmail);
-
-        add(const AuthEvent.googleSignInSuccess());
-      } else {
+      if (user == null) {
         add(const AuthEvent.googleSignInFailure('Google sign-in failed.'));
+        return;
       }
+
+      add(const AuthEvent.googleSignInSuccess());
+      logInfo('Google sign-in successful: ${user.email}');
     } catch (error, trace) {
-      logError(error, trace);
+      logError('Google sign-in error: $error', trace);
       add(AuthEvent.googleSignInFailure(error.toString()));
     }
   }
 
   void _googleSignInSuccess(
-      _GoogleSignInSuccess event, Emitter<AuthState> emit) {
+      _GoogleSignInSuccess event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
       googleSignInStatus: FormzSubmissionStatus.success,
       errorMessage: null,
       isAuthenticated: true,
     ));
+
+    await PersistenceService().saveSignInStatus(true);
+    final signInStatus = await PersistenceService().getSignInStatus();
+    logInfo('Sign-in status: $signInStatus');
   }
 
   void _googleSignInFailure(
