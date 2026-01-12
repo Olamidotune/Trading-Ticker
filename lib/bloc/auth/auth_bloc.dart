@@ -105,13 +105,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _signUpSuccess(_SignUpSuccess event, Emitter<AuthState> emit) {
+  void _signUpSuccess(_SignUpSuccess event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
       signUpStatus: FormzSubmissionStatus.success,
       errorMessage: null,
       isAuthenticated: true,
     ));
-    PersistenceService().saveSignInStatus(true);
+    await PersistenceService().saveSignInStatus(true);
+    await PersistenceService().saveHasAuthenticatedBefore(true);
   }
 
   void _signUpFailure(_SignUpFailure event, Emitter<AuthState> emit) {
@@ -221,8 +222,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
 
     await PersistenceService().saveSignInStatus(true);
-    final signInStatus = await PersistenceService().getSignInStatus();
-    logInfo('Sign-in status: $signInStatus');
+    await PersistenceService().saveHasAuthenticatedBefore(true);
   }
 
   void _signInFailure(_SignInFailure event, Emitter<AuthState> emit) {
@@ -298,34 +298,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
   }
 
-  // void _googleSignIn(_GoogleSignIn event, Emitter<AuthState> emit) async {
-  //   if (state.googleSignInStatus.isInProgress) return;
-
-  //   emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
-
-  //   try {
-  //     final userCredential = await googleSignInService.signInWithGoogle();
-  //     if (userCredential?.displayName != null) {
-  //       final uid = userCredential?.uid;
-  //       final docSnapshot =
-  //           await FirebaseFirestore.instance.collection('users').doc(uid).get();
-
-  //       final fullName = docSnapshot.data()?['fullName'];
-  //       await PersistenceService().saveUserName(fullName);
-
-  //       final userEmail = docSnapshot.data()?['email'];
-  //       await PersistenceService().saveUserEmail(userEmail);
-
-  //       add(const AuthEvent.googleSignInSuccess());
-  //     } else {
-  //       add(const AuthEvent.googleSignInFailure('Google sign-in failed.'));
-  //     }
-  //   } catch (error, trace) {
-  //     logError(error, trace);
-  //     add(AuthEvent.googleSignInFailure(error.toString()));
-  //   }
-  // }
-
   Future<void> _googleSignIn(
       _GoogleSignIn event, Emitter<AuthState> emit) async {
     if (state.googleSignInStatus.isInProgress) return;
@@ -357,8 +329,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
 
     await PersistenceService().saveSignInStatus(true);
-    final signInStatus = await PersistenceService().getSignInStatus();
-    logInfo('Sign-in status: $signInStatus');
+    await PersistenceService().saveHasAuthenticatedBefore(true);
   }
 
   void _googleSignInFailure(
