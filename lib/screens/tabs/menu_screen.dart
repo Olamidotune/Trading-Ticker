@@ -1,5 +1,5 @@
 import 'package:cointicker/bloc/auth/auth_bloc.dart';
-import 'package:cointicker/bloc/coin/crypto_bloc.dart';
+import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/helpers/email_helper/email_fall_back.dart';

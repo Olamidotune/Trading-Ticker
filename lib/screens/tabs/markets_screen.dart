@@ -1,4 +1,4 @@
-import 'package:cointicker/bloc/coin/crypto_bloc.dart';
+import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/widgets/coin_card.dart';
 import 'package:cointicker/widgets/coin_details_sheet.dart';

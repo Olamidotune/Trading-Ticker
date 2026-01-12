@@ -1,5 +1,5 @@
 import 'package:cointicker/bloc/auth/auth_bloc.dart';
-import 'package:cointicker/bloc/coin/crypto_bloc.dart';
+import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/theme_data.dart';
 import 'package:cointicker/firebase_options.dart';
