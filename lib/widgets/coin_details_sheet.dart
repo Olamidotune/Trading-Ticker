@@ -85,7 +85,7 @@ class CoinDetailsSheet extends StatelessWidget {
                     InfoRow(
                       title: "🔄 24h Change",
                       value:
-                          "${coin.priceChangePercentage24h?.toStringAsFixed(2)}%",
+                          "${coin.priceChangePercentage24h?.toStringAsFixed(2) ?? 0}%",
                       textColor: (coin.priceChangePercentage24h ?? 0) >= 0
                           ? Colors.green
                           : Colors.red,
