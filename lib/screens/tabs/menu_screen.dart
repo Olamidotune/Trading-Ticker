@@ -160,7 +160,7 @@ void _signOut(BuildContext context) async {
 void _openSuggestFeatureMail(BuildContext context) async {
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
-    path: 'Davidegundeyi@gmail.com', // Your email address
+    path: 'Davidegundeyi@gmail.com',
     queryParameters: {
       'subject': 'Feature Suggestion for Your App',
       'body': 'Hi, I would like to suggest a new feature for your app.',
@@ -168,14 +168,12 @@ void _openSuggestFeatureMail(BuildContext context) async {
   );
 
   try {
-    // Try to launch with mode specification
     bool launched = await launchUrl(
       emailLaunchUri,
       mode: LaunchMode.externalApplication,
     );
 
     if (!launched) {
-      // If launching fails, try alternative methods
       await showEmailFallback(context);
     }
   } catch (e) {
@@ -226,7 +224,7 @@ Future<void> _showAttachScreenshotDialog(BuildContext context) {
 void _openReportBugMail(BuildContext context) async {
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
-    path: 'Davidegundeyi@gmail.com', // Your email address
+    path: 'Davidegundeyi@gmail.com',
     queryParameters: {
       'subject': 'Bug Report',
       'body': 'Hi, I would like to report a bug I encountered in your app.',
@@ -234,14 +232,12 @@ void _openReportBugMail(BuildContext context) async {
   );
 
   try {
-    // Try to launch with mode specification
     bool launched = await launchUrl(
       emailLaunchUri,
       mode: LaunchMode.externalApplication,
     );
 
     if (!launched) {
-      // If launching fails, try alternative methods
       await showEmailFallback(context);
     }
   } catch (e) {
@@ -250,7 +246,6 @@ void _openReportBugMail(BuildContext context) async {
   }
 }
 
-// Solution 1: Improved email launcher with better error handling
 void _openEmailApp(BuildContext context, String userName) async {
   final Uri emailLaunchUri = Uri(
     scheme: 'mailto',
@@ -262,14 +257,12 @@ void _openEmailApp(BuildContext context, String userName) async {
   );
 
   try {
-    // Try to launch with mode specification
     bool launched = await launchUrl(
       emailLaunchUri,
       mode: LaunchMode.externalApplication,
     );
 
     if (!launched) {
-      // If launching fails, try alternative methods
       await showEmailFallback(context);
     }
   } catch (e) {
