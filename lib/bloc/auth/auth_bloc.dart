@@ -313,7 +313,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       add(const AuthEvent.googleSignInSuccess());
-      logInfo('Google sign-in successful: ${user.email}');
     } catch (error, trace) {
       logError('Google sign-in error: $error', trace);
       add(AuthEvent.googleSignInFailure(error.toString()));
