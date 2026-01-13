@@ -10,6 +10,7 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.signIn() = _SignIn;
   const factory AuthEvent.signInSuccess() = _SignInSuccess;
   const factory AuthEvent.signInFailure(String errorMessage) = _SignInFailure;
+  const factory AuthEvent.signOut() = _SignOut;
   const factory AuthEvent.emailChanged(String email) = _EmailChanged;
   const factory AuthEvent.forgotPasswordEmailChanged(
       String forgotPasswordEmail) = _ForgotPasswordEmailChanged;
@@ -22,5 +23,9 @@ class AuthEvent with _$AuthEvent {
       _ForgotPasswordSuccessful;
   const factory AuthEvent.forgotPasswordFailed(String errorMessage) =
       _ForgotPasswordFailed;
+  const factory AuthEvent.googleSignIn() = _GoogleSignIn;
+  const factory AuthEvent.googleSignInSuccess() = _GoogleSignInSuccess;
+  const factory AuthEvent.googleSignInFailure(String errorMessage) =
+      _GoogleSignInFailure;
   const factory AuthEvent.errorMessage([String? errorMessage]) = _ErrorMessage;
 }

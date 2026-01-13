@@ -1,3 +1,4 @@
+import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/onboarding/onboarding.dart';
 import 'package:cointicker/services/persistence_service.dart';
 import 'package:cointicker/widgets/bottom_nav_bar.dart';
@@ -30,12 +31,25 @@ class SplashScreen extends HookWidget {
                 controller.duration = composition.duration;
                 await controller.forward();
                 final isSignedIn = await PersistenceService().getSignInStatus();
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  isSignedIn
-                      ? BottomNavBar.routeName
-                      : OnboardingScreen.routeName,
-                  (_) => false,
-                );
+                final hasAuthenticatedBefore =
+                    await PersistenceService().getHasAuthenticatedBefore();
+                if (!context.mounted) return;
+                if (isSignedIn) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    BottomNavBar.routeName,
+                    (_) => false,
+                  );
+                } else if (hasAuthenticatedBefore) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    SignInScreen.routeName,
+                    (_) => false,
+                  );
+                } else {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    OnboardingScreen.routeName,
+                    (_) => false,
+                  );
+                }
               }),
             ),
             Text(

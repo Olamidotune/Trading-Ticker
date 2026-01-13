@@ -7,6 +7,8 @@ class AuthState with _$AuthState {
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus signUpStatus,
     @Default(FormzSubmissionStatus.initial) FormzSubmissionStatus signInStatus,
     @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus googleSignInStatus,
+    @Default(FormzSubmissionStatus.initial)
     FormzSubmissionStatus forgotPasswordStatus,
     @Default(EmailFormz.pure()) EmailFormz email,
     @Default(ForgotPasswordEmailFormz.pure())
@@ -17,6 +19,7 @@ class AuthState with _$AuthState {
     FocusNode? confirmPasswordFocusNode,
     String? name,
     String? errorMessage,
+    @Default(false) bool isAuthenticated,
   }) = _AuthState;
 
   bool get isSignUpFormValid => Formz.validate([fullName, email, password]);

@@ -9,10 +9,11 @@ class Button extends StatelessWidget {
   final Color textColor;
   final Color disabledTextColor;
   final Color? color;
-  final IconData? icon;
+  final String? icon;
   final Color? iconColor;
   final bool busy;
   final bool pill;
+  final bool socialButton = false;
   final String? busyText;
 
   const Button(
@@ -90,7 +91,26 @@ class Button extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   )
-                : Icon(icon, color: iconColor ?? Colors.black)),
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        icon!,
+                        height: 20.0,
+                        width: 20.0,
+                      ),
+                      Text(
+                        "     $text",
+                        style: TextStyle(
+                          color:
+                              onPressed == null ? disabledTextColor : textColor,
+                          fontSize: 16.0,
+                          fontFamily: "HelveticaRounded",
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  )),
       ),
     );
   }

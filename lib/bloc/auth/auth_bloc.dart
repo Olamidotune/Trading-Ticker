@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cointicker/enums/validation_error.dart';
+import 'package:cointicker/services/google_auth.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/persistence_service.dart';
 import 'package:email_validator/email_validator.dart';
@@ -15,6 +16,7 @@ part 'auth_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final FirebaseAuth _auth;
+  final GoogleSignInService googleSignInService = GoogleSignInService();
 
   AuthBloc(this._auth) : super(AuthState()) {
     on<_SignUp>(_signUp);
@@ -23,6 +25,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_SignIn>(_signIn);
     on<_SignInSuccess>(_signInSuccess);
     on<_SignInFailure>(_signInFailure);
+    on<_SignOut>(_signOut);
     on<_ForgotPassword>(_forgotPassword);
     on<_ForgotPasswordSuccessful>(_forgotPasswordSuccessful);
     on<_ForgotPasswordFailed>(_forgotPasswordFailed);
@@ -31,6 +34,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_PasswordChanged>(_passwordChanged);
     on<_ConfirmPasswordChanged>(_confirmPasswordChanged);
     on<_FullNameChanged>(_fullNameChanged);
+    on<_GoogleSignIn>(_googleSignIn);
+    on<_GoogleSignInSuccess>(_googleSignInSuccess);
+    on<_GoogleSignInFailure>(_googleSignInFailure);
     on<_Init>(_init);
     on<_ErrorMessage>(_errorMessage);
 
@@ -39,6 +45,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   void _init(_Init event, Emitter<AuthState> emit) {
     logInfo('AuthBloc initialized');
+    logInfo('User ID:${_auth.currentUser?.uid}');
   }
 
   void _signUp(_SignUp event, Emitter<AuthState> emit) async {
@@ -98,12 +105,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _signUpSuccess(_SignUpSuccess event, Emitter<AuthState> emit) {
+  void _signUpSuccess(_SignUpSuccess event, Emitter<AuthState> emit) async {
     emit(state.copyWith(
       signUpStatus: FormzSubmissionStatus.success,
       errorMessage: null,
+      isAuthenticated: true,
     ));
-    PersistenceService().saveSignInStatus(true);
+    await PersistenceService().saveSignInStatus(true);
+    await PersistenceService().saveHasAuthenticatedBefore(true);
   }
 
   void _signUpFailure(_SignUpFailure event, Emitter<AuthState> emit) {
@@ -204,6 +213,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(
       signInStatus: FormzSubmissionStatus.success,
       errorMessage: null,
+      isAuthenticated: true,
     ));
 
     emit(state.copyWith(
@@ -212,8 +222,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
 
     await PersistenceService().saveSignInStatus(true);
-    final signInStatus = await PersistenceService().getSignInStatus();
-    logInfo('Sign-in status: $signInStatus');
+    await PersistenceService().saveHasAuthenticatedBefore(true);
   }
 
   void _signInFailure(_SignInFailure event, Emitter<AuthState> emit) {
@@ -234,6 +243,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               ? forgotPassword
               : ForgotPasswordEmailFormz.pure(event.forgotPasswordEmail)),
     );
+  }
+
+  void _signOut(_SignOut event, Emitter<AuthState> emit) async {
+    await _auth.signOut();
+    logInfo('User signed out successfully.');
+    await PersistenceService().saveSignInStatus(false);
+    await PersistenceService().signOut();
+    emit(state.copyWith(isAuthenticated: false));
   }
 
   void _forgotPassword(_ForgotPassword event, Emitter<AuthState> emit) async {
@@ -277,6 +294,47 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       _ForgotPasswordFailed event, Emitter<AuthState> emit) {
     emit(state.copyWith(
       forgotPasswordStatus: FormzSubmissionStatus.failure,
+      errorMessage: event.errorMessage,
+    ));
+  }
+
+  Future<void> _googleSignIn(
+      _GoogleSignIn event, Emitter<AuthState> emit) async {
+    if (state.googleSignInStatus.isInProgress) return;
+
+    emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
+
+    try {
+      final User? user = await googleSignInService.signInWithGoogle();
+
+      if (user == null) {
+        add(const AuthEvent.googleSignInFailure('Google sign-in failed.'));
+        return;
+      }
+
+      add(const AuthEvent.googleSignInSuccess());
+    } catch (error, trace) {
+      logError('Google sign-in error: $error', trace);
+      add(AuthEvent.googleSignInFailure(error.toString()));
+    }
+  }
+
+  void _googleSignInSuccess(
+      _GoogleSignInSuccess event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(
+      googleSignInStatus: FormzSubmissionStatus.success,
+      errorMessage: null,
+      isAuthenticated: true,
+    ));
+
+    await PersistenceService().saveSignInStatus(true);
+    await PersistenceService().saveHasAuthenticatedBefore(true);
+  }
+
+  void _googleSignInFailure(
+      _GoogleSignInFailure event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      googleSignInStatus: FormzSubmissionStatus.failure,
       errorMessage: event.errorMessage,
     ));
   }

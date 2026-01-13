@@ -1,16 +1,16 @@
 import 'package:cointicker/bloc/auth/auth_bloc.dart';
-import 'package:cointicker/bloc/coin/coin_bloc.dart';
+import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/theme_data.dart';
 import 'package:cointicker/firebase_options.dart';
 import 'package:cointicker/screens/auth/forgot_password_screen.dart';
-import 'package:cointicker/screens/menu_screen.dart';
+import 'package:cointicker/screens/tabs/menu_screen.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/screens/onboarding/onboarding.dart';
 import 'package:cointicker/screens/onboarding/splash_screen.dart';
-import 'package:cointicker/screens/price_screen.dart';
-import 'package:cointicker/screens/news_screen.dart';
+import 'package:cointicker/screens/tabs/home_screen.dart';
+import 'package:cointicker/screens/tabs/news_screen.dart';
 import 'package:cointicker/services/service_locator.dart';
 import 'package:cointicker/services/theme_service.dart';
 import 'package:cointicker/widgets/bottom_nav_bar.dart';
@@ -42,14 +42,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<CoinBloc>(
-          create: (context) => CoinBloc(),
+        BlocProvider<AuthBloc>(
+          create: (context) => AuthBloc(FirebaseAuth.instance),
+        ),
+        BlocProvider<CryptoBloc>(
+          create: (context) =>
+              CryptoBloc(context.read<AuthBloc>(), FirebaseAuth.instance),
         ),
         BlocProvider<NewsBloc>(
           create: (context) => NewsBloc(),
-        ),
-        BlocProvider<AuthBloc>(
-          create: (context) => AuthBloc(FirebaseAuth.instance),
         ),
       ],
       child: ToastificationWrapper(
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
                 routes: {
                   SplashScreen.routeName: (context) => const SplashScreen(),
                   BottomNavBar.routeName: (context) => const BottomNavBar(),
-                  PriceScreen.routeName: (context) => const PriceScreen(),
+                  HomeScreen.routeName: (context) => const HomeScreen(),
                   NewsScreen.routeName: (context) => const NewsScreen(),
                   MenuScreen.routeName: (context) => const MenuScreen(),
                   SignUpScreen.routeName: (context) => const SignUpScreen(),

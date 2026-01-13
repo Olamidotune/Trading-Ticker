@@ -3,6 +3,7 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/screens/auth/forgot_password_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
+import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/toast_service.dart';
 import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
@@ -139,22 +140,40 @@ class SignInScreen extends HookWidget {
                                 )),
                           ),
                           AppSpacing.verticalSpaceLarge,
-                          Button(
-                            'Sign In',
-                            busy: state.signInStatus ==
-                                FormzSubmissionStatus.inProgress,
-                            onPressed: () {
-                              if (formKey.currentState?.validate() ?? false) {
-                                context.read<AuthBloc>().add(
-                                      const AuthEvent.signIn(),
-                                    );
-                              }
-                            },
-                          ),
+                          Button('Sign In',
+                              busy: state.signInStatus ==
+                                  FormzSubmissionStatus.inProgress,
+                              onPressed: () {
+                            context.read<AuthBloc>().add(
+                                  const AuthEvent.signIn(),
+                                );
+
+                            logInfo(state.email.value);
+                          }),
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    AppSpacing.verticalSpaceMedium,
+                    Center(
+                      child: Text(
+                        'Or',
+                        style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.primaryColor,
+                            ),
+                      ),
+                    ),
+                    AppSpacing.verticalSpaceMedium,
+                    Button('Sign in with Google',
+                        icon: 'assets/png/google.png',
+                        busy: state.googleSignInStatus ==
+                            FormzSubmissionStatus.inProgress, onPressed: () {
+                      context.read<AuthBloc>().add(
+                            const AuthEvent.googleSignIn(),
+                          );
+                    }),
+                    AppSpacing.verticalSpaceLarge,
                     Center(
                       child: RichText(
                         text: TextSpan(
@@ -195,7 +214,9 @@ class SignInScreen extends HookWidget {
 
   bool _signInBuildWhen(
       BuildContext context, AuthState current, AuthState previous) {
-    if (previous.signInStatus.isInProgress && current.signInStatus.isSuccess) {
+    if (previous.signInStatus.isInProgress && current.signInStatus.isSuccess ||
+        previous.googleSignInStatus.isInProgress &&
+            current.googleSignInStatus.isSuccess) {
       Navigator.of(context).pushNamedAndRemoveUntil(
         BottomNavBar.routeName,
         (_) => false,

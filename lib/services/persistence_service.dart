@@ -57,6 +57,19 @@ class PersistenceService {
     return _manager._preferences!.getString(PrefKeys.themeMode);
   }
 
+  Future<bool> getHasAuthenticatedBefore() async {
+    await _manager._ensurePreferenceLoaded();
+    return Future.value(
+      _manager._preferences!.getBool(PrefKeys.hasAuthenticatedBefore) ?? false,
+    );
+  }
+
+  Future<void> saveHasAuthenticatedBefore(bool hasAuthenticatedBefore) async {
+    await _manager._ensurePreferenceLoaded();
+    _manager._preferences!
+        .setBool(PrefKeys.hasAuthenticatedBefore, hasAuthenticatedBefore);
+  }
+
   Future<void> signOut() async {
     await _manager._ensurePreferenceLoaded();
     await _manager._preferences!.remove(PrefKeys.userEmail);
