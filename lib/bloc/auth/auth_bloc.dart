@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations
+
 import 'package:bloc/bloc.dart';
 import 'package:cointicker/enums/validation_error.dart';
 import 'package:cointicker/services/google_auth.dart';
@@ -320,14 +322,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       final GoogleSignInAccount? googleUser =
           await GoogleSignIn.instance.authenticate();
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
+      final GoogleSignInAuthentication? googleAuth = googleUser?.authentication;
 
       if (googleUser == null) {
         emit(
           state.copyWith(
             googleSignInStatus: FormzSubmissionStatus.canceled,
-            errorMessage: 'Google sign-in was canceled by the usersss.',
+            errorMessage: 'Google sign-in was canceled by the user.',
           ),
         );
         return;
