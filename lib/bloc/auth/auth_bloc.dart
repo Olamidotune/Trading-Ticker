@@ -197,6 +197,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final docSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
+      await FirebaseFirestore.instance.collection('users').doc(uid).set(
+          {'lastLoginAt': FieldValue.serverTimestamp(), 'googleSignIn': false},
+          SetOptions(merge: true));
+
       add(const AuthEvent.signInSuccess());
 
       final fullName = docSnapshot.data()?['fullName'];
@@ -338,6 +342,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
 
       final userCredential = await _auth.signInWithCredential(credential);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'lastLoginAt': FieldValue.serverTimestamp(),
+        'googleSignIn': true
+      }, SetOptions(merge: true));
 
       final user = userCredential.user;
       if (user == null) {
@@ -357,6 +368,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           'fullName': fullName,
           'email': email,
           'createdAt': FieldValue.serverTimestamp(),
+          'lastLoginAt': FieldValue.serverTimestamp(),
         });
 
         await PersistenceService().saveUserName(fullName ?? '');
