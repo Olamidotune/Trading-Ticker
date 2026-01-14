@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations
+
 import 'package:bloc/bloc.dart';
 import 'package:cointicker/enums/validation_error.dart';
 import 'package:cointicker/services/google_auth.dart';
@@ -9,6 +11,7 @@ import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -196,6 +199,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final docSnapshot =
           await FirebaseFirestore.instance.collection('users').doc(uid).get();
 
+      await FirebaseFirestore.instance.collection('users').doc(uid).set(
+          {'lastLoginAt': FieldValue.serverTimestamp(), 'googleSignIn': false},
+          SetOptions(merge: true));
+
       add(const AuthEvent.signInSuccess());
 
       final fullName = docSnapshot.data()?['fullName'];
@@ -299,24 +306,102 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _googleSignIn(
-      _GoogleSignIn event, Emitter<AuthState> emit) async {
+    _GoogleSignIn event,
+    Emitter<AuthState> emit,
+  ) async {
     if (state.googleSignInStatus.isInProgress) return;
 
-    emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
+    emit(
+      state.copyWith(
+        googleSignInStatus: FormzSubmissionStatus.inProgress,
+      ),
+    );
 
     try {
-      final User? user = await googleSignInService.signInWithGoogle();
+      await GoogleSignInService.initSignIn();
 
-      if (user == null) {
-        add(const AuthEvent.googleSignInFailure('Google sign-in failed.'));
+      final GoogleSignInAccount? googleUser =
+          await GoogleSignIn.instance.authenticate();
+      final GoogleSignInAuthentication? googleAuth = googleUser?.authentication;
+
+      if (googleUser == null) {
+        emit(
+          state.copyWith(
+            googleSignInStatus: FormzSubmissionStatus.canceled,
+            errorMessage: 'Google sign-in was canceled by the user.',
+          ),
+        );
         return;
+      }
+
+      if (googleAuth?.idToken == null) {
+        throw Exception('Missing Google ID token');
+      }
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth?.idToken,
+      );
+
+      final userCredential = await _auth.signInWithCredential(credential);
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'lastLoginAt': FieldValue.serverTimestamp(),
+        'googleSignIn': true
+      }, SetOptions(merge: true));
+
+      final user = userCredential.user;
+      if (user == null) {
+        throw Exception('Firebase user is null');
+      }
+
+      final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
+
+      if (isNewUser) {
+        logInfo('New user signed up with Google');
+
+        final uid = userCredential.user!.uid;
+        final fullName = googleUser.displayName;
+        final email = googleUser.email;
+
+        await FirebaseFirestore.instance.collection('users').doc(uid).set({
+          'fullName': fullName,
+          'email': email,
+          'createdAt': FieldValue.serverTimestamp(),
+          'lastLoginAt': FieldValue.serverTimestamp(),
+        });
+
+        await PersistenceService().saveUserName(fullName ?? '');
+        await PersistenceService().saveUserEmail(email);
+      } else {
+        logInfo('Existing user logged in with Google');
+
+        final fullName = userCredential.user?.displayName;
+        final email = userCredential.user?.email ?? '';
+
+        await PersistenceService().saveUserName(fullName ?? '');
+        await PersistenceService().saveUserEmail(email);
       }
 
       add(const AuthEvent.googleSignInSuccess());
     } catch (error, trace) {
-      logError('Google sign-in error: $error', trace);
-      add(AuthEvent.googleSignInFailure(error.toString()));
+      logError(error, trace);
+      await _signOutFromGoogle();
+
+      add(
+        const AuthEvent.googleSignInFailure(
+          'Google sign-in failed. Please try again.',
+        ),
+      );
     }
+  }
+
+  Future<void> _signOutFromGoogle() async {
+    try {
+      await GoogleSignIn.instance.signOut();
+      await _auth.signOut();
+    } catch (_) {}
   }
 
   void _googleSignInSuccess(
