@@ -57,7 +57,7 @@ class Coin {
   final double? athChangePercentage;
 
   @JsonKey(name: 'ath_date')
-  final String? athDate;
+  final DateTime? athDate;
 
   final double? atl;
 
@@ -65,7 +65,7 @@ class Coin {
   final double? atlChangePercentage;
 
   @JsonKey(name: 'atl_date')
-  final String? atlDate;
+  final DateTime? atlDate;
 
   final Roi? roi;
 
