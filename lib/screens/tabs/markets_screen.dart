@@ -84,7 +84,7 @@ class MarketsScreen extends HookWidget {
                 ),
                 Tab(text: "Losers"),
                 Tab(text: "Volume"),
-                Tab(text: "MCap"),
+                Tab(text: "M.Cap"),
               ],
             ),
           ),

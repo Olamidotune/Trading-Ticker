@@ -19,13 +19,13 @@ part 'crypto_bloc.freezed.dart';
 
 class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
   final AuthBloc _authBloc;
-  final FirebaseAuth _auth;
+
   Timer? _pollingTimer;
 
   StreamSubscription? _watchlistSubscription;
   StreamSubscription? authSubscription;
 
-  CryptoBloc(this._authBloc, this._auth) : super(CryptoState()) {
+  CryptoBloc(this._authBloc) : super(CryptoState()) {
     on<_FetchCoins>(_fetchCoins);
     on<_FetchCoinSuccess>(_fetchCoinSuccess);
     on<_FetchCoinFailure>(_fetchCoinFailure);
@@ -57,7 +57,6 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
     on<_Init>(_init);
 
     add(const CryptoEvent.init());
-    _startPolling();
 
     authSubscription = _authBloc.stream.listen((authState) {
       if (authState.isAuthenticated) {
@@ -81,19 +80,6 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
 
     add(const CryptoEvent.fetchCoins());
     add(const _FetchWatchList());
-  }
-
-  void _startPolling() {
-    _pollingTimer?.cancel();
-
-    _pollingTimer = Timer.periodic(
-      const Duration(seconds: 30),
-      (_) {
-        if (_auth.currentUser != null && !state.getCoinStatus.isInProgress) {
-          add(const CryptoEvent.fetchCoins());
-        }
-      },
-    );
   }
 
   void _fetchCoins(_FetchCoins event, Emitter<CryptoState> emit) async {
