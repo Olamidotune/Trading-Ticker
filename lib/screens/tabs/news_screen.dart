@@ -23,6 +23,8 @@ class NewsScreen extends HookWidget {
 
     final controller = useAnimationController();
 
+    final isFetchingNotifier = useState(false);
+
     useEffect(() {
       void onScroll() {
         final isAtBottom = scrollController.position.pixels >=
@@ -30,9 +32,10 @@ class NewsScreen extends HookWidget {
 
         isAtBottomNotifier.value = isAtBottom;
 
-        if (isAtBottom) {
+        if (isAtBottom && !isFetchingNotifier.value) {
           final bloc = context.read<NewsBloc>();
           if (bloc.state.getNewsStatus.isSuccess) {
+            isFetchingNotifier.value = true;
             bloc.add(
               NewsEvent.fetchNews(
                 bloc.state.searchKey ?? 'Cryptocurrency',
@@ -62,6 +65,15 @@ class NewsScreen extends HookWidget {
       scrollController.addListener(listener);
       return () => scrollController.removeListener(listener);
     }, [scrollController]);
+
+    useEffect(() {
+      final sub = context.read<NewsBloc>().stream.listen((state) {
+        if (!state.getNewsStatus.isInProgress) {
+          isFetchingNotifier.value = false;
+        }
+      });
+      return sub.cancel;
+    }, []);
 
     return Scaffold(
       floatingActionButton: HookBuilder(
