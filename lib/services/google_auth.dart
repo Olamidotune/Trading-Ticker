@@ -1,6 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cointicker/services/logging_helper.dart';
-import 'package:cointicker/services/persistence_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -76,6 +73,4 @@ class GoogleSignInService {
     await _googleSignIn.signOut();
     await _auth.signOut();
   }
-
-  static User? getCurrentUser() => _auth.currentUser;
 }

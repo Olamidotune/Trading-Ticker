@@ -4,7 +4,7 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/services/toast_service.dart';
 import 'package:cointicker/widgets/coin_card.dart';
-import 'package:cointicker/widgets/inflow_row.dart';
+import 'package:cointicker/widgets/info_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
@@ -108,12 +108,16 @@ class CoinDetailsSheet extends StatelessWidget {
                         value: "\$${formatPrices(coin.low24h ?? 0)}"),
                     AppSpacing.verticalSpaceLarge,
                     InfoRow(
-                        title: "📉 All-Time Low",
-                        value: "\$${formatPrices(coin.atl ?? 0)}"),
+                      title: "📉 All-Time Low",
+                      value: "\$${formatPrices(coin.atl ?? 0)}",
+                      suffix: coin.atlDate!.toLocal().toString().split(' ')[0],
+                    ),
                     AppSpacing.verticalSpaceLarge,
                     InfoRow(
-                        title: "🚀 All-Time High",
-                        value: "\$${formatPrices(coin.ath ?? 0)}"),
+                      title: "🚀 All-Time High",
+                      value: "\$${formatPrices(coin.ath ?? 0)}",
+                      suffix: coin.athDate!.toLocal().toString().split(' ')[0],
+                    ),
                     AppSpacing.verticalSpaceLarge,
                   ],
                 ),
