@@ -9,7 +9,8 @@ class NewsEvent with _$NewsEvent {
     int page,
     String? fromDate,
   ) = _FetchNews;
-  const factory NewsEvent.fetchNewsSuccess(News news) = _FetchNewsSuccess;
+  const factory NewsEvent.fetchNewsSuccess(News news, int page) =
+      _FetchNewsSuccess;
   const factory NewsEvent.fetchNewsFailure([String? errorMessage]) =
       _FetchNewsFailure;
 }

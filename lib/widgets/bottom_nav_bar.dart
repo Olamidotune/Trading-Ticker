@@ -1,8 +1,12 @@
+import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/observers/app_state_observer.dart';
 import 'package:cointicker/screens/tabs/markets_screen.dart';
 import 'package:cointicker/screens/tabs/menu_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../screens/tabs/home_screen.dart';
 import '../screens/tabs/news_screen.dart';
@@ -20,6 +24,7 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
+  late final AppStateObserver _appStateObserver;
 
   final screens = [
     const HomeScreen(),
@@ -27,6 +32,20 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const NewsScreen(),
     const MenuScreen(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    final cryptoBloc = context.read<CryptoBloc>();
+    _appStateObserver = AppStateObserver(FirebaseAuth.instance, cryptoBloc);
+    _appStateObserver.init();
+  }
+
+  @override
+  void dispose() {
+    _appStateObserver.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

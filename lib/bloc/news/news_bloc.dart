@@ -48,7 +48,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
         apiKey: dotenv.env[EnvKeys.newsApiKey]!,
       );
 
-      add(_FetchNewsSuccess(news));
+      add(_FetchNewsSuccess(news, page));
     } catch (error, trace) {
       logError(error, trace);
       if (error is DioException) {
@@ -68,7 +68,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
   void _fetchNewsSuccess(_FetchNewsSuccess event, Emitter<NewsState> emit) {
     emit(state.copyWith(
       getNewsStatus: FormzSubmissionStatus.success,
-      news: event.news.articles,
+      news: [...(state.news ?? []), ...event.news.articles ?? []],
+      page: event.page,
       errorMessage: null,
     ));
     logInfo('News fetched successfully');

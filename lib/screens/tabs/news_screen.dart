@@ -23,6 +23,8 @@ class NewsScreen extends HookWidget {
 
     final controller = useAnimationController();
 
+    final isFetchingNotifier = useState(false);
+
     useEffect(() {
       void onScroll() {
         final isAtBottom = scrollController.position.pixels >=
@@ -30,9 +32,10 @@ class NewsScreen extends HookWidget {
 
         isAtBottomNotifier.value = isAtBottom;
 
-        if (isAtBottom) {
+        if (isAtBottom && !isFetchingNotifier.value) {
           final bloc = context.read<NewsBloc>();
           if (bloc.state.getNewsStatus.isSuccess) {
+            isFetchingNotifier.value = true;
             bloc.add(
               NewsEvent.fetchNews(
                 bloc.state.searchKey ?? 'Cryptocurrency',
@@ -48,24 +51,48 @@ class NewsScreen extends HookWidget {
       return () => scrollController.removeListener(onScroll);
     }, [scrollController]);
 
+    final showScrollToTopNotifier = useState(false);
+
+    useEffect(() {
+      void listener() {
+        const threshold = 1000.0;
+        final shouldShow = scrollController.offset > threshold;
+        if (shouldShow != showScrollToTopNotifier.value) {
+          showScrollToTopNotifier.value = shouldShow;
+        }
+      }
+
+      scrollController.addListener(listener);
+      return () => scrollController.removeListener(listener);
+    }, [scrollController]);
+
+    useEffect(() {
+      final sub = context.read<NewsBloc>().stream.listen((state) {
+        if (!state.getNewsStatus.isInProgress) {
+          isFetchingNotifier.value = false;
+        }
+      });
+      return sub.cancel;
+    }, []);
+
     return Scaffold(
       floatingActionButton: HookBuilder(
         builder: (context) {
-          final isAtBottom = isAtBottomNotifier.value;
+          final showScrollToTop = showScrollToTopNotifier.value;
+
+          if (!showScrollToTop) return const SizedBox.shrink();
 
           return FloatingActionButton.extended(
             onPressed: () {
-              context.read<NewsBloc>().add(
-                    NewsEvent.fetchNews(
-                      context.read<NewsBloc>().state.searchKey ??
-                          'Cryptocurrency',
-                      context.read<NewsBloc>().state.page + 1,
-                      _getDefaultFromDate(),
-                    ),
-                  );
+              scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+              );
             },
-            label: Text(isAtBottom ? 'Next Page' : 'Prev Page'),
-            backgroundColor: isAtBottom ? Colors.red : Colors.green,
+            label: const Text('Go back to top'),
+            icon: const Icon(Icons.arrow_upward),
+            backgroundColor: Colors.green,
           );
         },
       ),
