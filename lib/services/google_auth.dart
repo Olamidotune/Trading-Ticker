@@ -8,11 +8,15 @@ class GoogleSignInService {
   static final FirebaseAuth _auth = FirebaseAuth.instance;
   static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
 
+  static bool _initialized = false;
+
   static Future<void> initSignIn() async {
+    if (_initialized) return;
     await _googleSignIn.initialize(
         serverClientId:
             // '839188101886-ic63jvuhdmf6mpp0rgae0dblasajecqc.apps.googleusercontent.com',
             '839188101886-v45mfn5s4v3tfv7aut9pktmq2aamubar.apps.googleusercontent.com');
+    _initialized = true;
   }
 
   Future<User?> signInWithGoogle() async {
@@ -59,7 +63,12 @@ class GoogleSignInService {
       return userCredential.user;
     } catch (e, stack) {
       logError('Google auth error: $e', stack);
-      return null;
+      if (e is GoogleSignInException) {
+        logError(
+            'GoogleSignInException code: ${e.code}, desc: ${e.description}',
+            stack);
+      }
+      rethrow; // let it bubble up so the bloc's catch shows the real error.toString()
     }
   }
 
