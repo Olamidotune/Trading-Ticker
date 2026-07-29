@@ -48,24 +48,39 @@ class NewsScreen extends HookWidget {
       return () => scrollController.removeListener(onScroll);
     }, [scrollController]);
 
+    final showScrollToTopNotifier = useState(false);
+
+    useEffect(() {
+      void listener() {
+        const threshold = 1000.0;
+        final shouldShow = scrollController.offset > threshold;
+        if (shouldShow != showScrollToTopNotifier.value) {
+          showScrollToTopNotifier.value = shouldShow;
+        }
+      }
+
+      scrollController.addListener(listener);
+      return () => scrollController.removeListener(listener);
+    }, [scrollController]);
+
     return Scaffold(
       floatingActionButton: HookBuilder(
         builder: (context) {
-          final isAtBottom = isAtBottomNotifier.value;
+          final showScrollToTop = showScrollToTopNotifier.value;
+
+          if (!showScrollToTop) return const SizedBox.shrink();
 
           return FloatingActionButton.extended(
             onPressed: () {
-              context.read<NewsBloc>().add(
-                    NewsEvent.fetchNews(
-                      context.read<NewsBloc>().state.searchKey ??
-                          'Cryptocurrency',
-                      context.read<NewsBloc>().state.page + 1,
-                      _getDefaultFromDate(),
-                    ),
-                  );
+              scrollController.animateTo(
+                0,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+              );
             },
-            label: Text(isAtBottom ? 'Next Page' : 'Prev Page'),
-            backgroundColor: isAtBottom ? Colors.red : Colors.green,
+            label: const Text('Go back to top'),
+            icon: const Icon(Icons.arrow_upward),
+            backgroundColor: Colors.green,
           );
         },
       ),

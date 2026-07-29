@@ -57,7 +57,7 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
     on<_Init>(_init);
 
     add(const CryptoEvent.init());
-    _startPolling();
+    // _startPolling();
 
     authSubscription = _authBloc.stream.listen((authState) {
       if (authState.isAuthenticated) {
@@ -83,18 +83,18 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
     add(const _FetchWatchList());
   }
 
-  void _startPolling() {
-    _pollingTimer?.cancel();
+  // void _startPolling() {
+  //   _pollingTimer?.cancel();
 
-    _pollingTimer = Timer.periodic(
-      const Duration(seconds: 30),
-      (_) {
-        if (_auth.currentUser != null) {
-          add(const CryptoEvent.fetchCoins());
-        }
-      },
-    );
-  }
+  //   _pollingTimer = Timer.periodic(
+  //     const Duration(seconds: 30),
+  //     (_) {
+  //       if (_auth.currentUser != null) {
+  //         add(const CryptoEvent.fetchCoins());
+  //       }
+  //     },
+  //   );
+  // }
 
   void _fetchCoins(_FetchCoins event, Emitter<CryptoState> emit) async {
     if (state.getCoinStatus.isInProgress) return;
