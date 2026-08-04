@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "839188101886-ectk14a7nppe09clselt1osn9306aga8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cointicker",
+            "certificate_hash": "553a5e7281ee44c088b508ce409fcea8a9a30833"
+          }
+        },
+        {
           "client_id": "839188101886-t3sdf0vmq8rahqomoptlrnmkrbejalbl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
