@@ -10,18 +10,18 @@ class GoogleSignInService {
 
   static bool _initialized = false;
 
-  // static Future<void> initSignIn() async {
-  //   if (_initialized) return;
-  //   await _googleSignIn.initialize(
-  //       serverClientId:
-  //           // '839188101886-ic63jvuhdmf6mpp0rgae0dblasajecqc.apps.googleusercontent.com',
-  //           '839188101886-v45mfn5s4v3tfv7aut9pktmq2aamubar.apps.googleusercontent.com');
-  //   _initialized = true;
-  // }
+  static Future<void> initSignIn() async {
+    if (_initialized) return;
+    await _googleSignIn.initialize(
+        serverClientId:
+            // '839188101886-ic63jvuhdmf6mpp0rgae0dblasajecqc.apps.googleusercontent.com',
+            '839188101886-v45mfn5s4v3tfv7aut9pktmq2aamubar.apps.googleusercontent.com');
+    _initialized = true;
+  }
 
   Future<User?> signInWithGoogle() async {
     try {
-      // await initSignIn();
+      await initSignIn();
 
       final googleUser = await _googleSignIn.authenticate();
 

@@ -386,34 +386,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
 
       add(const AuthEvent.googleSignInSuccess());
-    }
+    } catch (error, trace) {
+      logError(error, trace);
+      await _signOutFromGoogle();
 
-    //  catch (error, trace) {
-    //   logError(error, trace);
-    //   await _signOutFromGoogle();
-
-    //   add(
-    //     const AuthEvent.googleSignInFailure(
-    //       'Google sign-in failed. Please try again.',
-    //     ),
-    //   );
-    // }
-
-    catch (error, trace) {
-      logError("TYPE: ${error.runtimeType}", trace);
-      logError("ERROR: $error", trace);
-
-      if (error is FirebaseAuthException) {
-        logError("Firebase code: ${error.code}", trace);
-        logError("Firebase message: ${error.message}", trace);
-      }
-
-      if (error is GoogleSignInException) {
-        logError("Google code: ${error.code}", trace);
-        logError("Google description: ${error.description}", trace);
-      }
-
-      rethrow;
+      add(
+        const AuthEvent.googleSignInFailure(
+          'Google sign-in failed. Please try again.',
+        ),
+      );
     }
   }
 
