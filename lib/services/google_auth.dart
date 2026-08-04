@@ -33,6 +33,8 @@ class GoogleSignInService {
 
       final userCredential = await _auth.signInWithCredential(credential);
 
+      final user = userCredential.user;
+
       final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
 
       if (isNewUser) {
@@ -53,8 +55,8 @@ class GoogleSignInService {
       } else {
         logInfo('Existing user logged in with Google');
 
-        final fullName = userCredential.user?.displayName;
-        final email = userCredential.user?.email ?? '';
+        final fullName = user?.displayName;
+        final email = user?.email ?? '';
 
         await PersistenceService().saveUserName(fullName ?? '');
         await PersistenceService().saveUserEmail(email);

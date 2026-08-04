@@ -317,11 +317,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     try {
-      await GoogleSignInService.initSignIn();
+      await GoogleSignInService().signInWithGoogle();
 
       final GoogleSignInAccount? googleUser =
           await GoogleSignIn.instance.authenticate();
       final GoogleSignInAuthentication? googleAuth = googleUser?.authentication;
+
+      debugPrint("ID TOKEN: ${googleAuth?.idToken}");
 
       if (googleUser == null) {
         emit(

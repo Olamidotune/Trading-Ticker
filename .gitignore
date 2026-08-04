@@ -63,3 +63,7 @@ android/app/.cxx/
 
 #Firebase
 # lib/firebase_options.dart
+
+
+android/key.properties
+*.jks
