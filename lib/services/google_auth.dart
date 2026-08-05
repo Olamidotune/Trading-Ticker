@@ -69,7 +69,7 @@ class GoogleSignInService {
             'GoogleSignInException code: ${e.code}, desc: ${e.description}',
             stack);
       }
-      rethrow; // let it bubble up so the bloc's catch shows the real error.toString()
+      rethrow;
     }
   }
 
