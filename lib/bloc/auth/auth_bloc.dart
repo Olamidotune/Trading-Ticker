@@ -310,22 +310,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     if (state.googleSignInStatus.isInProgress) return;
 
-    emit(
-      state.copyWith(
-        googleSignInStatus: FormzSubmissionStatus.inProgress,
-      ),
-    );
+    emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
 
     try {
-      await GoogleSignInService().signInWithGoogle();
+      final user = await GoogleSignInService().signInWithGoogle();
 
-      final GoogleSignInAccount? googleUser =
-          await GoogleSignIn.instance.authenticate();
-      final GoogleSignInAuthentication? googleAuth = googleUser?.authentication;
-
-      debugPrint("ID TOKEN: ${googleAuth?.idToken}");
-
-      if (googleUser == null) {
+      if (user == null) {
         emit(
           state.copyWith(
             googleSignInStatus: FormzSubmissionStatus.canceled,
@@ -335,66 +325,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return;
       }
 
-      if (googleAuth?.idToken == null) {
-        throw Exception('Missing Google ID token');
-      }
-
-      final credential = GoogleAuthProvider.credential(
-        idToken: googleAuth?.idToken,
-      );
-
-      final userCredential = await _auth.signInWithCredential(credential);
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .set({
-        'lastLoginAt': FieldValue.serverTimestamp(),
-        'googleSignIn': true
-      }, SetOptions(merge: true));
-
-      final user = userCredential.user;
-      if (user == null) {
-        throw Exception('Firebase user is null');
-      }
-
-      final isNewUser = userCredential.additionalUserInfo?.isNewUser ?? false;
-
-      if (isNewUser) {
-        logInfo('New user signed up with Google');
-
-        final uid = userCredential.user!.uid;
-        final fullName = googleUser.displayName;
-        final email = googleUser.email;
-
-        await FirebaseFirestore.instance.collection('users').doc(uid).set({
-          'fullName': fullName,
-          'email': email,
-          'createdAt': FieldValue.serverTimestamp(),
-          'lastLoginAt': FieldValue.serverTimestamp(),
-        });
-
-        await PersistenceService().saveUserName(fullName ?? '');
-        await PersistenceService().saveUserEmail(email);
-      } else {
-        logInfo('Existing user logged in with Google');
-
-        final fullName = userCredential.user?.displayName;
-        final email = userCredential.user?.email ?? '';
-
-        await PersistenceService().saveUserName(fullName ?? '');
-        await PersistenceService().saveUserEmail(email);
-      }
+      // optional: bump lastLoginAt here if you still want it
+      await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
+          {'lastLoginAt': FieldValue.serverTimestamp(), 'googleSignIn': true},
+          SetOptions(merge: true));
 
       add(const AuthEvent.googleSignInSuccess());
     } catch (error, trace) {
       logError(error, trace);
       await _signOutFromGoogle();
-
-      add(
-        const AuthEvent.googleSignInFailure(
-          'Google sign-in failed. Please try again.',
-        ),
-      );
+      add(const AuthEvent.googleSignInFailure(
+          'Google sign-in failed. Please try again.'));
     }
   }
 
