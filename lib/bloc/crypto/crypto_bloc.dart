@@ -87,14 +87,14 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
 
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.inProgress));
 
-    final isFirstFetch = state.coinList == null || state.coinList!.isEmpty;
+    // final isFirstFetch = state.coinList == null || state.coinList!.isEmpty;
 
-    if (isFirstFetch) {
-      emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.inProgress));
-    }
+    // if (isFirstFetch) {
+    //   emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.inProgress));
+    // }
 
     try {
-      final List<Coin> coins = await locator<CoinClient>().getCoins();
+      final coins = await locator<CoinClient>().getCoins();
 
       add(_FetchCoinSuccess(coins));
     } catch (error, trace) {

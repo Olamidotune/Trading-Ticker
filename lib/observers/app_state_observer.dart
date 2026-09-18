@@ -44,17 +44,17 @@ class AppStateObserver with WidgetsBindingObserver {
   }
 
   void _startPolling() {
-    // _pollingTimer?.cancel();
+    _pollingTimer?.cancel();
 
-    // _pollingTimer = Timer.periodic(
-    //   const Duration(seconds: 30),
-    //   (_) {
-    //     if (_auth.currentUser != null &&
-    //         !_cryptoBloc.state.getCoinStatus.isInProgress) {
-    //       _cryptoBloc.add(const CryptoEvent.fetchCoins());
-    //     }
-    //   },
-    // );
+    _pollingTimer = Timer.periodic(
+      const Duration(seconds: 30),
+      (_) {
+        if (_auth.currentUser != null &&
+            !_cryptoBloc.state.getCoinStatus.isInProgress) {
+          _cryptoBloc.add(const CryptoEvent.fetchCoins());
+        }
+      },
+    );
   }
 
   void _pausePolling() {
