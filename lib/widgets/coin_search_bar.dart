@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-class CoinSearchBar extends StatefulWidget {
-  const CoinSearchBar({super.key});
+class CustomSearchBar extends StatefulWidget {
+  final String searchText;
+  const CustomSearchBar(this.searchText, {super.key});
 
   @override
-  State<CoinSearchBar> createState() => _CoinSearchBarState();
+  State<CustomSearchBar> createState() => _CustomSearchBarState();
 }
 
-class _CoinSearchBarState extends State<CoinSearchBar> {
+class _CustomSearchBarState extends State<CustomSearchBar> {
   final TextEditingController _controller = TextEditingController();
 
   @override
@@ -26,7 +27,7 @@ class _CoinSearchBarState extends State<CoinSearchBar> {
       textInputAction: TextInputAction.search,
       backgroundColor: WidgetStateProperty.all(AppColors.whiteColor),
       leading: SvgPicture.asset('assets/svg/search.svg'),
-      hintText: 'Search for a coin',
+      hintText: widget.searchText,
       hintStyle:
           WidgetStateProperty.all(const TextStyle(color: AppColors.blackColor)),
       controller: _controller,

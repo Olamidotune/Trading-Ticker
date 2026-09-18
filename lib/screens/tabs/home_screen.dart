@@ -38,7 +38,7 @@ class HomeScreen extends HookWidget {
                 child: Row(
                   children: [
                     const Expanded(
-                      child: CoinSearchBar(),
+                      child: CustomSearchBar("Search for a coin"),
                     ),
                     const SizedBox(width: 8),
                     GestureDetector(
