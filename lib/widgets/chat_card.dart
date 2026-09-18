@@ -21,9 +21,9 @@ class ChatCard extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: AppColors.blackColor.withValues(alpha: .1)),
         borderRadius: BorderRadius.circular(10),
-        color: Theme.of(context).inputDecorationTheme.fillColor,
       ),
       child: ListTile(
+        tileColor: Theme.of(context).inputDecorationTheme.fillColor,
         onTap: onTap,
         leading: SvgPicture.asset('assets/svg/$icon.svg',
             colorFilter: ColorFilter.mode(

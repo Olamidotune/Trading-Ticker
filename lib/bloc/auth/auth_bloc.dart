@@ -33,6 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<_ForgotPasswordSuccessful>(_forgotPasswordSuccessful);
     on<_ForgotPasswordFailed>(_forgotPasswordFailed);
     on<_EmailChanged>(_emailChanged);
+    on<_UsernameChanged>(_userNameChanged);
     on<_ForgotPasswordEmailChanged>(_forgotPasswordEmailChanged);
     on<_PasswordChanged>(_passwordChanged);
     on<_ConfirmPasswordChanged>(_confirmPasswordChanged);
@@ -85,6 +86,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           .set({
         'fullName': state.fullName.value,
         'email': state.email.value,
+        'userName': state.userName.value.toUpperCase(),
         'createdAt': FieldValue.serverTimestamp(),
       });
 
@@ -164,6 +166,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       state.copyWith(
         fullName:
             fullName.isValid ? fullName : FullNameFormz.pure(event.fullName),
+      ),
+    );
+  }
+
+  void _userNameChanged(_UsernameChanged event, Emitter<AuthState> emit) {
+    final userName = UsernameFormz.dirty(event.username);
+    emit(
+      state.copyWith(
+        userName:
+            userName.isValid ? userName : UsernameFormz.pure(event.username),
       ),
     );
   }

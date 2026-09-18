@@ -25,6 +25,7 @@ class SignUpScreen extends HookWidget {
     final passwordNode = useFocusNode();
     final confirmPasswordNode = useFocusNode();
     final fullNameNode = useFocusNode();
+    final userNameNode = useFocusNode();
     final obscurePassword = useState(true);
     final obscureConfirmPassword = useState(true);
     final formKey = useMemoized(GlobalKey<FormState>.new);
@@ -72,25 +73,6 @@ class SignUpScreen extends HookWidget {
                         children: [
                           CustomTextFormField(
                             textInputAction: TextInputAction.next,
-                            focusNode: emailNode,
-                            title: 'Email Address',
-                            hintText: 'Enter your preferred email address',
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: (value) => context.read<AuthBloc>().add(
-                                  AuthEvent.emailChanged(value),
-                                ),
-                            prefixIcon: 'email',
-                            validator: (value) {
-                              if (EmailValidator.validate(
-                                  value?.trim() ?? '')) {
-                                return null;
-                              }
-                              return 'Please enter a valid email address';
-                            },
-                          ),
-                          AppSpacing.verticalSpaceLarge,
-                          CustomTextFormField(
-                            textInputAction: TextInputAction.next,
                             focusNode: fullNameNode,
                             title: 'Full Name',
                             hintText: 'Enter your full name',
@@ -106,6 +88,45 @@ class SignUpScreen extends HookWidget {
                                 return 'Field cannot be empty';
                               }
                               return null;
+                            },
+                          ),
+                          AppSpacing.verticalSpaceLarge,
+                          CustomTextFormField(
+                            textInputAction: TextInputAction.next,
+                            focusNode: userNameNode,
+                            title: 'Username',
+                            hintText: 'Enter your username',
+                            keyboardType: TextInputType.name,
+                            prefixIcon: 'user',
+                            onChanged: (value) {
+                              context.read<AuthBloc>().add(
+                                    AuthEvent.usernameChanged(value),
+                                  );
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Field cannot be empty';
+                              }
+                              return null;
+                            },
+                          ),
+                          AppSpacing.verticalSpaceLarge,
+                          CustomTextFormField(
+                            textInputAction: TextInputAction.next,
+                            focusNode: emailNode,
+                            title: 'Email Address',
+                            hintText: 'Enter your preferred email address',
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) => context.read<AuthBloc>().add(
+                                  AuthEvent.emailChanged(value),
+                                ),
+                            prefixIcon: 'email',
+                            validator: (value) {
+                              if (EmailValidator.validate(
+                                  value?.trim() ?? '')) {
+                                return null;
+                              }
+                              return 'Please enter a valid email address';
                             },
                           ),
                           AppSpacing.verticalSpaceLarge,

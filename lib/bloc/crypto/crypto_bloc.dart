@@ -78,7 +78,7 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
   void _init(_Init event, Emitter<CryptoState> emit) {
     emit(state.copyWith(getCoinStatus: FormzSubmissionStatus.initial));
 
-    add(const CryptoEvent.fetchCoins());
+    // add(const _FetchCoins());
     add(const _FetchWatchList());
   }
 
@@ -95,7 +95,7 @@ class CryptoBloc extends Bloc<CryptoEvent, CryptoState> {
 
     try {
       final List<Coin> coins = await locator<CoinClient>().getCoins();
-      add(CryptoEvent.fetchCoinSuccess(coins));
+
       add(_FetchCoinSuccess(coins));
     } catch (error, trace) {
       logError(error, trace);

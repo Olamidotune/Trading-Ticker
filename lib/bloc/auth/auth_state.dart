@@ -13,6 +13,7 @@ class AuthState with _$AuthState {
     @Default(EmailFormz.pure()) EmailFormz email,
     @Default(ForgotPasswordEmailFormz.pure())
     ForgotPasswordEmailFormz forgotPasswordEmail,
+    @Default(UsernameFormz.pure()) UsernameFormz userName,
     @Default(PasswordFormz.pure()) PasswordFormz password,
     @Default(ConfirmPasswordFormz.pure()) ConfirmPasswordFormz confirmPassword,
     @Default(FullNameFormz.pure()) FullNameFormz fullName,
@@ -22,7 +23,8 @@ class AuthState with _$AuthState {
     @Default(false) bool isAuthenticated,
   }) = _AuthState;
 
-  bool get isSignUpFormValid => Formz.validate([fullName, email, password]);
+  bool get isSignUpFormValid =>
+      Formz.validate([fullName, userName, email, password]);
 
   bool get isSignInFormValid => Formz.validate([email, password]);
 
@@ -119,6 +121,22 @@ class ConfirmPasswordFormz extends FormzInput<String, ValidationError> {
     if (value != password) {
       return ValidationError.invalid;
     }
+
+    return null;
+  }
+}
+
+//==============================================================================
+// FORMZ -  Username
+//==============================================================================
+
+class UsernameFormz extends FormzInput<String, ValidationError> {
+  const UsernameFormz.pure([super.value = '']) : super.pure();
+  const UsernameFormz.dirty([super.value = '']) : super.dirty();
+
+  @override
+  ValidationError? validator(String? value) {
+    if (value == null || value.isEmpty) return ValidationError.empty;
 
     return null;
   }
