@@ -35,7 +35,7 @@ class ChatScreen extends HookWidget {
         });
       } else {
         tempSearchStore.value = queryResultSet.value.where((element) {
-          //remeber to change to userName
+          //remember to change to userName
           return element['fullName'].startsWith(capValue);
         }).toList();
       }
@@ -150,6 +150,7 @@ class ChatScreen extends HookWidget {
                   return SearchUsers(
                     //remember to change to userName
                     userName: user['fullName'],
+                    msg: user['email'],
                   );
                 },
               )
