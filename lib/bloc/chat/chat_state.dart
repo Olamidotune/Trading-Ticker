@@ -4,5 +4,8 @@ part of 'chat_bloc.dart';
 abstract class ChatState with _$ChatState {
   const ChatState._();
 
-  const factory ChatState({String? uid}) = _Initial;
+  const factory ChatState({
+    @Default(FormzSubmissionStatus.initial)
+    FormzSubmissionStatus fetchChatStatus,
+  }) = _Initial;
 }

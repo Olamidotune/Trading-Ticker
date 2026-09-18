@@ -1,6 +1,7 @@
 import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/observers/app_state_observer.dart';
+import 'package:cointicker/screens/tabs/chat_screen.dart';
 import 'package:cointicker/screens/tabs/markets_screen.dart';
 import 'package:cointicker/screens/tabs/menu_screen.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const HomeScreen(),
     const MarketsScreen(),
     const NewsScreen(),
+    const ChatScreen(),
     const MenuScreen(),
   ];
 
@@ -116,6 +118,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 label: 'News'),
             BottomNavigationBarItem(
                 icon: _currentIndex == 3
+                    ? SvgPicture.asset(
+                        'assets/svg/chat.svg',
+                        colorFilter: const ColorFilter.mode(
+                          AppColors.primaryColor,
+                          BlendMode.srcIn,
+                        ),
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/chat.svg',
+                        colorFilter: ColorFilter.mode(
+                            AppColors.greyColor.withValues(alpha: .5),
+                            BlendMode.srcIn),
+                      ),
+                label: 'Chat'),
+            BottomNavigationBarItem(
+                icon: _currentIndex == 4
                     ? SvgPicture.asset(
                         'assets/svg/menu.svg',
                         colorFilter: const ColorFilter.mode(
