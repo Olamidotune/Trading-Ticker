@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 
@@ -49,7 +50,9 @@ class AppStateObserver with WidgetsBindingObserver {
     _pollingTimer = Timer.periodic(
       const Duration(seconds: 30),
       (_) {
-        if (_auth.currentUser != null &&
+        if (kIsWeb) {
+          _cryptoBloc.add(const CryptoEvent.fetchCoins());
+        } else if (_auth.currentUser != null &&
             !_cryptoBloc.state.getCoinStatus.isInProgress) {
           _cryptoBloc.add(const CryptoEvent.fetchCoins());
         }

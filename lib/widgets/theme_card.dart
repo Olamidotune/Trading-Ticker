@@ -40,7 +40,7 @@ class ThemeModeCard extends StatelessWidget {
               onChanged: (value) {
                 ThemeService.toggleTheme();
               },
-              activeColor: AppColors.primaryColor,
+              activeTrackColor: AppColors.primaryColor,
             ),
           );
         },
