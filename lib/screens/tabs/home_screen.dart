@@ -59,7 +59,7 @@ class HomeScreen extends HookWidget {
               ],
             ),
           ),
-          title: Text('Trading Ticker',
+          title: Text('Coin Stalk',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: AppColors.whiteColor,
                   ))),
