@@ -26,10 +26,6 @@ class Layout extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'assets/svg/home.svg',
-                  colorFilter: const ColorFilter.mode(
-                    AppColors.primaryColor,
-                    BlendMode.srcIn,
-                  ),
                 ),
                 label: 'Home',
               ),
@@ -37,7 +33,7 @@ class Layout extends StatelessWidget {
                   icon: SvgPicture.asset(
                     'assets/svg/trending_up.svg',
                     colorFilter: const ColorFilter.mode(
-                      AppColors.primaryColor,
+                      AppColors.whiteColor,
                       BlendMode.srcIn,
                     ),
                   ),
@@ -45,19 +41,11 @@ class Layout extends StatelessWidget {
               BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/svg/news.svg',
-                    colorFilter: const ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
-                    ),
                   ),
                   label: 'News'),
               BottomNavigationBarItem(
                   icon: SvgPicture.asset(
                     'assets/svg/menu.svg',
-                    colorFilter: const ColorFilter.mode(
-                      AppColors.primaryColor,
-                      BlendMode.srcIn,
-                    ),
                   ),
                   label: 'Menu'),
             ],
