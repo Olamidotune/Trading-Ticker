@@ -23,7 +23,7 @@ class WebLayout extends StatelessWidget {
             width: 260,
             decoration: BoxDecoration(
               color: isDark
-                  ? AppColors.mutedText
+                  ? AppColors.darkSurface.withValues(alpha: 9)
                   : AppColors.greyColor.withValues(alpha: .3),
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(30),
@@ -206,92 +206,3 @@ class WebLayout extends StatelessWidget {
         ));
   }
 }
-
-// ListTile(
-//           tileColor: isSelected ? AppColors.primaryColor : null,
-//           onTap: () {
-//             webNavigationShell.goBranch(
-//               index,
-//               initialLocation: index == webNavigationShell.currentIndex,
-//             );
-//           },
-//           leading: SvgPicture.asset(
-//             asset,
-//             width: 21,
-//             height: 21,
-//             colorFilter: ColorFilter.mode(
-//               isSelected
-//                   ? AppColors.primaryColor
-//                   : AppColors.primaryColor.withValues(alpha: .3),
-//               BlendMode.srcIn,
-//             ),
-//           ),
-//           title: Text(
-//             label,
-//             style: TextTheme.of(context).bodyLarge?.copyWith(
-//                 fontWeight: isSelected ? FontWeight.w900 : FontWeight.normal),
-//           ),
-//         ),
-
-// Container(
-//         decoration: BoxDecoration(
-// borderRadius: BorderRadius.circular(30),
-// color: isSelected ? AppColors.primaryColor : null),
-//         child: InkWell(
-//           borderRadius: BorderRadius.circular(12),
-//           onTap: () {
-//             webNavigationShell.goBranch(
-//               index,
-//               initialLocation: index == webNavigationShell.currentIndex,
-//             );
-//           },
-// child: Container(
-//   height: 50,
-//   padding: const EdgeInsets.symmetric(
-//     horizontal: 16,
-//   ),
-//   decoration: BoxDecoration(
-//     borderRadius: BorderRadius.circular(12),
-//     border: isSelected
-//         ? const Border(
-//             left: BorderSide(
-//               width: 3,
-//             ),
-//           )
-//         : null,
-//   ),
-//             child: Row(
-//               children: [
-//                 SvgPicture.asset(
-//                   asset,
-//                   width: 21,
-//                   height: 21,
-//                   colorFilter: ColorFilter.mode(
-//                     isSelected
-//                         ? AppColors.primaryColor
-//                         : AppColors.primaryColor.withValues(alpha: .3),
-//                     BlendMode.srcIn,
-//                   ),
-//                 ),
-//                 const SizedBox(width: 14),
-//                 Text(
-//                   label,
-//                   style: TextStyle(
-//                     fontSize: 14,
-//                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-//                   ),
-//                 ),
-//                 const Spacer(),
-//                 if (isSelected)
-//                   Container(
-//                     width: 6,
-//                     height: 6,
-//                     decoration: const BoxDecoration(
-//                       shape: BoxShape.circle,
-//                     ),
-//                   ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
