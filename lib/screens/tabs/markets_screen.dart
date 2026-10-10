@@ -10,7 +10,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class MarketsScreen extends HookWidget {
   const MarketsScreen({super.key});
 
-  static const String routeName = 'markets_screen';
+  static const String routeName = '/markets_screen';
 
   @override
   Widget build(BuildContext context) {

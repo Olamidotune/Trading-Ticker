@@ -17,7 +17,7 @@ import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends HookWidget {
-  static const String routeName = 'Price-Screen';
+  static const String routeName = '/home_screen';
   const HomeScreen({super.key});
 
   @override
