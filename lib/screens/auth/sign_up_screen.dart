@@ -2,8 +2,8 @@ import 'package:cointicker/bloc/auth/auth_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/screens/auth/sign_in_screen.dart';
+import 'package:cointicker/screens/tabs/home_screen.dart';
 import 'package:cointicker/services/toast_service.dart';
-import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
 import 'package:cointicker/widgets/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
@@ -12,6 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class SignUpScreen extends HookWidget {
@@ -231,10 +232,7 @@ class SignUpScreen extends HookWidget {
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                    SignInScreen.routeName,
-                                    (_) => false,
-                                  );
+                                  context.go(SignInScreen.routeName);
                                 },
                               text: 'Sign in',
                               style: Theme.of(context)
@@ -265,10 +263,7 @@ class SignUpScreen extends HookWidget {
     if (previous.signUpStatus.isInProgress && current.signUpStatus.isSuccess ||
         previous.googleSignInStatus.isInProgress &&
             current.googleSignInStatus.isSuccess) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        BottomNavBar.routeName,
-        (_) => false,
-      );
+      context.go(HomeScreen.routeName);
       ToastService.toast('Sign Up Successful');
     } else if (previous.errorMessage != current.errorMessage &&
         current.errorMessage != null) {

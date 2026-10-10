@@ -16,6 +16,7 @@ import 'package:cointicker/widgets/theme_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuScreen extends HookWidget {
@@ -151,10 +152,7 @@ void _signOut(BuildContext context) async {
 
   ToastService.toast('Signed Out Successful', ToastType.success);
 
-  Navigator.of(context).pushNamedAndRemoveUntil(
-    SignInScreen.routeName,
-    (_) => false,
-  );
+  context.go(SignInScreen.routeName);
 }
 
 void _openSuggestFeatureMail(BuildContext context) async {

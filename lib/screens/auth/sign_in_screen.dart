@@ -3,9 +3,9 @@ import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/screens/auth/forgot_password_screen.dart';
 import 'package:cointicker/screens/auth/sign_up_screen.dart';
+import 'package:cointicker/screens/tabs/home_screen.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/toast_service.dart';
-import 'package:cointicker/widgets/bottom_nav_bar.dart';
 import 'package:cointicker/widgets/button.dart';
 import 'package:cointicker/widgets/custom_text_field.dart';
 import 'package:flutter/gestures.dart';
@@ -14,6 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
 class SignInScreen extends HookWidget {
@@ -123,10 +124,8 @@ class SignInScreen extends HookWidget {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: GestureDetector(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      ForgotPasswordScreen.routeName);
-                                },
+                                onTap: () =>
+                                    context.go(ForgotPasswordScreen.routeName),
                                 child: Text(
                                   'Forgot Password?',
                                   style: Theme.of(context)
@@ -182,12 +181,8 @@ class SignInScreen extends HookWidget {
                           children: [
                             TextSpan(
                               recognizer: TapGestureRecognizer()
-                                ..onTap = () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                    SignUpScreen.routeName,
-                                    (_) => false,
-                                  );
-                                },
+                                ..onTap =
+                                    () => context.go(SignUpScreen.routeName),
                               text: 'Sign up',
                               style: Theme.of(context)
                                   .textTheme
@@ -217,10 +212,7 @@ class SignInScreen extends HookWidget {
     if (previous.signInStatus.isInProgress && current.signInStatus.isSuccess ||
         previous.googleSignInStatus.isInProgress &&
             current.googleSignInStatus.isSuccess) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        BottomNavBar.routeName,
-        (_) => false,
-      );
+      context.go(HomeScreen.routeName);
       ToastService.toast('Welcome');
     } else if (previous.errorMessage != current.errorMessage &&
         current.errorMessage != null) {

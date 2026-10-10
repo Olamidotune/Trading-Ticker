@@ -239,9 +239,7 @@ aboutAppDialog(BuildContext context) {
 
           // Custom Close Button
           GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
+            onTap: () => Navigator.of(context).pop(),
             child: const Text(
               'Close',
               style: TextStyle(fontWeight: FontWeight.bold),

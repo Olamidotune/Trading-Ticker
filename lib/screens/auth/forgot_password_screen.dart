@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:formz/formz.dart';
+import 'package:go_router/go_router.dart';
 
 class ForgotPasswordScreen extends HookWidget {
   const ForgotPasswordScreen({super.key});
@@ -134,10 +135,7 @@ class ForgotPasswordScreen extends HookWidget {
                             TextSpan(
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.of(context).pushNamedAndRemoveUntil(
-                                    SignInScreen.routeName,
-                                    (_) => false,
-                                  );
+                                  context.go(SignInScreen.routeName);
                                 },
                               text: 'Sign in',
                               style: Theme.of(context)
@@ -167,10 +165,7 @@ class ForgotPasswordScreen extends HookWidget {
       BuildContext context, AuthState current, AuthState previous) {
     if (previous.forgotPasswordStatus.isInProgress &&
         current.forgotPasswordStatus.isSuccess) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        SignInScreen.routeName,
-        (_) => false,
-      );
+      context.go(SignInScreen.routeName);
       ToastService.toast('A password reset link has been sent to your email');
     } else if (previous.errorMessage != current.errorMessage &&
         current.errorMessage != null) {

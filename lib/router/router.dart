@@ -1,3 +1,4 @@
+import 'package:cointicker/screens/onboarding/onboarding.dart';
 import 'package:cointicker/screens/onboarding/splash_screen.dart';
 import 'package:cointicker/screens/tabs/home_screen.dart';
 import 'package:cointicker/screens/tabs/layout.dart';
@@ -45,5 +46,13 @@ final router = GoRouter(
                 builder: (context, state) => const MenuScreen(),
               )
             ])
-          ])
+          ]),
+      GoRoute(
+        path: SplashScreen.routeName,
+        builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: OnboardingScreen.routeName,
+        builder: (context, state) => const OnboardingScreen(),
+      )
     ]);

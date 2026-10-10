@@ -12,7 +12,7 @@ import 'package:sizer/sizer.dart';
 class OnboardingScreen extends HookWidget {
   const OnboardingScreen({super.key});
 
-  static const String routeName = 'onboarding_screen';
+  static const String routeName = '/onboarding_screen';
 
   @override
   Widget build(BuildContext context) {
