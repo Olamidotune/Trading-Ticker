@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
-import 'package:cointicker/bloc/news/news_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/widgets/coin_card.dart';
@@ -25,50 +24,45 @@ class HomeScreen extends HookWidget {
     final controller = useAnimationController();
     return Scaffold(
       appBar: AppBar(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(15),
-                bottomRight: Radius.circular(15))),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(90),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: CoinSearchBar(),
-                    ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: () {
-                        _showFilterDialog(context, true);
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: AppColors.whiteColor,
-                        radius: 25,
-                        child: SvgPicture.asset(
-                          'assets/svg/filter.svg',
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(15),
+                  bottomRight: Radius.circular(15))),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(90),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Row(
+                    children: [
+                      const Expanded(
+                        child: CoinSearchBar(),
+                      ),
+                      const SizedBox(width: 8),
+                      GestureDetector(
+                        onTap: () {
+                          _showFilterDialog(context, true);
+                        },
+                        child: CircleAvatar(
+                          backgroundColor: AppColors.whiteColor,
+                          radius: 25,
+                          child: SvgPicture.asset(
+                            'assets/svg/filter.svg',
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 20),
-            ],
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
-        ),
-        title: BlocBuilder<NewsBloc, NewsState>(
-          builder: (context, state) {
-            return Text('Trading Ticker',
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      color: AppColors.whiteColor,
-                    ));
-          },
-        ),
-      ),
+          title: Text('Trading Ticker',
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    color: AppColors.whiteColor,
+                  ))),
       body: BlocBuilder<CryptoBloc, CryptoState>(
         builder: (context, state) {
           if (state.getCoinStatus == FormzSubmissionStatus.inProgress &&

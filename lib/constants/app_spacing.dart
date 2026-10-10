@@ -33,4 +33,7 @@ class AppSpacing {
   static double horizontalSpacingTiny = 4;
   static double horizontalSpacingSmall = 8;
   static double horizontalSpacingMedium = 20;
+
+  //Desktop Spacing
+  static double desktopSpacingPadding = 32;
 }

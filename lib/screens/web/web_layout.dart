@@ -23,8 +23,8 @@ class WebLayout extends StatelessWidget {
             width: 260,
             decoration: BoxDecoration(
               color: isDark
-                  ? AppColors.darkSurface.withValues(alpha: 9)
-                  : AppColors.greyColor.withValues(alpha: .3),
+                  ? AppColors.primaryColor.withValues(alpha: .2)
+                  : AppColors.primaryColor,
               borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(30),
                   bottomRight: Radius.circular(30)),
