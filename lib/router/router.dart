@@ -1,3 +1,6 @@
+import 'package:cointicker/screens/auth/forgot_password_screen.dart';
+import 'package:cointicker/screens/auth/sign_in_screen.dart';
+import 'package:cointicker/screens/auth/sign_up_screen.dart';
 import 'package:cointicker/screens/onboarding/onboarding.dart';
 import 'package:cointicker/screens/onboarding/splash_screen.dart';
 import 'package:cointicker/screens/tabs/home_screen.dart';
@@ -54,5 +57,17 @@ final router = GoRouter(
       GoRoute(
         path: OnboardingScreen.routeName,
         builder: (context, state) => const OnboardingScreen(),
+      ),
+      GoRoute(
+        path: SignInScreen.routeName,
+        builder: (context, state) => const SignInScreen(),
+      ),
+      GoRoute(
+        path: SignUpScreen.routeName,
+        builder: (context, state) => const SignUpScreen(),
+      ),
+      GoRoute(
+        path: ForgotPasswordScreen.routeName,
+        builder: (context, state) => const ForgotPasswordScreen(),
       )
     ]);
