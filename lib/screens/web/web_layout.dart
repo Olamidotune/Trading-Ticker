@@ -145,66 +145,7 @@ class WebLayout extends StatelessWidget {
 
           // Main content
           Expanded(
-            child: Column(
-              children: [
-                // Top header
-                Container(
-                  height: 82,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                  ),
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xFFE9ECF4),
-                      ),
-                    ),
-                  ),
-                  child: Row(
-                    children: [
-                      const Expanded(
-                        child: Text(
-                          'Workspace',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          ThemeService.toggleTheme();
-                        },
-                        child: SvgPicture.asset(
-                          isDark
-                              ? 'assets/svg/dark_mode.svg'
-                              : 'assets/svg/light_mode.svg',
-                          colorFilter: ColorFilter.mode(
-                            Theme.of(context).iconTheme.color ??
-                                (isDark
-                                    ? AppColors.whiteColor
-                                    : AppColors.textColor),
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      IconButton(
-                        onPressed: () {},
-                        tooltip: 'Settings',
-                        icon: const Icon(
-                          Icons.settings_outlined,
-                          size: 23,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: webNavigationShell,
-                ),
-              ],
-            ),
+            child: webNavigationShell,
           ),
         ],
       ),
@@ -265,3 +206,92 @@ class WebLayout extends StatelessWidget {
         ));
   }
 }
+
+// ListTile(
+//           tileColor: isSelected ? AppColors.primaryColor : null,
+//           onTap: () {
+//             webNavigationShell.goBranch(
+//               index,
+//               initialLocation: index == webNavigationShell.currentIndex,
+//             );
+//           },
+//           leading: SvgPicture.asset(
+//             asset,
+//             width: 21,
+//             height: 21,
+//             colorFilter: ColorFilter.mode(
+//               isSelected
+//                   ? AppColors.primaryColor
+//                   : AppColors.primaryColor.withValues(alpha: .3),
+//               BlendMode.srcIn,
+//             ),
+//           ),
+//           title: Text(
+//             label,
+//             style: TextTheme.of(context).bodyLarge?.copyWith(
+//                 fontWeight: isSelected ? FontWeight.w900 : FontWeight.normal),
+//           ),
+//         ),
+
+// Container(
+//         decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(30),
+// color: isSelected ? AppColors.primaryColor : null),
+//         child: InkWell(
+//           borderRadius: BorderRadius.circular(12),
+//           onTap: () {
+//             webNavigationShell.goBranch(
+//               index,
+//               initialLocation: index == webNavigationShell.currentIndex,
+//             );
+//           },
+// child: Container(
+//   height: 50,
+//   padding: const EdgeInsets.symmetric(
+//     horizontal: 16,
+//   ),
+//   decoration: BoxDecoration(
+//     borderRadius: BorderRadius.circular(12),
+//     border: isSelected
+//         ? const Border(
+//             left: BorderSide(
+//               width: 3,
+//             ),
+//           )
+//         : null,
+//   ),
+//             child: Row(
+//               children: [
+//                 SvgPicture.asset(
+//                   asset,
+//                   width: 21,
+//                   height: 21,
+//                   colorFilter: ColorFilter.mode(
+//                     isSelected
+//                         ? AppColors.primaryColor
+//                         : AppColors.primaryColor.withValues(alpha: .3),
+//                     BlendMode.srcIn,
+//                   ),
+//                 ),
+//                 const SizedBox(width: 14),
+//                 Text(
+//                   label,
+//                   style: TextStyle(
+//                     fontSize: 14,
+//                     fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+//                   ),
+//                 ),
+//                 const Spacer(),
+//                 if (isSelected)
+//                   Container(
+//                     width: 6,
+//                     height: 6,
+//                     decoration: const BoxDecoration(
+//                       shape: BoxShape.circle,
+//                     ),
+//                   ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
