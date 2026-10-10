@@ -12,7 +12,7 @@ import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsScreen extends HookWidget {
-  static const String routeName = 'NewsScreen';
+  static const String routeName = '/news_screen';
 
   const NewsScreen({super.key});
 

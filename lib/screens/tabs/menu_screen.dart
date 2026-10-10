@@ -19,7 +19,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MenuScreen extends HookWidget {
-  static const String routeName = 'menu_screen';
+  static const String routeName = '/menu_screen';
   const MenuScreen({super.key});
 
   @override
