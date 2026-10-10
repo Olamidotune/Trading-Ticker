@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cointicker/bloc/chat/chat_bloc.dart';
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
 import 'package:cointicker/services/search_user.dart';
 import 'package:cointicker/widgets/chat_card.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -23,7 +25,7 @@ class ChatScreen extends HookWidget {
     void initSearch(String value) {
       if (value.isEmpty) {
         queryResultSet.value = [];
-        tempSearchStore.value = [];
+        queryResultSet.value = [];
         return;
       }
 
@@ -31,7 +33,9 @@ class ChatScreen extends HookWidget {
 
       if (queryResultSet.value.isEmpty && value.length == 1) {
         SearchUser().search(value).then((QuerySnapshot docs) {
-          queryResultSet.value = docs.docs.map((doc) => doc.data()).toList();
+          for (int i = 0; 1 < docs.docs.length; i++) {
+            queryResultSet.value.add(docs.docs[i].data());
+          }
         });
       } else {
         tempSearchStore.value = queryResultSet.value.where((element) {
@@ -40,6 +44,8 @@ class ChatScreen extends HookWidget {
         }).toList();
       }
     }
+
+    // final controller = useAnimationController();
 
     return Scaffold(
       appBar: AppBar(
@@ -89,89 +95,99 @@ class ChatScreen extends HookWidget {
           bottom: isSearch.value
               ? PreferredSize(
                   preferredSize: const Size.fromHeight(50),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: SearchBar(
-                                shape: WidgetStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(10.0)),
+                  child: BlocBuilder<ChatBloc, ChatState>(
+                    builder: (context, state) {
+                      return Column(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 15.0),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: SearchBar(
+                                      shape: WidgetStateProperty.all(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10.0)),
+                                      ),
+                                      textStyle: WidgetStateProperty.all(
+                                        const TextStyle(
+                                          color: AppColors.blackColor,
+                                        ),
+                                      ),
+                                      keyboardType: TextInputType.text,
+                                      textInputAction: TextInputAction.search,
+                                      backgroundColor: WidgetStateProperty.all(
+                                          AppColors.whiteColor),
+                                      leading: SvgPicture.asset(
+                                          'assets/svg/search.svg'),
+                                      hintText: "Search",
+                                      hintStyle: WidgetStateProperty.all(
+                                        const TextStyle(
+                                          color: AppColors.blackColor,
+                                        ),
+                                      ),
+                                      onChanged: (value) {
+                                        initSearch(value);
+                                      }),
                                 ),
-                                textStyle: WidgetStateProperty.all(
-                                  const TextStyle(
-                                    color: AppColors.blackColor,
-                                  ),
+                                const SizedBox(width: 8),
+                                GestureDetector(
+                                  onTap: () => isSearch.value = !isSearch.value,
+                                  child: const CircleAvatar(
+                                      backgroundColor: AppColors.whiteColor,
+                                      radius: 25,
+                                      child: Icon(Icons.close)),
                                 ),
-                                keyboardType: TextInputType.text,
-                                textInputAction: TextInputAction.search,
-                                backgroundColor: WidgetStateProperty.all(
-                                    AppColors.whiteColor),
-                                leading:
-                                    SvgPicture.asset('assets/svg/search.svg'),
-                                hintText: "Search",
-                                hintStyle: WidgetStateProperty.all(
-                                  const TextStyle(
-                                    color: AppColors.blackColor,
-                                  ),
-                                ),
-                                onChanged: (value) => initSearch(value),
-                              ),
+                              ],
                             ),
-                            const SizedBox(width: 8),
-                            GestureDetector(
-                              onTap: () => isSearch.value = !isSearch.value,
-                              child: const CircleAvatar(
-                                  backgroundColor: AppColors.whiteColor,
-                                  radius: 25,
-                                  child: Icon(Icons.close)),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                    ],
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                      );
+                    },
                   ),
                 )
               : null),
-      body: Padding(
-        padding: EdgeInsets.all(AppSpacing.horizontalSpacing),
-        child: isSearch.value
-            ? ListView.builder(
-                padding: const EdgeInsets.all(20),
-                itemCount: tempSearchStore.value.length,
-                itemBuilder: (context, index) {
-                  final user = tempSearchStore.value[index];
-
-                  return SearchUsers(
-                    //remember to change to userName
-                    userName: user['fullName'],
-                    msg: user['email'],
-                  );
-                },
-              )
-            : CustomScrollView(
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  const SliverToBoxAdapter(child: SizedBox.shrink()),
-                  SliverList.separated(
-                    itemCount: 10,
+      body: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.all(AppSpacing.horizontalSpacing),
+            child: isSearch.value
+                ? ListView.builder(
+                    padding: const EdgeInsets.all(20),
+                    itemCount: state.tempSearchStore?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return ChatCard(
-                        onTap: () {},
-                        icon: 'chat',
-                        name: '$index',
+                      final user = tempSearchStore.value[index];
+                      // final thisUSer = state.tempSearchStore![index];
+                      return SearchUsers(
+                        //remember to change to userName
+                        userName: user['fullName'],
+                        msg: user['email'],
                       );
                     },
-                    separatorBuilder: (context, index) =>
-                        AppSpacing.verticalSpaceMedium,
+                  )
+                : CustomScrollView(
+                    physics: const BouncingScrollPhysics(),
+                    slivers: [
+                      const SliverToBoxAdapter(child: SizedBox.shrink()),
+                      SliverList.separated(
+                        itemCount: 10,
+                        itemBuilder: (context, index) {
+                          return ChatCard(
+                            onTap: () {},
+                            icon: 'chat',
+                            name: '$index',
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            AppSpacing.verticalSpaceMedium,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+          );
+        },
       ),
     );
   }
