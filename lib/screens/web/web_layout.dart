@@ -21,12 +21,13 @@ class WebLayout extends StatelessWidget {
         children: [
           Container(
             width: 260,
-            decoration: const BoxDecoration(
-              border: Border(
-                right: BorderSide(
-                  color: AppColors.secondaryColor,
-                ),
-              ),
+            decoration: BoxDecoration(
+              color: isDark
+                  ? AppColors.mutedText
+                  : AppColors.greyColor.withValues(alpha: .3),
+              borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(30),
+                  bottomRight: Radius.circular(30)),
             ),
             child: Column(
               children: [
@@ -86,7 +87,6 @@ class WebLayout extends StatelessWidget {
                     asset: 'assets/svg/menu.svg',
                     isDarkMode: isDark,
                     context: context),
-
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(20),
