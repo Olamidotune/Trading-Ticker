@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -63,14 +61,12 @@ class Button extends StatelessWidget {
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     width: 20.0,
                     height: 20.0,
                     child: CircularProgressIndicator.adaptive(
-                      valueColor:
-                          const AlwaysStoppedAnimation<Color>(Colors.white),
-                      backgroundColor: Platform.isIOS ? Colors.white : null,
-                    ),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                        backgroundColor: AppColors.whiteColor),
                   ),
                   if (busyText != null)
                     Text(

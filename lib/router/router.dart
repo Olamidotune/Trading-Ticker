@@ -8,6 +8,7 @@ import 'package:cointicker/screens/tabs/layout.dart';
 import 'package:cointicker/screens/tabs/markets_screen.dart';
 import 'package:cointicker/screens/tabs/menu_screen.dart';
 import 'package:cointicker/screens/tabs/news_screen.dart';
+import 'package:cointicker/screens/web/web_auth/web_sign_in_screen.dart';
 import 'package:cointicker/screens/web/web_home_screen.dart';
 import 'package:cointicker/screens/web/web_layout.dart';
 import 'package:cointicker/screens/web/web_markets.dart';
@@ -104,5 +105,11 @@ final router = GoRouter(
       GoRoute(
         path: ForgotPasswordScreen.routeName,
         builder: (context, state) => const ForgotPasswordScreen(),
+      ),
+
+      //web
+      GoRoute(
+        path: WebSignInScreen.routeName,
+        builder: (context, state) => const WebSignInScreen(),
       ),
     ]);

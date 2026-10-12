@@ -312,13 +312,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (state.googleSignInStatus.isInProgress) return;
 
     emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
-    final provider = GoogleAuthProvider();
 
     try {
+      User? user;
+
       if (kIsWeb) {
-        FirebaseAuth.instance.signInWithRedirect(provider);
+        final credential =
+            await FirebaseAuth.instance.signInWithPopup(GoogleAuthProvider());
+        user = credential.user;
+      } else {
+        user = await GoogleSignInService().signInWithGoogle();
       }
-      final user = await GoogleSignInService().signInWithGoogle();
 
       if (user == null) {
         emit(
@@ -330,12 +334,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return;
       }
 
-      // optional: bump lastLoginAt here if you still want it
       await FirebaseFirestore.instance.collection('users').doc(user.uid).set(
-          {'lastLoginAt': FieldValue.serverTimestamp(), 'googleSignIn': true},
-          SetOptions(merge: true));
+        {'lastLoginAt': FieldValue.serverTimestamp(), 'googleSignIn': true},
+        SetOptions(merge: true),
+      );
 
       add(const AuthEvent.googleSignInSuccess());
+    } on FirebaseAuthException catch (error, trace) {
+      // User closed the popup: treat as cancel, not failure
+      if (error.code == 'popup-closed-by-user' ||
+          error.code == 'cancelled-popup-request') {
+        emit(
+          state.copyWith(
+            googleSignInStatus: FormzSubmissionStatus.canceled,
+            errorMessage: 'Google sign-in was canceled by the user.',
+          ),
+        );
+        return;
+      }
+      logError(error, trace);
+      await _signOutFromGoogle();
+      add(const AuthEvent.googleSignInFailure(
+          'Google sign-in failed. Please try again.'));
     } catch (error, trace) {
       logError(error, trace);
       await _signOutFromGoogle();

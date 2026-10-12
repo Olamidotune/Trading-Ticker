@@ -57,22 +57,24 @@ class DefaultFirebaseOptions {
     projectId: 'coinstalk-501a3',
     storageBucket: 'coinstalk-501a3.firebasestorage.app',
   );
-
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAr7DRKBnun-39aoEwqumMBHyMUiLuYP1M',
     appId: '1:839188101886:ios:706221f6fe7be693a343af',
     messagingSenderId: '839188101886',
     projectId: 'coinstalk-501a3',
     storageBucket: 'coinstalk-501a3.firebasestorage.app',
+    androidClientId: '839188101886-ectk14a7nppe09clselt1osn9306aga8.apps.googleusercontent.com',
+    iosClientId: '839188101886-ic63jvuhdmf6mpp0rgae0dblasajecqc.apps.googleusercontent.com',
     iosBundleId: 'com.example.cointicker',
   );
-
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyAr7DRKBnun-39aoEwqumMBHyMUiLuYP1M',
     appId: '1:839188101886:ios:706221f6fe7be693a343af',
     messagingSenderId: '839188101886',
     projectId: 'coinstalk-501a3',
     storageBucket: 'coinstalk-501a3.firebasestorage.app',
+    androidClientId: '839188101886-ectk14a7nppe09clselt1osn9306aga8.apps.googleusercontent.com',
+    iosClientId: '839188101886-ic63jvuhdmf6mpp0rgae0dblasajecqc.apps.googleusercontent.com',
     iosBundleId: 'com.example.cointicker',
   );
 

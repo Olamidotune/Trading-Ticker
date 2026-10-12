@@ -1,6 +1,6 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/auth/sign_in_screen.dart';
+import 'package:cointicker/screens/web/web_auth/web_sign_in_screen.dart';
 import 'package:cointicker/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -107,7 +107,7 @@ class WebLayout extends StatelessWidget {
                       ),
                     ),
                     child: GestureDetector(
-                      onTap: () => context.go(SignInScreen.routeName),
+                      onTap: () => context.go(WebSignInScreen.routeName),
                       child: const Row(
                         children: [
                           CircleAvatar(
