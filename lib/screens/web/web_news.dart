@@ -1,15 +1,16 @@
-import 'package:cointicker/bloc/news/news_bloc.dart';
-import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/tabs/home_screen.dart';
-import 'package:cointicker/screens/web/web_home_screen.dart';
-import 'package:cointicker/services/logging_helper.dart';
-import 'package:cointicker/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:formz/formz.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import 'package:cointicker/bloc/news/news_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/screens/tabs/home_screen.dart';
+import 'package:cointicker/services/logging_helper.dart';
+import 'package:cointicker/widgets/news_card.dart';
 
 class WebNewsScreen extends HookWidget {
   const WebNewsScreen({super.key});
@@ -77,7 +78,41 @@ class WebNewsScreen extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const WebAppBar(),
+        centerTitle: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        title: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 30,
+            horizontal: MediaQuery.of(context).size.width / 6,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              Text(
+                'News',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.whiteColor,
+                    ),
+              ),
+              Text(
+                'Get the latest crypto news here.',
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.w400,
+                    ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+        ),
+        toolbarHeight: 140,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(

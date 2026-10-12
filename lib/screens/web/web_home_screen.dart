@@ -1,18 +1,18 @@
-import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
-import 'package:cointicker/constants/app_colors.dart';
-import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/tabs/home_screen.dart';
-import 'package:cointicker/services/theme_service.dart';
-import 'package:cointicker/widgets/coin_details_sheet.dart';
-import 'package:cointicker/widgets/coin_search_bar.dart';
-import 'package:cointicker/widgets/desktop_coin_card.dart';
-import 'package:cointicker/widgets/dialogs/filter_coins_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:formz/formz.dart';
 import 'package:lottie/lottie.dart';
+
+import 'package:cointicker/bloc/crypto/crypto_bloc.dart';
+import 'package:cointicker/constants/app_colors.dart';
+import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/screens/tabs/home_screen.dart';
+import 'package:cointicker/widgets/coin_details_sheet.dart';
+import 'package:cointicker/widgets/coin_search_bar.dart';
+import 'package:cointicker/widgets/desktop_coin_card.dart';
+import 'package:cointicker/widgets/dialogs/filter_coins_dialog.dart';
 
 class WebHomeScreen extends HookWidget {
   const WebHomeScreen({super.key});
@@ -25,7 +25,41 @@ class WebHomeScreen extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const WebAppBar(),
+        centerTitle: false,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        title: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 30,
+            horizontal: MediaQuery.of(context).size.width / 6,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 50),
+              Text(
+                'Home',
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      color: AppColors.whiteColor,
+                    ),
+              ),
+              Text(
+                "Explore the top 100 cryptocurrencies by market capitalization. Search coins, track market movements, and save your favorites to your personal watchlist.",
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      color: AppColors.whiteColor,
+                      fontWeight: FontWeight.w400,
+                    ),
+                maxLines: 3,
+              ),
+            ],
+          ),
+        ),
+        toolbarHeight: 140,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(
@@ -176,49 +210,5 @@ class WebHomeScreen extends HookWidget {
           .add(CryptoEvent.sortByMarketCapDesc((value ?? false)));
     }
     return;
-  }
-}
-
-class WebAppBar extends StatelessWidget {
-  const WebAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = ThemeService.isDarkMode(context);
-    return Container(
-      height: 82,
-      padding: const EdgeInsets.symmetric(
-        horizontal: 32,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          GestureDetector(
-            onTap: () {
-              ThemeService.toggleTheme();
-            },
-            child: SvgPicture.asset(
-              isDark ? 'assets/svg/dark_mode.svg' : 'assets/svg/light_mode.svg',
-              colorFilter: ColorFilter.mode(
-                Theme.of(context).iconTheme.color ??
-                    (isDark ? AppColors.whiteColor : AppColors.textColor),
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-          const SizedBox(width: 12),
-          IconButton(
-            onPressed: () {},
-            tooltip: 'Settings',
-            icon: const Icon(
-              Icons.settings_outlined,
-              size: 23,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
