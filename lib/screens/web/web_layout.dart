@@ -1,12 +1,13 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
-import 'package:cointicker/screens/web/web_auth/web_sign_in_screen.dart';
 import 'package:cointicker/services/theme_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
-class WebLayout extends StatelessWidget {
+class WebLayout extends HookWidget {
   const WebLayout({
     super.key,
     required this.webNavigationShell,
@@ -17,139 +18,168 @@ class WebLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = ThemeService.isDarkMode(context);
+    final controller = useAnimationController();
     return Scaffold(
       body: Row(
         children: [
-          Container(
-            width: 260,
-            decoration: BoxDecoration(
-              color: isDark
-                  ? AppColors.primaryColor.withValues(alpha: .2)
-                  : AppColors.primaryColor,
-              borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(30),
-                  bottomRight: Radius.circular(30)),
-            ),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                    24,
-                    30,
-                    24,
-                    40,
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                          width: 42,
-                          height: 42,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [
-                                Color(0xFF4361EE),
-                                Color(0xFF7B61FF),
-                              ],
-                            ),
-                            borderRadius: BorderRadius.circular(12),
+          Material(
+            elevation: 30,
+            child: Container(
+              width: 260,
+              decoration: BoxDecoration(
+                color: isDark
+                    ? AppColors.primaryColor.withValues(alpha: .2)
+                    : AppColors.primaryColor.withValues(alpha: .95),
+                borderRadius:
+                    const BorderRadius.only(bottomRight: Radius.circular(30)),
+              ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                      24,
+                      30,
+                      24,
+                      40,
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: 80,
+                            height: 80,
+                            child: Lottie.asset(
+                                width: double.infinity,
+                                'assets/lottie/finance.json',
+                                controller: controller,
+                                repeat: false, onLoaded: (composition) {
+                              controller
+                                ..duration = composition.duration
+                                ..repeat();
+                            }),
                           ),
-                          child: Image.asset("assets/png/logo.jpeg")),
-                      const SizedBox(width: 12),
-                      const Text(
-                        'CoinStalk',
-                        style: TextStyle(
-                          fontSize: 23,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -0.5,
+                        ),
+                        const SizedBox(width: 12),
+                        Text(
+                          'CoinStalk',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(
+                                  fontSize: 28, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Navigation
+                  _buildDestination(
+                      index: 0,
+                      label: 'Home',
+                      asset: 'assets/svg/home.svg',
+                      isDarkMode: isDark,
+                      context: context),
+                  AppSpacing.verticalSpaceSmall,
+                  _buildDestination(
+                      index: 1,
+                      label: 'Markets',
+                      asset: 'assets/svg/markets.svg',
+                      isDarkMode: isDark,
+                      context: context),
+                  _buildDestination(
+                      index: 2,
+                      label: 'News',
+                      asset: 'assets/svg/news.svg',
+                      isDarkMode: isDark,
+                      context: context),
+                  AppSpacing.verticalSpaceSmall,
+                  _buildDestination(
+                      index: 3,
+                      label: 'Menu',
+                      asset: 'assets/svg/menu.svg',
+                      isDarkMode: isDark,
+                      context: context),
+                  const Spacer(),
+                  InkWell(
+                    onTap: () => ThemeService.toggleTheme(),
+                    child: Align(
+                      alignment: AlignmentGeometry.centerLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: isDark
+                                ? AppColors.primaryColor
+                                : AppColors.whiteColor,
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: Theme.of(context).iconTheme.color ??
+                                  (isDark
+                                      ? AppColors.whiteColor
+                                      : AppColors.blackColor),
+                            ),
+                          ),
+                          child: SvgPicture.asset(
+                            isDark
+                                ? 'assets/svg/dark_mode.svg'
+                                : 'assets/svg/light_mode.svg',
+                            colorFilter: ColorFilter.mode(
+                              Theme.of(context).iconTheme.color ??
+                                  (isDark
+                                      ? AppColors.whiteColor
+                                      : AppColors.textColor),
+                              BlendMode.srcIn,
+                            ),
+                          ),
+
+                          // GestureDetector(
+                          //   onTap: () => context.go(WebSignInScreen.routeName),
+                          //   child: const Row(
+                          //     children: [
+                          //       CircleAvatar(
+                          //         radius: 20,
+                          //         backgroundColor: Color(0xFFE8ECFF),
+                          //         child: Icon(
+                          //           Icons.person_rounded,
+                          //         ),
+                          //       ),
+                          //       SizedBox(width: 10),
+                          //       Expanded(
+                          //         child: Column(
+                          //           crossAxisAlignment: CrossAxisAlignment.start,
+                          //           children: [
+                          //             Text(
+                          //               'My Profile',
+                          //               maxLines: 1,
+                          //               overflow: TextOverflow.ellipsis,
+                          //               style: TextStyle(
+                          //                 fontSize: 13,
+                          //                 fontWeight: FontWeight.w700,
+                          //               ),
+                          //             ),
+                          //             SizedBox(height: 4),
+                          //             Text(
+                          //               'View account',
+                          //               style: TextStyle(
+                          //                 fontSize: 11,
+                          //               ),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Icon(
+                          //         Icons.chevron_right_rounded,
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-
-                // Navigation
-                _buildDestination(
-                    index: 0,
-                    label: 'Home',
-                    asset: 'assets/svg/home.svg',
-                    isDarkMode: isDark,
-                    context: context),
-                AppSpacing.verticalSpaceSmall,
-                _buildDestination(
-                    index: 1,
-                    label: 'Markets',
-                    asset: 'assets/svg/markets.svg',
-                    isDarkMode: isDark,
-                    context: context),
-                _buildDestination(
-                    index: 2,
-                    label: 'News',
-                    asset: 'assets/svg/news.svg',
-                    isDarkMode: isDark,
-                    context: context),
-                AppSpacing.verticalSpaceSmall,
-                _buildDestination(
-                    index: 3,
-                    label: 'Menu',
-                    asset: 'assets/svg/menu.svg',
-                    isDarkMode: isDark,
-                    context: context),
-                const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(14),
-                      border: Border.all(
-                        color: const Color(0xFFE9ECF4),
-                      ),
-                    ),
-                    child: GestureDetector(
-                      onTap: () => context.go(WebSignInScreen.routeName),
-                      child: const Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 20,
-                            backgroundColor: Color(0xFFE8ECFF),
-                            child: Icon(
-                              Icons.person_rounded,
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'My Profile',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                                SizedBox(height: 4),
-                                Text(
-                                  'View account',
-                                  style: TextStyle(
-                                    fontSize: 11,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Icon(
-                            Icons.chevron_right_rounded,
-                          ),
-                        ],
-                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
 

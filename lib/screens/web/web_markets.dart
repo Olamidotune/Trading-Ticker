@@ -25,7 +25,6 @@ class WebMarketsScreen extends HookWidget {
           ),
         ),
         title: Padding(
-          // padding: const EdgeInsets.all(8.0),
           padding: EdgeInsets.symmetric(
             vertical: 30,
             horizontal: MediaQuery.of(context).size.width / 7,

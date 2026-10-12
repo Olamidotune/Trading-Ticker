@@ -16,15 +16,15 @@ class HeaderDesktop extends StatelessWidget {
       width: double.maxFinite,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        gradient: LinearGradient(
-          colors: [Colors.transparent, AppColors.primaryColor],
+        gradient: const LinearGradient(
+          colors: [Colors.transparent, AppColors.redColor],
         ),
       ),
       child: Row(
         children: [
           AppSpacing.horizontalSpaceHuge,
           SiteLogo(onTap: () {}),
-          Spacer(),
+          const Spacer(),
           for (int i = 0; i < navTitles.length; i++)
             TextButton(
               onPressed: () {},
