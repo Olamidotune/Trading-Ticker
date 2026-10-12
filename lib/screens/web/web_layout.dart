@@ -179,8 +179,8 @@ class WebLayout extends StatelessWidget {
                     border: Border.all(
                         color: AppColors.blackColor.withValues(alpha: .1)),
                     borderRadius: BorderRadius.circular(30),
-                    color: isSelected ? AppColors.primaryColor : null,
-                  )
+                    // color: isSelected ? AppColors.primaryColor : null,
+                    color: isSelectedColor(isSelected, isDarkMode))
                 : null,
             child: Row(
               spacing: 40,
@@ -204,5 +204,14 @@ class WebLayout extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  Color isSelectedColor(bool isSelected, bool isDarkMode) {
+    if (isSelected && isDarkMode) {
+      return AppColors.primaryColor;
+    } else if (isSelected && !isDarkMode) {
+      return AppColors.whiteColor;
+    }
+    return AppColors.secondaryTexColor;
   }
 }
