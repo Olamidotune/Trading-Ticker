@@ -81,7 +81,10 @@ class DesktopCoinCard extends StatelessWidget {
                       ),
                       Text(
                         rank.toString(),
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
