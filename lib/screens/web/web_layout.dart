@@ -1,5 +1,6 @@
 import 'package:cointicker/constants/app_colors.dart';
 import 'package:cointicker/constants/app_spacing.dart';
+import 'package:cointicker/screens/auth/sign_in_screen.dart';
 import 'package:cointicker/services/theme_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -76,13 +77,19 @@ class WebLayout extends StatelessWidget {
                 AppSpacing.verticalSpaceSmall,
                 _buildDestination(
                     index: 1,
+                    label: 'Markets',
+                    asset: 'assets/svg/markets.svg',
+                    isDarkMode: isDark,
+                    context: context),
+                _buildDestination(
+                    index: 2,
                     label: 'News',
                     asset: 'assets/svg/news.svg',
                     isDarkMode: isDark,
                     context: context),
                 AppSpacing.verticalSpaceSmall,
                 _buildDestination(
-                    index: 2,
+                    index: 3,
                     label: 'Menu',
                     asset: 'assets/svg/menu.svg',
                     isDarkMode: isDark,
@@ -99,43 +106,46 @@ class WebLayout extends StatelessWidget {
                         color: const Color(0xFFE9ECF4),
                       ),
                     ),
-                    child: const Row(
-                      children: [
-                        CircleAvatar(
-                          radius: 20,
-                          backgroundColor: Color(0xFFE8ECFF),
-                          child: Icon(
-                            Icons.person_rounded,
+                    child: GestureDetector(
+                      onTap: () => context.go(SignInScreen.routeName),
+                      child: const Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Color(0xFFE8ECFF),
+                            child: Icon(
+                              Icons.person_rounded,
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'My Profile',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'My Profile',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w700,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'View account',
-                                style: TextStyle(
-                                  fontSize: 11,
+                                SizedBox(height: 4),
+                                Text(
+                                  'View account',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                        Icon(
-                          Icons.chevron_right_rounded,
-                        ),
-                      ],
+                          Icon(
+                            Icons.chevron_right_rounded,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -179,7 +189,6 @@ class WebLayout extends StatelessWidget {
                     border: Border.all(
                         color: AppColors.blackColor.withValues(alpha: .1)),
                     borderRadius: BorderRadius.circular(30),
-                    // color: isSelected ? AppColors.primaryColor : null,
                     color: isSelectedColor(isSelected, isDarkMode))
                 : null,
             child: Row(

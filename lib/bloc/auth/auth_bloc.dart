@@ -6,6 +6,7 @@ import 'package:cointicker/services/google_auth.dart';
 import 'package:cointicker/services/logging_helper.dart';
 import 'package:cointicker/services/persistence_service.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:formz/formz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -311,8 +312,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (state.googleSignInStatus.isInProgress) return;
 
     emit(state.copyWith(googleSignInStatus: FormzSubmissionStatus.inProgress));
+    final provider = GoogleAuthProvider();
 
     try {
+      if (kIsWeb) {
+        FirebaseAuth.instance.signInWithRedirect(provider);
+      }
       final user = await GoogleSignInService().signInWithGoogle();
 
       if (user == null) {

@@ -10,6 +10,7 @@ import 'package:cointicker/screens/tabs/menu_screen.dart';
 import 'package:cointicker/screens/tabs/news_screen.dart';
 import 'package:cointicker/screens/web/web_home_screen.dart';
 import 'package:cointicker/screens/web/web_layout.dart';
+import 'package:cointicker/screens/web/web_markets.dart';
 import 'package:cointicker/screens/web/web_menu.dart';
 import 'package:cointicker/screens/web/web_news.dart';
 import 'package:flutter/foundation.dart';
@@ -62,6 +63,12 @@ final router = GoRouter(
             GoRoute(
               path: WebHomeScreen.routeName, // '/web/home'
               builder: (context, state) => const WebHomeScreen(),
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: WebMarketsScreen.routeName, // '/web/home'
+              builder: (context, state) => const WebMarketsScreen(),
             ),
           ]),
           StatefulShellBranch(routes: [
